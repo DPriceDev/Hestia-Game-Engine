@@ -10,14 +10,15 @@ MKDIR_P = mkdir -p
 
 SRC_DIR = ./src
 BUILD_DIR = ./build
+OUTPUT_DIR = ./output
 
 SRCS = $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*.c) 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 
-.PHONY: all
+.PHONY: engine
 
-all: $(OBJS)
-	$(CXX) -o engine $(OBJS) $(LIBS) $(FRAMEWORKS) $(INCLUDES) $(CFLAGS)
+engine: $(OBJS) $(OUTPUT_DIR)
+	$(CXX) -o $(OUTPUT_DIR)/engine.out $(OBJS) $(LIBS) $(FRAMEWORKS) $(INCLUDES) $(CFLAGS)
 
 $(BUILD_DIR)/%.c.o: %.c
 	$(MKDIR_P) $(dir $@)
@@ -29,6 +30,9 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 
 $(BUILD_DIR):
 	$(MKDIR_P) $(BUILD_DIR)
+
+$(OUTPUT_DIR):
+	$(MKDIR_P) $(OUTPUT_DIR)
 
 .PHONY: clean
 
