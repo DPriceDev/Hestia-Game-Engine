@@ -7,6 +7,8 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+#include "InputController.hpp"
+
 /* Const Values */
 
 /* Global Variables */
@@ -51,12 +53,30 @@ int main(void)
     glViewport(0, 0, 800, 600);
     std::cout << "Window Initialized" << std::endl;
 
+    /* Initialize Controllers */
+    InputController inputController = InputController();
+
+    /* initialize test triangle */
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f,  0.5f, 0.0f
+    };      
+
     /* Main Loop whilst window is open. */
     while(!glfwWindowShouldClose(window))
     {
+        /* Input Logic */
+        inputController.processInput(window);
+
+
+
         /* Game Logic */
 
         /* Draw Logic */
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+
 
         /* clear screen and load new buffer. */
         glClear(GL_COLOR_BUFFER_BIT);
