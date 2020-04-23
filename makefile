@@ -18,7 +18,7 @@ OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 .PHONY: engine
 
 engine: $(OBJS) $(OUTPUT_DIR)
-	$(CXX) -o $(OUTPUT_DIR)/engine.out $(OBJS) $(LIBS) $(FRAMEWORKS) $(INCLUDES) $(CFLAGS)
+	$(CXX) -o $(OUTPUT_DIR)/engine.app $(OBJS) $(LIBS) $(FRAMEWORKS) $(INCLUDES) $(CFLAGS)
 
 $(BUILD_DIR)/%.c.o: %.c
 	$(MKDIR_P) $(dir $@)
