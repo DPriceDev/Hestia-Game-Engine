@@ -8,6 +8,8 @@
 #include "GLFW/glfw3.h"
 
 #include "InputController.hpp"
+#include "GraphicsController.hpp"
+#include "ObjectController.hpp"
 
 /* Const Values */
 
@@ -55,6 +57,8 @@ int main(void)
 
     /* Initialize Controllers */
     InputController inputController = InputController();
+    GraphicsController graphicsController = GraphicsController();
+    ObjectController objectController = ObjectController();
 
     /* initialize test triangle */
     float vertices[] = {
@@ -76,7 +80,7 @@ int main(void)
         /* Draw Logic */
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-
+        
 
         /* clear screen and load new buffer. */
         glClear(GL_COLOR_BUFFER_BIT);

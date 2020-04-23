@@ -1,8 +1,11 @@
-#ifndef INPUT_HPP
-#define INPUT_HPP
+#ifndef INPUT_CONTROLLER_HPP
+#define INPUT_CONTROLLER_HPP
 
 #include "GLFW/glfw3.h"
 
+/**
+ * Input Controller
+ */
 class InputController
 {
     public:
