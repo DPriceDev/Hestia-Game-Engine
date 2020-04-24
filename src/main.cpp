@@ -12,53 +12,39 @@
 #include "graphics/GraphicsController.hpp"
 #include "framework/ObjectController.hpp"
 
-/* Const Values */
-
-/* Global Variables */
-
 /* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
 
-/* Main Entry Point. */
+/**
+ * Main Entry Point.
+ */
 int main(void) 
 {
     /* Initialize openGl Window */
     std::cout << "Program Begin" << std::endl;
-
     GLFWwindow* window = OpenGlInit("2D Game Engine", 800, 600);
 
     if(window == nullptr) {
         return -1;
     }
 
-    // /* Initialize Controllers */
+    /* Initialize Controllers and initial game enviroment. */
     InputController inputController = InputController();
     GraphicsController graphicsController = GraphicsController(window); 
-
-    // /* Create Initial Game Enviroment */
     GameEnvironment* gameEnvironment = new GameEnvironment(&inputController, &graphicsController);
+
+    // TODO: Load inital config and get initial level?
+
+    // TODO: Load inital level and init the gameEnvironment
+    
+    gameEnvironment->Init();
 
     /* Main Loop whilst window is open. */
     while(!glfwWindowShouldClose(window))
     {
-        /* Input Logic */
         inputController.processInput(window);
-
-        // /* Game Logic */
         gameEnvironment->GameLoop();
-
-        /* Draw Logic */
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
-        // GRAPHICS CONTROLLER DRAW for Drawable's only.
         graphicsController.Render();
-
-        /* clear screen and load new buffer. */
-        glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(window);
-        
-        /* check and execute callbacks for events. */
-        glfwPollEvents();    
     }
 
     /* Log window closed and terminate the program. */

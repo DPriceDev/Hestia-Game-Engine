@@ -20,5 +20,12 @@ GraphicsController::GraphicsController(GLFWwindow* window) : mWindow(window) {
  * 
  */
 void GraphicsController::Render() {
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     
+    /* clear screen and load new buffer. */
+    glClear(GL_COLOR_BUFFER_BIT);
+    glfwSwapBuffers(mWindow);
+    
+    /* check and execute callbacks for events. */
+    glfwPollEvents();    
 }

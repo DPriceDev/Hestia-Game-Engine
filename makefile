@@ -1,6 +1,7 @@
 CC=clang
 CXX=clang++
-CFLAGS = -std=c++17 -O3
+CFLAGS = -O3
+CXXFLAGS = -std=c++17 -O3
 FRAMEWORKS = -framework Cocoa -framework IOKit -framework OpenGl
 LIBS = -lglfw3
 
@@ -18,7 +19,7 @@ OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 .PHONY: engine
 
 engine: $(OBJS) $(OUTPUT_DIR)
-	$(CXX) -o $(OUTPUT_DIR)/engine.app $(OBJS) $(LIBS) $(FRAMEWORKS) $(INCLUDES) $(CFLAGS)
+	$(CXX) -o $(OUTPUT_DIR)/engine.app $(OBJS) $(LIBS) $(FRAMEWORKS) $(INCLUDES) $(CXXFLAGS)
 
 $(BUILD_DIR)/%.c.o: %.c
 	$(MKDIR_P) $(dir $@)
@@ -26,7 +27,7 @@ $(BUILD_DIR)/%.c.o: %.c
 
 $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(MKDIR_P) $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_DIR):
 	$(MKDIR_P) $(BUILD_DIR)

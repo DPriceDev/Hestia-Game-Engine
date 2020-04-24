@@ -8,6 +8,8 @@
 #include "../graphics/GraphicsController.hpp"
 #include "Object.hpp"
 
+#include "../sample/SampleTriangleObject.hpp"
+
 /**
  * Object Controller
  */
@@ -33,6 +35,7 @@ class GameEnvironment
     }
 
     /* Public Methods */
+    void Init();
     void BeginGame();
     void GameLoop();
     void EndGame();
