@@ -15,7 +15,7 @@ class Object {
     }
 
     /* Destructor */
-    ~Object();
+    ~Object() { }
 
     /* Setters and Getters */
     long getId() {

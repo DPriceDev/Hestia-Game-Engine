@@ -10,7 +10,6 @@
 #include "framework/GameEnvironment.hpp"
 #include "framework/InputController.hpp"
 #include "graphics/GraphicsController.hpp"
-#include "framework/ObjectController.hpp"
 
 /* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);

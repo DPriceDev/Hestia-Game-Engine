@@ -2,8 +2,8 @@
 #define GAME_ENVIRONMENT_HPP
 
 #include <vector>
+#include <algorithm>
 
-#include "ObjectController.hpp"
 #include "InputController.hpp"
 #include "../graphics/GraphicsController.hpp"
 #include "Object.hpp"
@@ -21,7 +21,6 @@ class GameEnvironment
                     : mInputController(InputController), 
                      mGraphicsController(graphicsController) {
         mObjects = std::vector<Object*>();
-        mObjectController = new ObjectController(&mObjects);
      }
 
     /* Destructor */
@@ -29,7 +28,6 @@ class GameEnvironment
         for (auto& object: mObjects) {
             delete object;
         }
-        delete mObjectController;
         delete mInputController;
         delete mGraphicsController;
     }
@@ -40,11 +38,14 @@ class GameEnvironment
     void GameLoop();
     void EndGame();
 
+    void AddObject(Object* object);
+    void RemoveObject(Object* object);
+    Object* GetObject(long id);
+
     private:
     /* Private Variables */
     std::vector<Object*> mObjects;
 
-    ObjectController* mObjectController;
     InputController* mInputController;
     GraphicsController* mGraphicsController;
 };

@@ -14,11 +14,11 @@ class SampleTriangleObject : public Object, public Viewable {
     int index = 0;
 
     void tick() override {
-
+        std::cout << "ticking" << std::endl;
     }
 
     void draw() override {
-
+        std::cout << "drawing" << std::endl;
     }
 };
 

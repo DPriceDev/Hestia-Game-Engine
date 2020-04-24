@@ -11,15 +11,21 @@ void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 /**
  * 
  */
-GraphicsController::GraphicsController(GLFWwindow* window) : mWindow(window) {
-    mViewObjects = new std::vector<Object*>();
+GraphicsController::GraphicsController(GLFWwindow* window) : mWindow(window) 
+{
+    mViewObjects = std::vector<Viewable*>();
     glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);  
 }
 
 /**
  * 
  */
-void GraphicsController::Render() {
+void GraphicsController::Render() 
+{
+    for(auto & viewable : mViewObjects) {
+        viewable->draw();
+    }
+
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     
     /* clear screen and load new buffer. */

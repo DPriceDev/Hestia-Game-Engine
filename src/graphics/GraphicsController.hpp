@@ -6,7 +6,7 @@
 #include "GLFW/glfw3.h"
 
 #include "../framework/Object.hpp"
-#include "../framework/ObjectController.hpp"
+#include "Viewable.hpp"
 
 /**
  * Graphics Controller
@@ -14,33 +14,31 @@
 class GraphicsController
 {
     private:
-        
     GLFWwindow* mWindow;
-    std::vector<Object*>* mViewObjects;
-    ObjectController* mObjectController;
+    std::vector<Viewable*> mViewObjects;
 
     public:
     /* Constructor */
     GraphicsController(GLFWwindow* window);
 
     /* Destructor */
-    ~GraphicsController() {
-        delete mViewObjects;
-        delete mObjectController;
-     }
+    ~GraphicsController() { }
 
     /* Public Methods */
     void Render();
 
-    /* Setters and Getters */
-    void SetObjectController(ObjectController* objectController) {
-        mObjectController = objectController;
+    void AddViewable(Viewable* viewable) {
+        auto it = std::find(mViewObjects.begin(), mViewObjects.end(), viewable);
+        if(it == mViewObjects.end()) {
+            mViewObjects.push_back(viewable);
+        }
     }
 
-    void ClearObjectController() {
-        delete mViewObjects;
-        mViewObjects = new std::vector<Object*>();
-        delete mObjectController;
+    void RemoveViewable(Viewable* viewable) {
+        auto it = std::find(mViewObjects.begin(), mViewObjects.end(), viewable);
+        if(it != mViewObjects.end()) {
+            mViewObjects.erase(it);
+        }
     }
 };
 
