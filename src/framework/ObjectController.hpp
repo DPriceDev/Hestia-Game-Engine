@@ -13,26 +13,24 @@ class ObjectController
 {
     public:
     /* Constructor */
-    ObjectController() {
-        gameObjects = std::vector<Object*>();
-     }
+    ObjectController(std::vector<Object*>* objects) : mObjects(objects) { }
 
     /* Destructor */
     ~ObjectController() { 
-        gameObjects.clear();
+        delete mObjects;
     }
 
     /* Public Methods */
-    void addGameObject(Object* object);
+    void AddGameObject(Object* object);
 
-    Object* getGameObject(int index);
+    Object* GetGameObject(int index);
 
-    void deleteGameObject(Object* object);
+    void DeleteGameObject(Object* object);
 
-    //std::vector<Object*> findObjectsByClass();
+    //std::vector<Object*> FindObjectsByClass();
 
     private:
-    std::vector<Object*> gameObjects;
+    std::vector<Object*>* mObjects;
 };
 
 #endif

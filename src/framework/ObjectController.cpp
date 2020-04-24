@@ -3,16 +3,16 @@
 /**
  *  Add Game Object
  */
-void ObjectController::addGameObject(Object* object) {
-    gameObjects.push_back(object);
+void ObjectController::AddGameObject(Object* object) {
+    mObjects->push_back(object);
 }
 
 /**
  *  Get Game Object by index.
  */
-Object* ObjectController::getGameObject(int index) {
-    if(index >= 0 && index <= gameObjects.size() - 1) {
-        return gameObjects.at(index);
+Object* ObjectController::GetGameObject(int index) {
+    if(index >= 0 && index <= mObjects->size() - 1) {
+        return mObjects->at(index);
     } else {
         return nullptr;
     }
@@ -21,9 +21,9 @@ Object* ObjectController::getGameObject(int index) {
 /**
  *  Delete Game Object
  */
-void ObjectController::deleteGameObject(Object* object) {
-    auto it = std::find(gameObjects.begin(), gameObjects.end(), object);
-    if(it != gameObjects.end()) {
-        gameObjects.erase(it);
+void ObjectController::DeleteGameObject(Object* object) {
+    auto it = std::find(mObjects->begin(), mObjects->end(), object);
+    if(it != mObjects->end()) {
+        mObjects->erase(it);
     }
 }

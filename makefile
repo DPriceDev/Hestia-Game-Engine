@@ -1,6 +1,6 @@
 CC=clang
 CXX=clang++
-CFLAGS = -O3
+CFLAGS = -std=c++17 -O3
 FRAMEWORKS = -framework Cocoa -framework IOKit -framework OpenGl
 LIBS = -lglfw3
 
@@ -12,7 +12,7 @@ SRC_DIR = ./src
 BUILD_DIR = ./build
 OUTPUT_DIR = ./output
 
-SRCS = $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*.c) 
+SRCS = $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*/*.cpp) $(wildcard */*/*.c) 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 
 .PHONY: engine
