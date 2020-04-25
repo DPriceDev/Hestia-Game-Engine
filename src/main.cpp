@@ -31,9 +31,9 @@ int main(void)
     Engine* engine = engine->getInstance();
 
     /* Initialize Controllers and initial game enviroment. */
-    InputController inputController = InputController();
-    GraphicsController graphicsController = GraphicsController(window); 
-    GameEnvironment* gameEnvironment = new GameEnvironment(&inputController, &graphicsController);
+    InputController inputController = InputController();                    // TODO: Replace with Input System
+    GraphicsController graphicsController = GraphicsController(window);     // TODO: Replace with Graphics System
+    GameEnvironment* gameEnvironment = new GameEnvironment();
 
     // TODO: Load inital config and get initial level?
 

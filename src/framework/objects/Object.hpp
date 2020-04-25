@@ -1,21 +1,18 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 
-#include "../util/UidLib.hpp"
+#include "../src/util/UidLib.hpp"
 
 /**
  * Object
  */
 class Object {
 
-    public:
-    /* Constructor */
-    Object() {
-        id = GenerateUniqueId();
-    }
+    protected:
+    long id = GenerateUniqueId();
 
-    /* Destructor */
-    ~Object() { }
+    public:
+    ~Object();
 
     /* Setters and Getters */
     long getId() {
@@ -24,9 +21,6 @@ class Object {
 
     /* Public Methods */
     virtual void tick() = 0;
-
-    private:
-    long id;
 };
 
 #endif

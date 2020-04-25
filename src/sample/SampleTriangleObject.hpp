@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../framework/object.hpp"
+#include "../framework/objects/object.hpp"
 #include "../graphics/viewable.hpp"
 
 /**

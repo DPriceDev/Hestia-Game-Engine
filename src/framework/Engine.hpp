@@ -1,6 +1,10 @@
 #ifndef HESTIA_FRAMEWORK_ENGINE_H_
 #define HESTIA_FRAMEWORK_ENGINE_H_
 
+#include "systems/SystemManager.hpp"
+#include "components/ComponentManager.hpp"
+#include "objects/ObjectManager.hpp"
+
 /**
  * Engine Class
  * Provides a static singletion
@@ -10,16 +14,19 @@ class Engine {
     private:
     /* Private Variables */
     static Engine* mEngine;
+
+    SystemManager* mSystemManager;
+    ComponentManager* mComponentManager;
+    ObjectManager* mObjectManager;
     
     /* Private Constructor */
     Engine() {
-         std::cout << "Constructed" << std::endl;
+        mSystemManager = new SystemManager();
+        mComponentManager = new ComponentManager();
+        mObjectManager = new ObjectManager();
     }
 
     public:
-    /* Public Methods */
-
-    /* Public Methods */
     static Engine* getInstance() {
         if(!mEngine) {
             mEngine = new Engine();
@@ -27,9 +34,11 @@ class Engine {
         return mEngine;
     }
 
-    /* Public Destructor */
     ~Engine() { 
-        delete mEngine; 
+        delete mEngine;
+        delete mSystemManager;
+        delete mComponentManager;
+        delete mObjectManager;
     }
 };
 

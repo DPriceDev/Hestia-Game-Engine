@@ -5,7 +5,7 @@
 
 #include "GLFW/glfw3.h"
 
-#include "../framework/Object.hpp"
+#include "../framework/objects/Object.hpp"
 #include "Viewable.hpp"
 
 /**
