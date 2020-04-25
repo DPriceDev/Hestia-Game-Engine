@@ -17,6 +17,8 @@ class GraphicsController
     GLFWwindow* mWindow;
     std::vector<Viewable*> mViewObjects;
 
+    unsigned int VBO;
+
     public:
     /* Constructor */
     GraphicsController(GLFWwindow* window);
@@ -39,6 +41,10 @@ class GraphicsController
         if(it != mViewObjects.end()) {
             mViewObjects.erase(it);
         }
+    }
+
+    void ClearViewables() {
+        mViewObjects.clear();
     }
 };
 

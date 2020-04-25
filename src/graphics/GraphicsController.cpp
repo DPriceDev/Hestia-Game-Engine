@@ -15,6 +15,9 @@ GraphicsController::GraphicsController(GLFWwindow* window) : mWindow(window)
 {
     mViewObjects = std::vector<Viewable*>();
     glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);  
+
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
 }
 
 /**

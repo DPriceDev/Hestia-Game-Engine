@@ -25,6 +25,7 @@ class GameEnvironment
 
     /* Destructor */
     ~GameEnvironment() {
+        mGraphicsController->ClearViewables();
         for (auto& object: mObjects) {
             delete object;
         }

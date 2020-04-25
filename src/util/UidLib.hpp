@@ -2,7 +2,8 @@
 #define UIDLIB_HPP
 
 static long GenerateUniqueId() {
-    return 0L;
+    static unsigned long long int id = 0;
+    return ++id;
 }
 
 #endif

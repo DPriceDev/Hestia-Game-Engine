@@ -42,5 +42,10 @@ void GameEnvironment::RemoveObject(Object* object) {
 }
 
 Object* GameEnvironment::GetObject(long id) {
-
+    auto it = std::find_if(mObjects.begin(), mObjects.end(), [id] (const auto & object) { return object->getId() == id; });
+    if(it != mObjects.end()) {
+        return *it;
+    } else {
+        return nullptr;
+    }
 }
