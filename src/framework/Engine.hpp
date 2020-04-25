@@ -23,7 +23,7 @@ class Engine {
     Engine() {
         mSystemManager = new SystemManager();
         mComponentManager = new ComponentManager();
-        mObjectManager = new ObjectManager();
+        mObjectManager = new ObjectManager(mComponentManager);
     }
 
     public:

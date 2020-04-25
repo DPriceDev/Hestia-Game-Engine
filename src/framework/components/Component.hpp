@@ -6,8 +6,22 @@
  */
 class Component {
     
+    private:
+    const char * mTag;
+
+    protected:
+    // TODO: This may work, may not :S
+    Component(const char * tag) : mTag(tag) { }
+
     public:
-    ~Component();
+    ~Component() {
+
+    }
+
+    const char * getTag() {
+        return mTag;
+    }
+
 };
 
 #endif

@@ -5,6 +5,11 @@
 void ObjectManager::AddObject(Object* object) {
     LogDebug("Added to object controller stack");
     //TODO: Add component init here!
+
+    for(auto & pComponent : object->getComponents()) {
+        mComponentManager->registerComponent(pComponent);
+    }
+
     mObjects.push_back(object);
 }
 

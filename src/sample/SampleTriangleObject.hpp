@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../framework/objects/object.hpp"
+#include "sampleComponent.hpp"
 
 #include "../util/Logger.hpp"
 
@@ -18,6 +19,12 @@ class SampleTriangleObject : public Object {
     public:
     SampleTriangleObject() {
         LogDebug("Sample triangle Created");
+
+        SampleComponent* component = new SampleComponent();
+        mComponents.push_back(component);
+
+        SampleComponent* componentTwo = new SampleComponent();
+        mComponents.push_back(componentTwo);
     }
 
     ~SampleTriangleObject() {

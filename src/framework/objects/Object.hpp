@@ -25,6 +25,10 @@ class Object {
 
     /* Public Methods */
     virtual void tick() = 0;
+
+    std::vector<Component*> getComponents() {
+        return mComponents;
+    }
 };
 
 #endif
