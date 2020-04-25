@@ -5,16 +5,20 @@
 
 #include "Object.hpp"
 
+class Object;
+
 /**
- * System Manager
+ * Object Manager
  */
-class ObjectManager {
-    
+class ObjectManager 
+{
     private:
     std::vector<Object*> mObjects;
 
     public:
-
+    void AddObject(Object* object);
+    Object* GetObject(long uid);
+    void DestroyObject(long uid);
 };
 
 #endif

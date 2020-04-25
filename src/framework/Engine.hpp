@@ -34,6 +34,10 @@ class Engine {
         return mEngine;
     }
 
+    ObjectManager* getObjectManager() {
+        return mObjectManager;
+    }
+
     ~Engine() { 
         delete mEngine;
         delete mSystemManager;

@@ -13,7 +13,7 @@ OUTPUT_DIR = ./output
 
 INCLUDES = -I ./src/framework/Engine.hpp -I ./include
 
-SRCS = $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*/*.cpp) $(wildcard */*/*.c) 
+SRCS = $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*/*.cpp) $(wildcard */*/*/*/*.cpp) $(wildcard */*/*.c) 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 
 .PHONY: engine

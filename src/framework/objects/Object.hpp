@@ -1,6 +1,9 @@
-#ifndef OBJECT_HPP
-#define OBJECT_HPP
+#ifndef HESTIA_FRAMEWORK_OBJECTS_OBJECT_HPP_
+#define HESTIA_FRAMEWORK_OBJECTS_OBJECT_HPP_
 
+#include <vector>
+
+#include "../src/framework/components/Component.hpp"
 #include "../src/util/UidLib.hpp"
 
 /**
@@ -10,12 +13,13 @@ class Object {
 
     protected:
     long id = GenerateUniqueId();
+    std::vector<Component*> mComponents;
 
     public:
-    ~Object();
+    ~Object() { }
 
     /* Setters and Getters */
-    long getId() {
+    long getId() const {
        return id;
     }
 

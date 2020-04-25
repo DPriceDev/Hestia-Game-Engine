@@ -15,6 +15,7 @@
 /* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
 Engine *Engine::mEngine;
+
 /**
  * Main Entry Point.
  */
