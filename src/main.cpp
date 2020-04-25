@@ -7,13 +7,14 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+#include "framework/Engine.hpp"
 #include "framework/GameEnvironment.hpp"
 #include "framework/InputController.hpp"
 #include "graphics/GraphicsController.hpp"
 
 /* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
-
+Engine *Engine::mEngine;
 /**
  * Main Entry Point.
  */
@@ -26,6 +27,8 @@ int main(void)
     if(window == nullptr) {
         return -1;
     }
+
+    Engine* engine = engine->getInstance();
 
     /* Initialize Controllers and initial game enviroment. */
     InputController inputController = InputController();

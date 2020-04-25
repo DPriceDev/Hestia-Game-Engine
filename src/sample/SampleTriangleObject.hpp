@@ -31,11 +31,11 @@ class SampleTriangleObject : public Object, public Viewable {
     }
 
     void tick() override {
-        std::cout << "ticking with id: " << getId() << std::endl;
+        //std::cout << "ticking with id: " << getId() << std::endl;
     }
 
     void draw() override {
-        std::cout << "drawing" << std::endl;
+        //std::cout << "drawing" << std::endl;
 
         /* draw object here using shaders and vertices. use vertex array. */
         //glBufferData(GL_ARRAY_BUFFER, sizeof(mVertices), mVertices, GL_STATIC_DRAW);
