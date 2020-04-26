@@ -13,7 +13,6 @@ class Object {
 
     protected:
     long id = GenerateUniqueId();
-    std::vector<Component*> mComponents;
 
     public:
     ~Object() { }
@@ -26,9 +25,7 @@ class Object {
     /* Public Methods */
     virtual void tick() = 0;
 
-    std::vector<Component*> getComponents() {
-        return mComponents;
-    }
+    Object* registerComponent(Component* component);
 };
 
 #endif

@@ -5,7 +5,7 @@
  * System Interfacde
  */
 class System {
-    
+
     public:
     ~System();
 };

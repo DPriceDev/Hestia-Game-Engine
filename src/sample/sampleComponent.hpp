@@ -1,5 +1,5 @@
 #ifndef SAMPLE_COMPONENT_HPP
-#define SAMPLE_COMPONENT_HPPx
+#define SAMPLE_COMPONENT_HPP
 
 #include <iostream>
 #include <vector>

@@ -21,10 +21,10 @@ class SampleTriangleObject : public Object {
         LogDebug("Sample triangle Created");
 
         SampleComponent* component = new SampleComponent();
-        mComponents.push_back(component);
+        registerComponent(component);
 
         SampleComponent* componentTwo = new SampleComponent();
-        mComponents.push_back(componentTwo);
+        registerComponent(componentTwo);
     }
 
     ~SampleTriangleObject() {

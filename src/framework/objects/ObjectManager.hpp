@@ -13,19 +13,17 @@ class ObjectManager
 {
     private:
     std::vector<Object*> mObjects;
-    ComponentManager* mComponentManager;
 
     public:
     void AddObject(Object* object);
     Object* GetObject(long uid);
     void DestroyObject(long uid);
 
-    ObjectManager(ComponentManager* componentManager) : mComponentManager(componentManager) {
+    ObjectManager() {
         mObjects = std::vector<Object*>();
     }
 
     ~ObjectManager() {
-        delete mComponentManager;
         // TODO: Check delete objects here?
     }
 };

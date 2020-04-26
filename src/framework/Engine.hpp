@@ -23,7 +23,7 @@ class Engine {
     Engine() {
         mSystemManager = new SystemManager();
         mComponentManager = new ComponentManager();
-        mObjectManager = new ObjectManager(mComponentManager);
+        mObjectManager = new ObjectManager();
     }
 
     public:
@@ -36,6 +36,14 @@ class Engine {
 
     ObjectManager* getObjectManager() {
         return mObjectManager;
+    }
+
+    ComponentManager* getComponentManager() {
+        return mComponentManager;
+    }
+
+    SystemManager* getSystemManager() {
+        return mSystemManager;
     }
 
     ~Engine() { 
