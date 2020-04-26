@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../framework/objects/object.hpp"
+#include "../graphics/GraphicsComponent.hpp"
 #include "sampleComponent.hpp"
 
 #include "../util/Logger.hpp"
@@ -26,8 +27,8 @@ class SampleTriangleObject : public Object {
     void onCreate() override {
         LogDebug("Sample triangle Created");
 
-        SampleComponent* component = new SampleComponent();
-        registerComponent(component);
+        auto mGraphicsComponent = new GraphicsComponent();
+        registerComponent(mGraphicsComponent);
 
         SampleComponent* componentTwo = new SampleComponent();
         registerComponent(componentTwo);

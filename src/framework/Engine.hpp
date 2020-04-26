@@ -5,6 +5,8 @@
 #include "components/ComponentManager.hpp"
 #include "objects/ObjectManager.hpp"
 
+#include "../graphics/GraphicsSystem.hpp"
+
 /**
  * Engine Class
  * Provides a static singletion
@@ -24,6 +26,8 @@ class Engine {
         mSystemManager = new SystemManager();
         mComponentManager = new ComponentManager();
         mObjectManager = new ObjectManager();
+
+        //mSystemManager->registerSystem<GraphicsSystem>();
     }
 
     public:
