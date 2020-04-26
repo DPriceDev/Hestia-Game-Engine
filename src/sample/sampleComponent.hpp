@@ -21,6 +21,8 @@ class SampleComponent : public Component {
     ~SampleComponent() {
         
     }
+
+    void registerSystem();
 };
 
 #endif

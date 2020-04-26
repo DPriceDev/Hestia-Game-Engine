@@ -22,6 +22,7 @@ class Component {
         return mTag;
     }
 
+    virtual void registerSystem() = 0;
 };
 
 #endif

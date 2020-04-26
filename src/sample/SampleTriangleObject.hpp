@@ -33,6 +33,7 @@ class SampleTriangleObject : public Object {
         registerComponent(componentTwo);
     }
 
+    // TODO: Maybe move this to a component too? could reduce redundant calls? move all game loops to systems?
     void tick() override {
         //std::cout << "ticking with id: " << getId() << std::endl;
     }

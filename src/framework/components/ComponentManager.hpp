@@ -8,48 +8,69 @@
 #include "Component.hpp"
 #include "../src/util/Logger.hpp"
 
-// TODO: Switch to returning a number for the component?
-// TODO: Better way of deleting the components, or ordering? an array??
-
 /**
  * Component Manager
  */
 class ComponentManager {
     
     private:
-    std::map<const char *, std::vector<Component*>> mMappedComponentArrays;
+    std::map<const char *, std::vector<Component*>*> mMappedComponentArrays;
 
-    void createNewMappedComponentArray(Component* component) {
-        mMappedComponentArrays[component->getTag()] = std::vector<Component*>();
+    /* Creates a new component array for the provided component, mapped to the component tag. */
+    std::vector<Component*>* createNewMappedComponentArray(Component* component) {
+        auto pArray = new std::vector<Component*>();
+        mMappedComponentArrays[component->getTag()] = pArray;
+
+        component->registerSystem();
+
         LogDebug("New Array Created");
-        addComponentToMappedArray(component);
-        /** TODO: Create System to match newly inserted component. */
+
+        return pArray;
     }
 
+    /* Adds a component to its corrosponding array within the component array map. */
     void addComponentToMappedArray(Component* component) {
-        mMappedComponentArrays[component->getTag()].push_back(component);
+        mMappedComponentArrays[component->getTag()]->push_back(component);
         LogDebug("Component added to array");
     }
 
+    /* Checks if a component array exists within the map by the component tag. */
     bool doesKeyExistInMappedArrays(const char * key) {
         return mMappedComponentArrays.find(key) != mMappedComponentArrays.end();
     }
 
     public:
+    /* registers a component to the component manager. */
     void registerComponent(Component* component) {
         if(doesKeyExistInMappedArrays(component->getTag())) {
             addComponentToMappedArray(component);
         } else {
             createNewMappedComponentArray(component);
+            addComponentToMappedArray(component);
         }
     }
 
-    void unregisterComponent(Component* component) {
-        // TODO: Add in code to unregister
+    /* Retrieves a component array for the given T component class. creates a new array if missing. */
+    template <class T>
+    std::vector<Component*>* getComponentArray() {
+
+        T* component = new T();
+
+        LogDebug("Component array retrieved.");
+
+        if(!doesKeyExistInMappedArrays(component->getTag())) {
+            return createNewMappedComponentArray(component);
+        }
+
+        auto pArray = mMappedComponentArrays[component->getTag()];
+        delete component;
+
+        return pArray;
     }
 
+    /** Constructors and Deconstructors */
     ComponentManager() {
-        mMappedComponentArrays = std::map<const char *, std::vector<Component*>>();
+        mMappedComponentArrays = std::map<const char *, std::vector<Component*>*>();
     }
 
     ~ComponentManager() { }
