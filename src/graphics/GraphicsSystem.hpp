@@ -25,16 +25,7 @@ class GraphicsSystem : public System {
     ~GraphicsSystem() {
     }
 
-    void run() override {
-
-        for(auto & component : *mComponents) {
-            GraphicsComponent* graphicsComponent = dynamic_cast<GraphicsComponent*>(component);
-
-
-            
-            //Draw Something!!!!
-        }
-    }
+    void run() override;
 };
 
 #endif

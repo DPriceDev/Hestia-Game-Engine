@@ -42,7 +42,7 @@ int main(void)
     {
         //inputController.processInput(window);
         gameEnvironment->GameLoop();
-        graphicsController.Render();
+        //graphicsController.Render();
     }
 
     /* Log window closed and terminate the program. */
