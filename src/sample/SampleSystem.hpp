@@ -32,7 +32,7 @@ class SampleSystem : public System {
         for(auto & component : *mComponents) {
             SampleComponent* sampleComponent = dynamic_cast<SampleComponent*>(component);
 
-            std::cout << "Sample Component value = " << sampleComponent->value << std::endl;
+            //std::cout << "Sample Component value = " << sampleComponent->value << std::endl;
         }
     }
 };

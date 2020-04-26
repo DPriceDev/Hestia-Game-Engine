@@ -26,9 +26,12 @@ class GraphicsSystem : public System {
     }
 
     void run() override {
+
         for(auto & component : *mComponents) {
             GraphicsComponent* graphicsComponent = dynamic_cast<GraphicsComponent*>(component);
 
+
+            
             //Draw Something!!!!
         }
     }

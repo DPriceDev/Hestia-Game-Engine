@@ -1,6 +1,9 @@
 #ifndef HESTIA_FRAMEWORK_ENGINE_H_
 #define HESTIA_FRAMEWORK_ENGINE_H_
 
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+
 #include "systems/SystemManager.hpp"
 #include "components/ComponentManager.hpp"
 #include "objects/ObjectManager.hpp"
@@ -16,6 +19,7 @@ class Engine {
     private:
     /* Private Variables */
     static Engine* mEngine;
+    GLFWwindow* mWindow;
 
     SystemManager* mSystemManager;
     ComponentManager* mComponentManager;
@@ -26,9 +30,9 @@ class Engine {
         mSystemManager = new SystemManager();
         mComponentManager = new ComponentManager();
         mObjectManager = new ObjectManager();
-
-        //mSystemManager->registerSystem<GraphicsSystem>();
     }
+
+    GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
 
     public:
     static Engine* getInstance() {
@@ -36,6 +40,12 @@ class Engine {
             mEngine = new Engine();
         }
         return mEngine;
+    }
+
+    bool Init();
+
+    void terminate() {
+        glfwTerminate();
     }
 
     ObjectManager* getObjectManager() {
@@ -48,6 +58,10 @@ class Engine {
 
     SystemManager* getSystemManager() {
         return mSystemManager;
+    }
+
+    GLFWwindow* getWindow() {
+        return mWindow;
     }
 
     ~Engine() { 
