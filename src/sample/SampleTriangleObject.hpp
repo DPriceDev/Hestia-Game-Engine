@@ -17,7 +17,13 @@ class SampleTriangleObject : public Object {
     private:
 
     public:
-    SampleTriangleObject() {
+    SampleTriangleObject() { }
+
+    ~SampleTriangleObject() {
+
+    }
+
+    void onCreate() override {
         LogDebug("Sample triangle Created");
 
         SampleComponent* component = new SampleComponent();
@@ -25,10 +31,6 @@ class SampleTriangleObject : public Object {
 
         SampleComponent* componentTwo = new SampleComponent();
         registerComponent(componentTwo);
-    }
-
-    ~SampleTriangleObject() {
-
     }
 
     void tick() override {

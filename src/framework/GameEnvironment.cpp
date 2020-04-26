@@ -10,9 +10,7 @@
 void GameEnvironment::Init() {
     //TODO: Replace with some sort of game instance config, load from file?
 
-    SampleTriangleObject* object = new SampleTriangleObject();
-
-    Engine::getInstance()->getObjectManager()->AddObject(object);
+    Engine::getInstance()->getObjectManager()->CreateObject<SampleTriangleObject>();
 }
 
 /**

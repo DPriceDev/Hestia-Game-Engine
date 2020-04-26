@@ -15,6 +15,14 @@ class ObjectManager
     std::vector<Object*> mObjects;
 
     public:
+    template<class T>
+    Object* CreateObject() {
+        T* object = new T();
+        mObjects.push_back(object);
+        object->onCreate();
+        return object;
+    }
+
     void AddObject(Object* object);
     Object* GetObject(long uid);
     void DestroyObject(long uid);

@@ -23,7 +23,9 @@ class Object {
     }
 
     /* Public Methods */
+    virtual void onCreate() = 0;
     virtual void tick() = 0;
+
 
     Object* registerComponent(Component* component);
 };
