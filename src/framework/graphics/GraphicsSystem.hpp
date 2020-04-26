@@ -4,10 +4,10 @@
 #include <iostream>
 #include <vector>
 
-#include "../framework/systems/system.hpp"
-#include "../framework/components/Component.hpp"
+#include "../src/framework/ecs/System.hpp"
+#include "../src/framework/ecs/Component.hpp"
 
-#include "../util/Logger.hpp"
+#include "../src/util/Logger.hpp"
 
 #include "GraphicsComponent.hpp"
 

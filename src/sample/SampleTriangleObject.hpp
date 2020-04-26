@@ -4,9 +4,9 @@
 #include <iostream>
 #include <vector>
 
-#include "../framework/objects/object.hpp"
-#include "../graphics/GraphicsComponent.hpp"
-#include "sampleComponent.hpp"
+#include "../src/framework/ecs/object.hpp"
+#include "../src/framework/graphics/GraphicsComponent.hpp"
+#include "SampleComponent.hpp"
 
 #include "../util/Logger.hpp"
 

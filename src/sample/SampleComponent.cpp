@@ -1,4 +1,4 @@
-#include "sampleComponent.hpp"
+#include "SampleComponent.hpp"
 
 #include "../framework/Engine.hpp"
 

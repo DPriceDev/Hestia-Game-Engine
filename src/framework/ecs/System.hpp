@@ -1,14 +1,14 @@
-#ifndef HESTIA_FRAMEWORK_SYSTEMS_SYSTEM_H_
-#define HESTIA_FRAMEWORK_SYSTEMS_SYSTEM_H_
+#ifndef HESTIA_FRAMEWORK_ECS_SYSTEM_H_
+#define HESTIA_FRAMEWORK_ECS_SYSTEM_H_
 
-#include "../src/framework/components/Component.hpp"
+#include "Component.hpp"
 
 /**
  * System Interface
  */
 class System {
     
-    private:
+    protected:
     std::vector<Component*>* mComponentArray;
 
     public:

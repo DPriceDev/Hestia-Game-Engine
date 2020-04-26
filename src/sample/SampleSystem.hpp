@@ -4,35 +4,30 @@
 #include <iostream>
 #include <vector>
 
-#include "../framework/systems/system.hpp"
-#include "../framework/components/Component.hpp"
+#include "../src/framework/ecs/system.hpp"
+#include "../src/framework/ecs/Component.hpp"
 
 #include "../util/Logger.hpp"
 
-#include "sampleComponent.hpp"
+#include "SampleComponent.hpp"
 
 /**
  * 
  */
 class SampleSystem : public System {
 
-    private:
-    std::vector<Component*>* mComponents; 
-
     public:
     SampleSystem() {
         LogDebug("Sample System Created");
-        mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<SampleComponent>();
+        mComponentArray = Engine::getInstance()->getComponentManager()->getComponentArray<SampleComponent>();
     }
 
     ~SampleSystem() {
     }
 
     void run() override {
-        for(auto & component : *mComponents) {
-            SampleComponent* sampleComponent = dynamic_cast<SampleComponent*>(component);
-
-            //std::cout << "Sample Component value = " << sampleComponent->value << std::endl;
+        for(auto & component : *mComponentArray) {
+            // SampleComponent* sampleComponent = dynamic_cast<SampleComponent*>(component);
         }
     }
 };

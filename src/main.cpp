@@ -21,13 +21,11 @@ int main(void)
     /* Initialize openGl Window */
     std::cout << "Program Begin" << std::endl;
 
-    Engine* engine = engine->getInstance();
+    Engine* engine = Engine::getInstance();
 
     if(!engine->Init()) {
         return -1;
     }
-
-    GraphicsController graphicsController(engine->getWindow());
 
     GameEnvironment* gameEnvironment = new GameEnvironment();
 

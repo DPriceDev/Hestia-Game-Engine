@@ -1,9 +1,9 @@
-#ifndef HESTIA_FRAMEWORK_OBJECTS_OBJECT_HPP_
-#define HESTIA_FRAMEWORK_OBJECTS_OBJECT_HPP_
+#ifndef HESTIA_FRAMEWORK_ECS_OBJECT_HPP_
+#define HESTIA_FRAMEWORK_ECS_OBJECT_HPP_
 
 #include <vector>
 
-#include "../src/framework/components/Component.hpp"
+#include "Component.hpp"
 #include "../src/util/UidLib.hpp"
 
 /**
@@ -26,7 +26,7 @@ class Object {
     virtual void onCreate() = 0;
     virtual void tick() = 0; 
 
-    Object* registerComponent(Component* component);
+    void registerComponent(Component* component);
 };
 
 #endif

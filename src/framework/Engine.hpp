@@ -4,11 +4,11 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "systems/SystemManager.hpp"
-#include "components/ComponentManager.hpp"
-#include "objects/ObjectManager.hpp"
+#include "ecs/SystemManager.hpp"
+#include "ecs/ComponentManager.hpp"
+#include "ecs/ObjectManager.hpp"
 
-#include "../graphics/GraphicsSystem.hpp"
+#include "../src/framework/graphics/GraphicsSystem.hpp"
 
 /**
  * Engine Class

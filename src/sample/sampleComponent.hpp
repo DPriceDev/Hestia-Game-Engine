@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../framework/components/Component.hpp"
+#include "../framework/ecs/Component.hpp"
 
 #include "../util/Logger.hpp"
 

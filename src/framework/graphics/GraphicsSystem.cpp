@@ -1,6 +1,6 @@
 #include "GraphicsSystem.hpp"
 
-#include "../framework/Engine.hpp"
+#include "../src/framework/Engine.hpp"
 
 #include <iostream>
 

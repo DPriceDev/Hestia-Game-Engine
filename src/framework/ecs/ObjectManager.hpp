@@ -1,10 +1,10 @@
-#ifndef HESTIA_FRAMEWORK_OBJECTS_OBJECTMANAGER_H_
-#define HESTIA_FRAMEWORK_OBJECTS_OBJECTMANAGER_H_
+#ifndef HESTIA_FRAMEWORK_ECS_OBJECTMANAGER_H_
+#define HESTIA_FRAMEWORK_ECS_OBJECTMANAGER_H_
 
 #include <vector>
 
 #include "Object.hpp"
-#include "../src/framework/components/ComponentManager.hpp"
+#include "ComponentManager.hpp"
 
 /**
  * Object Manager

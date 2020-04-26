@@ -1,5 +1,5 @@
-#ifndef HESTIA_FRAMEWORK_COMPONENTS_COMPONENTMANAGER_H_
-#define HESTIA_FRAMEWORK_COMPONENTS_COMPONENTMANAGER_H_
+#ifndef HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H_
+#define HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H_
 
 #include <map>
 #include <vector>
@@ -63,7 +63,6 @@ class ComponentManager {
         }
 
         auto pArray = mMappedComponentArrays[component->getTag()];
-        delete component;
 
         return pArray;
     }
