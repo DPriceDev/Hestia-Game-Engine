@@ -9,6 +9,8 @@
 #include "framework/InputController.hpp"
 #include "graphics/GraphicsController.hpp"
 
+#include "../src/graphics/OpenGlModule.hpp"
+
 /* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
 Engine *Engine::mEngine;
@@ -23,7 +25,7 @@ int main(void)
 
     Engine* engine = Engine::getInstance();
 
-    if(!engine->Init()) {
+    if(!engine->Init(new OpenGlModule())) {
         return -1;
     }
 

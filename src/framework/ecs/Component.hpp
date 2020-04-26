@@ -14,9 +14,7 @@ class Component {
     Component(const char * tag) : mTag(tag) { }
 
     public:
-    ~Component() {
-
-    }
+    ~Component() { }
 
     const char * getTag() {
         return mTag;

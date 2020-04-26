@@ -1,10 +1,14 @@
-#include "Engine.hpp"
+#include "OpenGlModule.hpp"
 
-/* */
-bool Engine::Init(GraphicsModule* graphicsModule) {
-    mGraphicsModule = graphicsModule;
+#include <iostream>
 
-    mGraphicsModule->init();
+/* Function Declarations */
+GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
+
+/**
+ * 
+ */
+bool OpenGlModule::init() {
 
     mWindow = OpenGlInit("2D Game Engine", 800, 600);
 
@@ -20,7 +24,7 @@ bool Engine::Init(GraphicsModule* graphicsModule) {
  * 
  * returns true if initialized correctly.
  */
-GLFWwindow* Engine::OpenGlInit(const char * title, int windowX, int windowY) {
+GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY) {
 
     /* Initialize GLFW and set the window params. */
     glfwInit();
@@ -29,7 +33,7 @@ GLFWwindow* Engine::OpenGlInit(const char * title, int windowX, int windowY) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-   GLFWwindow* window = glfwCreateWindow(800, 600, "title", NULL, NULL);
+   GLFWwindow* window = glfwCreateWindow(800, 600, title, NULL, NULL);
 
     /* Initialize the window and apply it as the current GLFW context. add window resize callback. */
     glfwMakeContextCurrent(window);

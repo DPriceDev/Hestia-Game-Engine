@@ -8,6 +8,8 @@
 #include "ecs/ComponentManager.hpp"
 #include "ecs/ObjectManager.hpp"
 
+#include "../src/graphics/GraphicsModule.hpp"
+
 #include "../src/framework/graphics/GraphicsSystem.hpp"
 
 /**
@@ -17,8 +19,8 @@
 class Engine {
     
     private:
-    /* Private Variables */
     static Engine* mEngine;
+    GraphicsModule* mGraphicsModule;
     GLFWwindow* mWindow;
 
     SystemManager* mSystemManager;
@@ -42,7 +44,7 @@ class Engine {
         return mEngine;
     }
 
-    bool Init();
+    bool Init(GraphicsModule* graphicsModule);
 
     void terminate() {
         glfwTerminate();
@@ -62,6 +64,10 @@ class Engine {
 
     GLFWwindow* getWindow() {
         return mWindow;
+    }
+
+    GraphicsModule* getGraphicsModule() {
+        return mGraphicsModule;
     }
 
     ~Engine() { 
