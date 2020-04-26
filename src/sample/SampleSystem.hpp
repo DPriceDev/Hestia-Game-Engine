@@ -28,7 +28,13 @@ class SampleSystem : public System {
     ~SampleSystem() {
     }
 
+    void run() override {
+        for(auto & component : *mComponents) {
+            SampleComponent* sampleComponent = dynamic_cast<SampleComponent*>(component);
 
+            std::cout << "Sample Component value = " << sampleComponent->value << std::endl;
+        }
+    }
 };
 
 #endif

@@ -11,18 +11,20 @@
 /**
  * 
  */
-class SampleComponent : public Component {
+struct SampleComponent : public Component {
 
     public:
     SampleComponent() : Component("Sample") {
         LogDebug("Sample Component Created");
     }
 
+    int value = 5;
+
     ~SampleComponent() {
         
     }
 
-    void registerSystem();
+    void registerSystem() override;
 };
 
 #endif

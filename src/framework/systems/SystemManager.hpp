@@ -22,6 +22,12 @@ class SystemManager {
         LogDebug("System Registered");
     }
 
+    void run() {
+        for(auto & system : mSystems) {
+            system->run();
+        }
+    }
+
 };
 
 #endif

@@ -12,6 +12,8 @@ class System {
     std::vector<Component*>* mComponentArray;
 
     public:
+    virtual void run() = 0;
+
     ~System() { }
 };
 

@@ -16,4 +16,6 @@ void GameEnvironment::Init() {
 /**
  * 
  */
-void GameEnvironment::GameLoop() { }
+void GameEnvironment::GameLoop() { 
+    Engine::getInstance()->getSystemManager()->run();
+}
