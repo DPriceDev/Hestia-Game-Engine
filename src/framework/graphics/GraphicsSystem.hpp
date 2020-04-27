@@ -17,7 +17,7 @@
 class GraphicsSystem : public System {
 
     private:
-    std::vector<Component*>* mComponents; 
+    std::vector<Component*>* mComponents;
 
     public:
     GraphicsSystem();

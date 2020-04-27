@@ -1,26 +1,27 @@
 #ifndef GRAPHICS_SHADER_HPP
 #define GRAPHICS_SHADER_HPP
 
+#include "glad/glad.h"
+#include <string>
+
 /**
  * 
  */
 struct Shader {
 
     private:
-    const char *mVertexShaderSource;
-    const char *mFragmentShaderSource;
+    unsigned int mId;
 
     public:
-    Shader(const char *vertexShaderSource, const char *fragmentShaderSource) 
-            : mVertexShaderSource(vertexShaderSource), mFragmentShaderSource(fragmentShaderSource) { }
+    Shader(const char *vertexShaderPath, const char *fragmentShaderPath);
+    ~Shader();
 
-    const char * GetVertexShader() {
-        return mVertexShaderSource;
-    }
+    void useShader();
 
-    const char * GetFragmentShader() {
-        return mFragmentShaderSource;
-    }
+    void setBool(const std::string &name, bool value) const;  
+    void setInt(const std::string &name, int value) const;   
+    void setFloat(const std::string &name, float value) const;
+
 };
 
 #endif

@@ -1,7 +1,7 @@
 CC=clang
 CXX=clang++
 CFLAGS = -O3
-CXXFLAGS = -std=c++17 -O3 -Wall
+CXXFLAGS = -std=c++17 -O3
 FRAMEWORKS = -framework Cocoa -framework IOKit -framework OpenGl
 LIBS = -lglfw3
 

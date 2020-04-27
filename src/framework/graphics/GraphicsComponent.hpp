@@ -7,6 +7,7 @@
 #include "../src/framework/ecs/Component.hpp"
 
 #include "../src/maths/MathsTypes.hpp"
+#include "../src/graphics/shaders/Shader.hpp"
 
 #include "../src/util/Logger.hpp"
 
@@ -25,6 +26,7 @@ struct GraphicsComponent : public Component {
     ~GraphicsComponent() { }
 
     std::vector<Vector2f> mVertices;
+    Shader* mShader;
 
     std::vector<Vector2f>* getVerticesPointer() {
         return &mVertices;
