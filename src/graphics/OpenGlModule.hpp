@@ -3,6 +3,7 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include <vector>
 
 #include "GraphicsModule.hpp"
 
@@ -29,7 +30,7 @@ class OpenGlModule : public GraphicsModule {
     bool isWindowOpen() override;
 
     void renderFrame() override;
-    void drawTriangle() override;
+    void drawTriangle(std::vector<Vector2f>* pVertices) override;
     void startFrame() override;
 };
 

@@ -1,4 +1,7 @@
 #include "ObjectManager.hpp"
+
+#include <chrono>
+
 #include "Object.hpp"
 #include "../src/util/Logger.hpp"
 
@@ -20,4 +23,18 @@ void ObjectManager::DestroyObject(long uid) {
         return pObject->getId() == uid;
         });
         mObjects.erase(it);
+}
+
+auto start = std::chrono::high_resolution_clock::now();
+
+void ObjectManager::tick() {
+
+    auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count();
+
+    for(auto & object : mObjects) {
+        object->tick(deltaTime);
+    }
+
+    start = std::chrono::high_resolution_clock::now();
+
 }

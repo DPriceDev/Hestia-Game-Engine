@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+
+
 const char *vertexShaderSource = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
     "void main()\n"
@@ -49,7 +51,7 @@ void OpenGlModule::startFrame() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void OpenGlModule::drawTriangle() {
+void OpenGlModule::drawTriangle(std::vector<Vector2f>* pVertices) {
 
     // build and compile our shader program
     // ------------------------------------
@@ -93,11 +95,20 @@ void OpenGlModule::drawTriangle() {
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // left  
-         0.5f, -0.5f, 0.0f, // right 
-         0.0f,  0.5f, 0.0f  // top   
-    }; 
+
+    float vertices[pVertices->size()*3];
+    int index;
+    for(auto & vertex : *pVertices) {
+        vertices[index++] = vertex.x;
+        vertices[index++] = vertex.y;
+        vertices[index++] = 0;
+    }
+
+    // float vertices[] = {
+    //     -0.5f, -0.5f, 0.0f, // left  
+    //      0.5f, -0.5f, 0.0f, // right 
+    //      0.0f,  0.5f, 0.0f  // top   
+    // }; 
 
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);

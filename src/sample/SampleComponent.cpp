@@ -6,4 +6,4 @@
 
 void SampleComponent::registerSystem() {
         Engine::getInstance()->getSystemManager()->registerSystem<SampleSystem>();
-    }
+}

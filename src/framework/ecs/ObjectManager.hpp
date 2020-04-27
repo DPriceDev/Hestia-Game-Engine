@@ -27,6 +27,8 @@ class ObjectManager
     Object* GetObject(long uid);
     void DestroyObject(long uid);
 
+    void tick();
+
     ObjectManager() {
         mObjects = std::vector<Object*>();
     }
