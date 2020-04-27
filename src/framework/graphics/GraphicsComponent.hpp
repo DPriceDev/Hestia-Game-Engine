@@ -18,9 +18,9 @@ struct GraphicsComponent : public Component {
         LogDebug("Graphics Component Created");
     }
 
-    ~GraphicsComponent() {
-        
-    }
+    float mVertices[];
+
+    ~GraphicsComponent() { }
 
     void registerSystem() override;
 };

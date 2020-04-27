@@ -6,8 +6,6 @@
 
 #include "framework/Engine.hpp"
 #include "framework/GameEnvironment.hpp"
-#include "framework/InputController.hpp"
-#include "graphics/GraphicsController.hpp"
 
 #include "../src/graphics/OpenGlModule.hpp"
 
@@ -38,7 +36,7 @@ int main(void)
     gameEnvironment->Init();
 
     /* Main Loop whilst window is open. */
-    while(!glfwWindowShouldClose(engine->getWindow()))
+    while(engine->getInstance()->getGraphicsModule()->isWindowOpen())
     {
         //inputController.processInput(window);
         gameEnvironment->GameLoop();

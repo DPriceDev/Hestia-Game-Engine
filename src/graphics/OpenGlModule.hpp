@@ -24,6 +24,13 @@ class OpenGlModule : public GraphicsModule {
     }
 
     bool init() override;
+    void terminate() override;
+
+    bool isWindowOpen() override;
+
+    void renderFrame() override;
+    void drawTriangle() override;
+    void startFrame() override;
 };
 
 
