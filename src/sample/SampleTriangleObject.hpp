@@ -37,7 +37,7 @@ class SampleTriangleObject : public Object {
         mGraphicsComponent->mVertices.push_back(Vector2f(0.5, -0.5));
         mGraphicsComponent->mVertices.push_back(Vector2f(0.0, 0.5));
 
-        mGraphicsComponent->mShader = new Shader("vertexShader.vs", "fragmentShader.fs");
+        mGraphicsComponent->mShader = new Shader("./assets/shaders/vertexShader.vs", "./assets/shaders/fragmentShader.fs");
 
         registerComponent(mGraphicsComponent);
     }

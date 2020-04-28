@@ -18,7 +18,7 @@ void GraphicsSystem::run() {
         GraphicsComponent* graphicsComponent = dynamic_cast<GraphicsComponent*>(component);
 
         // DO THING HERE!
-        Engine::getInstance()->getGraphicsModule()->drawTriangle(graphicsComponent->getVerticesPointer());
+        Engine::getInstance()->getGraphicsModule()->drawTriangle(graphicsComponent->getVerticesPointer(), graphicsComponent->mShader);
     }
 
     Engine::getInstance()->getGraphicsModule()->renderFrame();

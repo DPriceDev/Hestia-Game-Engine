@@ -2,6 +2,7 @@
 #define HESTIA_GRAPHICS_GRAPHICSMODULE_HPP_
 
 #include "../src/maths/MathsTypes.hpp"
+#include "../src/graphics/shaders/Shader.hpp"
 
 /**
  * 
@@ -17,7 +18,7 @@ class GraphicsModule {
     virtual bool isWindowOpen() = 0;
 
     virtual void startFrame() = 0;
-    virtual void drawTriangle(std::vector<Vector2f>* pVertices) = 0;
+    virtual void drawTriangle(std::vector<Vector2f>* pVertices, Shader* pShader) = 0;
     virtual void renderFrame() = 0;
 };
 

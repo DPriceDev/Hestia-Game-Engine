@@ -1,7 +1,9 @@
 #include "OpenGlModule.hpp"
 
 #include <iostream>
+#include <sstream>
 
+#include "shaders/Shader.hpp"
 
 
 const char *vertexShaderSource = "#version 330 core\n"
@@ -21,6 +23,7 @@ const char *fragmentShaderSource = "#version 330 core\n"
 /* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
+void showFPS(GLFWwindow* pWindow);
 
 /**
  * 
@@ -28,6 +31,8 @@ void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 bool OpenGlModule::init() {
 
     mWindow = OpenGlInit("2D Game Engine", 800, 600);
+
+    glfwSwapInterval(0);
 
     if(mWindow == nullptr) {
         return false;
@@ -51,51 +56,12 @@ void OpenGlModule::startFrame() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void OpenGlModule::drawTriangle(std::vector<Vector2f>* pVertices) {
+void OpenGlModule::drawTriangle(std::vector<Vector2f>* pVertices, Shader* pShader) {
 
-    // build and compile our shader program
-    // ------------------------------------
-    // vertex shader
-    int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-    // check for shader compile errors
-    int success;
-    char infoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-    // fragment shader
-    int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-    // check for shader compile errors
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-    // link shaders
-    int shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    // check for linking errors
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-    }
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    /* Set Shader to use */
+    pShader->useShader();
 
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
-
+    /* */
     float vertices[pVertices->size()*3];
     int index;
     for(auto & vertex : *pVertices) {
@@ -124,13 +90,15 @@ void OpenGlModule::drawTriangle(std::vector<Vector2f>* pVertices) {
     glBindVertexArray(0); 
 
     // draw our first triangle
-    glUseProgram(shaderProgram);
     glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
 }
 
 void OpenGlModule::renderFrame() {
+
+    showFPS(mWindow);
+
     glfwSwapBuffers(mWindow);
     glfwPollEvents();  
 }
@@ -149,7 +117,17 @@ GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-   GLFWwindow* window = glfwCreateWindow(800, 600, title, NULL, NULL);
+    // GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    // const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+    // glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+    // glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+    // glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+    // glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+    // GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, title, monitor, NULL);
+
+    GLFWwindow* window = glfwCreateWindow(windowX, windowY, title, NULL, NULL);
 
     /* Initialize the window and apply it as the current GLFW context. add window resize callback. */
     glfwMakeContextCurrent(window);
@@ -178,4 +156,28 @@ GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY) {
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
+}
+
+/** Helper Functions */
+double lastTime;
+int nbFrames;
+
+void showFPS(GLFWwindow* pWindow)
+{
+    // Measure speed
+     double currentTime = glfwGetTime();
+     double delta = currentTime - lastTime;
+     nbFrames++;
+     if ( delta >= 1.0 ){ // If last cout was more than 1 sec ago
+
+         double fps = double(nbFrames) / delta;
+
+         std::stringstream ss;
+         ss << "title" << " " << "v1" << " [" << fps << " FPS]";
+
+         glfwSetWindowTitle(pWindow, ss.str().c_str());
+
+         nbFrames = 0;
+         lastTime = currentTime;
+     }
 }

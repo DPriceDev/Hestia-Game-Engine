@@ -18,8 +18,6 @@ void GameEnvironment::Init() {
  */
 void GameEnvironment::GameLoop() { 
 
-    
-
     Engine::getInstance()->getObjectManager()->tick();
     Engine::getInstance()->getSystemManager()->run();
 }
