@@ -1,9 +1,17 @@
 #include "ObjectManager.hpp"
 
 #include <chrono>
+#include <iostream>
+
+#include "../src/framework/Engine.hpp"
 
 #include "Object.hpp"
 #include "../src/util/Logger.hpp"
+
+ObjectManager::ObjectManager() {
+    mObjects = std::vector<Object*>();
+    start = 0;
+}
 
 void ObjectManager::AddObject(Object* object) {
     LogDebug("Added to object controller stack");
@@ -25,16 +33,12 @@ void ObjectManager::DestroyObject(long uid) {
         mObjects.erase(it);
 }
 
-auto start = std::chrono::high_resolution_clock::now();
-
 void ObjectManager::tick() {
-
-    auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count();
+    auto deltaTime = Engine::getInstance()->getGraphicsModule()->getGameTime() - start;
 
     for(auto & object : mObjects) {
         object->tick(deltaTime);
     }
 
-    start = std::chrono::high_resolution_clock::now();
-
+    start = Engine::getInstance()->getGraphicsModule()->getGameTime();
 }

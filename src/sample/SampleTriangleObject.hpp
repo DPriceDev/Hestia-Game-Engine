@@ -42,9 +42,9 @@ class SampleTriangleObject : public Object {
         registerComponent(mSpriteComponent);
     }
 
-    void tick(float deltaTime) {
+    void tick(double deltaTime) {
 
-        mCurrentAngle += 6.28 * (deltaTime/1000);
+        mCurrentAngle += 6.28 * deltaTime;
 
         mSpriteComponent->mVertices[0].x = 0.5 + (0.1 * cos(mCurrentAngle));
         mSpriteComponent->mVertices[0].y = 0.5 + (0.1 * sin(mCurrentAngle));

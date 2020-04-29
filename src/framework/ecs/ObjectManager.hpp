@@ -13,6 +13,7 @@ class ObjectManager
 {
     private:
     std::vector<Object*> mObjects;
+    double start;
 
     public:
     template<class T>
@@ -29,9 +30,7 @@ class ObjectManager
 
     void tick();
 
-    ObjectManager() {
-        mObjects = std::vector<Object*>();
-    }
+    ObjectManager();
 
     ~ObjectManager() {
         // TODO: Check delete objects here?

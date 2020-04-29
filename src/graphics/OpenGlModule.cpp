@@ -73,6 +73,13 @@ void OpenGlModule::renderFrame() {
 }
 
 /**
+ * 
+ */
+double OpenGlModule::getGameTime() {
+    return glfwGetTime();
+}
+
+/**
  * Generate VAO
  */
 unsigned int OpenGlModule::generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) {

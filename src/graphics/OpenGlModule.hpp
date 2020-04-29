@@ -33,6 +33,8 @@ class OpenGlModule : public GraphicsModule {
     void drawTriangle(Shader* pShader, unsigned int vao) override;
     void startFrame() override;
 
+    double getGameTime() override;
+
     unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) override;
     void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) override;
 };

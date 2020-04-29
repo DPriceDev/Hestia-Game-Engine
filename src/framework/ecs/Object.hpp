@@ -24,7 +24,7 @@ class Object {
 
     /* Public Methods */
     virtual void onCreate() = 0;
-    virtual void tick(float deltaTime) = 0;
+    virtual void tick(double deltaTime) = 0;
 
     void registerComponent(Component* component);
 };
