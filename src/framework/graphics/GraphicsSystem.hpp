@@ -11,21 +11,21 @@
 
 #include "GraphicsComponent.hpp"
 
-/**
- * 
- */
-class GraphicsSystem : public System {
+namespace HGE {
+    
+    class GraphicsSystem : public System {
 
-    private:
-    std::vector<Component*>* mComponents;
+        private:
+        std::vector<Component*>* mComponents;
 
-    public:
-    GraphicsSystem();
+        public:
+        GraphicsSystem();
 
-    ~GraphicsSystem() {
-    }
+        ~GraphicsSystem() {
+        }
 
-    void run() override;
-};
+        void run() override;
+    };
+}
 
 #endif

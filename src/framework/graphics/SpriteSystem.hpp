@@ -11,21 +11,21 @@
 
 #include "SpriteComponent.hpp"
 
-/**
- * 
- */
-class SpriteSystem : public System {
+namespace HGE {
 
-    private:
-    std::vector<Component*>* mComponents;
+    class SpriteSystem : public System {
 
-    public:
-    SpriteSystem();
+        private:
+        std::vector<Component*>* mComponents;
 
-    ~SpriteSystem() {
-    }
+        public:
+        SpriteSystem();
 
-    void run() override;
-};
+        ~SpriteSystem() {
+        }
+
+        void run() override;
+    };
+}
 
 #endif

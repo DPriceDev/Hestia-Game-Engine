@@ -1,7 +1,7 @@
 #include "Engine.hpp"
 
 /* */
-bool Engine::Init(GraphicsModule* graphicsModule) {
+bool HGE::Engine::Init(GraphicsModule* graphicsModule) {
     mGraphicsModule = graphicsModule;
 
     return mGraphicsModule->init();

@@ -7,37 +7,37 @@
 
 #include "GraphicsModule.hpp"
 
-/**
- * 
- */
-class OpenGlModule : public GraphicsModule {
+namespace HGE {
 
-    private:
-    GLFWwindow* mWindow;
+    class OpenGlModule : public HGE::GraphicsModule {
 
-    public:
-    OpenGlModule() {
+        private:
+        GLFWwindow* mWindow;
 
-    }
+        public:
+        OpenGlModule() {
 
-    ~OpenGlModule() {
+        }
 
-    }
+        ~OpenGlModule() {
 
-    bool init() override;
-    void terminate() override;
+        }
 
-    bool isWindowOpen() override;
+        bool init() override;
+        void terminate() override;
 
-    void renderFrame() override;
-    void drawTriangle(Shader* pShader, unsigned int vao) override;
-    void startFrame() override;
+        bool isWindowOpen() override;
 
-    double getGameTime() override;
+        void renderFrame() override;
+        void drawTriangle(Shader* pShader, unsigned int vao) override;
+        void startFrame() override;
 
-    unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) override;
-    void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) override;
-};
+        double getGameTime() override;
+
+        unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) override;
+        void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) override;
+    };
+}
 
 
 #endif

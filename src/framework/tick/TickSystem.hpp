@@ -10,21 +10,21 @@
 
 #include "TickComponent.hpp"
 
-/**
- * 
- */
-class TickSystem : public System {
+namespace HGE {
+    
+    class TickSystem : public System {
 
-    private:
-    std::vector<Component*>* mComponents; 
+        private:
+        std::vector<Component*>* mComponents; 
 
-    public:
-    TickSystem();
+        public:
+        TickSystem();
 
-    ~TickSystem() {
-    }
+        ~TickSystem() {
+        }
 
-    void run() override;
-};
+        void run() override;
+    };
+}
 
 #endif

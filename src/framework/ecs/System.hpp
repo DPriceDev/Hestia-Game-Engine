@@ -3,18 +3,18 @@
 
 #include "Component.hpp"
 
-/**
- * System Interface
- */
-class System {
+namespace HGE {
     
-    protected:
-    std::vector<Component*>* mComponentArray;
+    class System {
+        
+        protected:
+        std::vector<Component*>* mComponentArray;
 
-    public:
-    virtual void run() = 0;
+        public:
+        virtual void run() = 0;
 
-    ~System() { }
-};
+        ~System() { }
+    };
+}
 
 #endif

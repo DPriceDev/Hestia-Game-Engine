@@ -4,6 +4,9 @@
 
 #include "GraphicsSystem.hpp"
 
-void GraphicsComponent::registerSystem() {
+namespace HGE {
+
+    void GraphicsComponent::registerSystem() {
         Engine::getInstance()->getSystemManager()->registerSystem<GraphicsSystem>();
     }
+}

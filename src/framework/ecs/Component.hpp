@@ -1,26 +1,26 @@
 #ifndef HESTIA_FRAMEWORK_ECS_COMPONENT_HPP_
 #define HESTIA_FRAMEWORK_ECS_COMPONENT_HPP_
 
-/**
- * Component Interface
- */
-class Component {
+namespace HGE {
     
-    private:
-    const char * mTag;
+    class Component {
+        
+        private:
+        const char * mTag;
 
-    protected:
-    // TODO: This may work, may not :S
-    Component(const char * tag) : mTag(tag) { }
+        protected:
+        // TODO: This may work, may not :S
+        Component(const char * tag) : mTag(tag) { }
 
-    public:
-    ~Component() { }
+        public:
+        ~Component() { }
 
-    const char * getTag() {
-        return mTag;
-    }
+        const char * getTag() {
+            return mTag;
+        }
 
-    virtual void registerSystem() = 0;
-};
+        virtual void registerSystem() = 0;
+    };
+}
 
 #endif

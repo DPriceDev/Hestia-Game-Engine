@@ -4,22 +4,19 @@
 #include <iostream>
 #include <vector>
 
-#include "../src/framework/ecs/system.hpp"
+#include "../src/framework/ecs/System.hpp"
 #include "../src/framework/ecs/Component.hpp"
 
 #include "../util/Logger.hpp"
 
 #include "SampleComponent.hpp"
 
-/**
- * 
- */
-class SampleSystem : public System {
+class SampleSystem : public HGE::System {
 
     public:
     SampleSystem() {
         LogDebug("Sample System Created");
-        mComponentArray = Engine::getInstance()->getComponentManager()->getComponentArray<SampleComponent>();
+        mComponentArray = HGE::Engine::getInstance()->getComponentManager()->getComponentArray<SampleComponent>();
     }
 
     ~SampleSystem() {

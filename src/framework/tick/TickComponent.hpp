@@ -13,21 +13,20 @@
 
 typedef void (*tickfunc_t)(float);
 
-/**
- * Graphics Component
- * TODO: Switch off from a vector to array somehow?
- */
-struct TickComponent : public Component {
+namespace HGE {
     
-    public:
-    TickComponent() : Component("Tick") { 
-    }
+    struct TickComponent : public Component {
+        
+        public:
+        TickComponent() : Component("Tick") { 
+        }
 
-    ~TickComponent() { }
+        ~TickComponent() { }
 
-    void(mTickFunction) (float);
+        void(mTickFunction) (float);
 
-    void registerSystem() override;
-};
+        void registerSystem() override;
+    };
+}
 
 #endif

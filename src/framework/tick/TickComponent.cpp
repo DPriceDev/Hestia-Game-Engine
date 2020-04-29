@@ -4,6 +4,9 @@
 
 #include "TickSystem.hpp"
 
-void TickComponent::registerSystem() {
-        Engine::getInstance()->getSystemManager()->registerSystem<TickSystem>();
+namespace HGE {
+
+        void TickComponent::registerSystem() {
+                Engine::getInstance()->getSystemManager()->registerSystem<TickSystem>();
+        }
 }

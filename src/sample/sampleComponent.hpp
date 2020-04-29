@@ -8,13 +8,10 @@
 
 #include "../util/Logger.hpp"
 
-/**
- * 
- */
-struct SampleComponent : public Component {
+struct SampleComponent : public HGE::Component {
 
     public:
-    SampleComponent() : Component("Sample") {
+    SampleComponent() : HGE::Component("Sample") {
         LogDebug("Sample Component Created");
     }
 

@@ -5,5 +5,5 @@
 #include "SampleSystem.hpp"
 
 void SampleComponent::registerSystem() {
-        Engine::getInstance()->getSystemManager()->registerSystem<SampleSystem>();
+        HGE::Engine::getInstance()->getSystemManager()->registerSystem<SampleSystem>();
 }

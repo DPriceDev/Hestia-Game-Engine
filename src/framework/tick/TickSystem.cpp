@@ -4,18 +4,21 @@
 
 #include <iostream>
 
-TickSystem::TickSystem()
-{
-    mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<TickComponent>();
-}
+namespace HGE {
 
-void TickSystem::run() {
+    TickSystem::TickSystem()
+    {
+        mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<TickComponent>();
+    }
 
-    // get delta time
-    float deltaTime = 0.5;
+    void TickSystem::run() {
 
-    for(auto & component : *mComponents) {
-        TickComponent* tickComponent = dynamic_cast<TickComponent*>(component);
+        // get delta time
+        float deltaTime = 0.5;
 
+        for(auto & component : *mComponents) {
+            TickComponent* tickComponent = dynamic_cast<TickComponent*>(component);
+
+        }
     }
 }

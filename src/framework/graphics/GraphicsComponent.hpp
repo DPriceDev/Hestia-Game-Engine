@@ -11,29 +11,28 @@
 
 #include "../src/util/Logger.hpp"
 
-/**
- * Graphics Component
- * TODO: Switch off from a vector to array somehow?
- */
-struct GraphicsComponent : public Component {
-    
-    public:
-    GraphicsComponent() : Component("Graphics") {
-        LogDebug("Graphics Component Created");
-        mVertices = std::vector<Vector2f>();
-    }
+namespace HGE {
 
-    ~GraphicsComponent() { }
+    struct GraphicsComponent : public Component {
+        
+        public:
+        GraphicsComponent() : Component("Graphics") {
+            LogDebug("Graphics Component Created");
+            mVertices = std::vector<Vector2f>();
+        }
 
-    std::vector<Vector2f> mVertices;
-    Shader* mShader;
-    unsigned int mVAO, mVBO;
+        ~GraphicsComponent() { }
 
-    std::vector<Vector2f>* getVerticesPointer() {
-        return &mVertices;
-    }
+        std::vector<Vector2f> mVertices;
+        Shader* mShader;
+        unsigned int mVAO, mVBO;
 
-    void registerSystem() override;
-};
+        std::vector<Vector2f>* getVerticesPointer() {
+            return &mVertices;
+        }
+
+        void registerSystem() override;
+    };
+}
 
 #endif

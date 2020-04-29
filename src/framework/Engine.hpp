@@ -8,64 +8,79 @@
 #include "../src/graphics/GraphicsModule.hpp"
 
 #include "../src/framework/graphics/GraphicsSystem.hpp"
+namespace HGE {
 
-/**
- * Engine Class
- * Provides a static singletion
- */
-class Engine {
-    
-    private:
-    static Engine* mEngine;
-    GraphicsModule* mGraphicsModule;
+    class Engine {
+        
+        private:
+        static Engine* mEngine;
+        GraphicsModule* mGraphicsModule;
 
-    SystemManager* mSystemManager;
-    ComponentManager* mComponentManager;
-    ObjectManager* mObjectManager;
-    
-    /* Private Constructor */
-    Engine() {
-        mSystemManager = new SystemManager();
-        mComponentManager = new ComponentManager();
-        mObjectManager = new ObjectManager();
-    }
-
-    public:
-    static Engine* getInstance() {
-        if(!mEngine) {
-            mEngine = new Engine();
+        SystemManager* mSystemManager;
+        ComponentManager* mComponentManager;
+        ObjectManager* mObjectManager;
+        
+        /* Private Constructor */
+        Engine() {
+            mSystemManager = new SystemManager();
+            mComponentManager = new ComponentManager();
+            mObjectManager = new ObjectManager();
         }
-        return mEngine;
-    }
 
-    bool Init(GraphicsModule* graphicsModule);
+        public:
+        static Engine* getInstance() {
+            if(!mEngine) {
+                mEngine = new Engine();
+            }
+            return mEngine;
+        }
 
-    void terminate() {
-        mGraphicsModule->terminate();
-    }
+        // static ObjectManager* objectManager() {
+        //     return mEngine->mObjectManager;
+        // }
 
-    ObjectManager* getObjectManager() {
-        return mObjectManager;
-    }
+        // static ComponentManager* componentManager() {
+        //     return mEngine->mComponentManager;
+        // }
 
-    ComponentManager* getComponentManager() {
-        return mComponentManager;
-    }
+        // static SystemManager* systemManager() {
+        //     return mEngine->mSystemManager;
+        // }
 
-    SystemManager* getSystemManager() {
-        return mSystemManager;
-    }
+        // static GraphicsModule* graphicsModule() {
+        //     return mEngine->mGraphicsModule;
+        // }
 
-    GraphicsModule* getGraphicsModule() {
-        return mGraphicsModule;
-    }
+        bool Init(GraphicsModule* graphicsModule);
 
-    ~Engine() { 
-        delete mEngine;
-        delete mSystemManager;
-        delete mComponentManager;
-        delete mObjectManager;
-    }
-};
+        void terminate() {
+            mGraphicsModule->terminate();
+        }
+
+        ObjectManager* getObjectManager() {
+            return mObjectManager;
+        }
+
+        ComponentManager* getComponentManager() {
+            return mComponentManager;
+        }
+
+        SystemManager* getSystemManager() {
+            return mSystemManager;
+        }
+
+        GraphicsModule* getGraphicsModule() {
+            return mGraphicsModule;
+        }
+
+        ~Engine() { 
+            delete mEngine;
+            delete mSystemManager;
+            delete mComponentManager;
+            delete mObjectManager;
+            delete mGraphicsModule;
+        }
+    };
+}
 
 #endif

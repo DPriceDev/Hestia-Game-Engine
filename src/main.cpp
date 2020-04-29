@@ -11,7 +11,7 @@
 
 /* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
-Engine *Engine::mEngine;
+HGE::Engine *HGE::Engine::mEngine;
 
 /**
  * Main Entry Point.
@@ -21,13 +21,13 @@ int main(void)
     /* Initialize openGl Window */
     std::cout << "Program Begin" << std::endl;
 
-    Engine* engine = Engine::getInstance();
+    HGE::Engine* engine = HGE::Engine::getInstance();
 
-    if(!engine->Init(new OpenGlModule())) {
+    if(!engine->Init(new HGE::OpenGlModule())) {
         return -1;
     }
 
-    GameEnvironment* gameEnvironment = new GameEnvironment();
+    HGE::GameEnvironment* gameEnvironment = new HGE::GameEnvironment();
 
     // TODO: Load inital config and get initial level?
 

@@ -6,35 +6,35 @@
 #include "Object.hpp"
 #include "ComponentManager.hpp"
 
-/**
- * Object Manager
- */
-class ObjectManager 
-{
-    private:
-    std::vector<Object*> mObjects;
-    double start;
+namespace HGE {
+    
+    class ObjectManager 
+    {
+        private:
+        std::vector<Object*> mObjects;
+        double start;
 
-    public:
-    template<class T>
-    Object* CreateObject() {
-        T* object = new T();
-        mObjects.push_back(object);
-        object->onCreate();
-        return object;
-    }
+        public:
+        template<class T>
+        Object* CreateObject() {
+            T* object = new T();
+            mObjects.push_back(object);
+            object->onCreate();
+            return object;
+        }
 
-    void AddObject(Object* object);
-    Object* GetObject(long uid);
-    void DestroyObject(long uid);
+        void AddObject(Object* object);
+        Object* GetObject(long uid);
+        void DestroyObject(long uid);
 
-    void tick();
+        void tick();
 
-    ObjectManager();
+        ObjectManager();
 
-    ~ObjectManager() {
-        // TODO: Check delete objects here?
-    }
-};
+        ~ObjectManager() {
+            // TODO: Check delete objects here?
+        }
+    };
+}
 
 #endif

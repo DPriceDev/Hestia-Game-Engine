@@ -4,20 +4,23 @@
 
 #include <iostream>
 
-GraphicsSystem::GraphicsSystem()
-{
-    LogDebug("Graphics System Created");
-    mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<GraphicsComponent>();
-}
+namespace HGE {
 
-void GraphicsSystem::run() {
+    GraphicsSystem::GraphicsSystem()
+    {
+        LogDebug("Graphics System Created");
+        mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<GraphicsComponent>();
+    }
 
-    GraphicsComponent* graphicsComponent;
+    void GraphicsSystem::run() {
 
-    for(auto & component : *mComponents) {
-        graphicsComponent = dynamic_cast<GraphicsComponent*>(component);
+        GraphicsComponent* graphicsComponent;
 
-        Engine::getInstance()->getGraphicsModule()->generateVAO(graphicsComponent->mVAO, graphicsComponent->mVBO, graphicsComponent->getVerticesPointer());
-        Engine::getInstance()->getGraphicsModule()->drawTriangle(graphicsComponent->mShader, graphicsComponent->mVAO);
+        for(auto & component : *mComponents) {
+            graphicsComponent = dynamic_cast<GraphicsComponent*>(component);
+
+            Engine::getInstance()->getGraphicsModule()->generateVAO(graphicsComponent->mVAO, graphicsComponent->mVBO, graphicsComponent->getVerticesPointer());
+            Engine::getInstance()->getGraphicsModule()->drawTriangle(graphicsComponent->mShader, graphicsComponent->mVAO);
+        }
     }
 }

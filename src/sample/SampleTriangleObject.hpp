@@ -12,32 +12,23 @@
 
 #include "../util/Logger.hpp"
 
-/**
- * 
- */
-class SampleTriangleObject : public Object {
+class SampleTriangleObject : public HGE::Object {
 
     private:
-    SpriteComponent* mSpriteComponent;
+    HGE::SpriteComponent* mSpriteComponent;
 
     float mCurrentAngle;
 
     public:
-    SampleTriangleObject() { }
-
-    ~SampleTriangleObject() {
-
-    }
-
     void onCreate() override {
-        mSpriteComponent = new SpriteComponent();
+        mSpriteComponent = new HGE::SpriteComponent();
 
         mSpriteComponent->mVertices[0].setXY(0.5, 0.5);
         mSpriteComponent->mVertices[1].setXY(0.5, -0.5);
         mSpriteComponent->mVertices[2].setXY(-0.5, -0.5);
         mSpriteComponent->mVertices[3].setXY(-0.5, 0.5);
 
-        mSpriteComponent->mShader = new Shader("./assets/shaders/vertexShader.vs", "./assets/shaders/fragmentShader.fs");
+        mSpriteComponent->mShader = new HGE::Shader("./assets/shaders/vertexShader.vs", "./assets/shaders/fragmentShader.fs");
 
         registerComponent(mSpriteComponent);
     }

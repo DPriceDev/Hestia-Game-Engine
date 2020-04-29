@@ -6,27 +6,26 @@
 #include "Component.hpp"
 #include "../src/util/UidLib.hpp"
 
-/**
- * Object
- */
-class Object {
+namespace HGE {
+    
+    class Object {
 
-    protected:
-    long id = GenerateUniqueId();
+        protected:
+        long id = GenerateUniqueId();
 
-    public:
-    ~Object() { }
+        public:
+        ~Object() { }
 
-    /* Setters and Getters */
-    long getId() const {
-       return id;
-    }
+        /* Setters and Getters */
+        long getId() const {
+        return id;
+        }
 
-    /* Public Methods */
-    virtual void onCreate() = 0;
-    virtual void tick(double deltaTime) = 0;
+        /* Public Methods */
+        virtual void onCreate() = 0;
+        virtual void tick(double deltaTime) = 0;
 
-    void registerComponent(Component* component);
-};
-
+        void registerComponent(Component* component);
+    };
+}
 #endif

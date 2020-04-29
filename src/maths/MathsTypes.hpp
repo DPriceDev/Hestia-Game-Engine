@@ -3,36 +3,39 @@
 
 #include <array>
 
-struct Vector2f {
-    float x, y;
+namespace HGE {
 
-    Vector2f() : x(0), y(0) { }
+    struct Vector2f {
+        float x, y;
 
-    Vector2f(float x, float y) : x(x), y(y) { }
+        Vector2f() : x(0), y(0) { }
 
-    void setXY(float x, float y) {
-        x = x;
-        y = y;
-    }
+        Vector2f(float x, float y) : x(x), y(y) { }
 
-    std::array<float, 2> asArray2f() {
-        return {x, y};
-    }
+        void setXY(float x, float y) {
+            x = x;
+            y = y;
+        }
 
-    std::array<float, 3> asArray3f() {
-        return {x, y, 0.0};
-    }
-};
+        std::array<float, 2> asArray2f() {
+            return {x, y};
+        }
 
-struct Vector3f {
-    float x, y, z;
+        std::array<float, 3> asArray3f() {
+            return {x, y, 0.0};
+        }
+    };
 
-    Vector3f(float x, float y, float z) : x(x), y(y), z(z) { }
+    struct Vector3f {
+        float x, y, z;
 
-    std::array<float, 3> asArray3f() {
-        return {x, y, z};
-    }
-};
+        Vector3f(float x, float y, float z) : x(x), y(y), z(z) { }
 
+        std::array<float, 3> asArray3f() {
+            return {x, y, z};
+        }
+    };
+
+}
 
 #endif

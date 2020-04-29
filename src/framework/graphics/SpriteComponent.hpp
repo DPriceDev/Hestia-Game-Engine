@@ -11,23 +11,23 @@
 
 #include "../src/util/Logger.hpp"
 
-/**
- * Sprite Component
- */
-struct SpriteComponent : public Component {
-    
-    public:
-    Vector2f mVertices[4];
-    Shader* mShader;
-    unsigned int mVAO, mVBO;
+namespace HGE {
 
-    SpriteComponent() : Component("Sprite") {
-        LogDebug("Sprite Component Created");
-    }
+    struct SpriteComponent : public Component {
+        
+        public:
+        Vector2f mVertices[4];
+        Shader* mShader;
+        unsigned int mVAO, mVBO;
 
-    ~SpriteComponent() { }
+        SpriteComponent() : Component("Sprite") {
+            LogDebug("Sprite Component Created");
+        }
 
-    void registerSystem() override;
-};
+        ~SpriteComponent() { }
+
+        void registerSystem() override;
+    };
+}
 
 #endif

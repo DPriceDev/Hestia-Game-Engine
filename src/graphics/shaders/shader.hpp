@@ -4,24 +4,23 @@
 #include "glad/glad.h"
 #include <string>
 
-/**
- * 
- */
-struct Shader {
+namespace HGE {
 
-    private:
-    unsigned int mId;
+    struct Shader {
 
-    public:
-    Shader(const char *vertexShaderPath, const char *fragmentShaderPath);
-    ~Shader();
+        private:
+        unsigned int mId;
 
-    void useShader();
+        public:
+        Shader(const char *vertexShaderPath, const char *fragmentShaderPath);
+        ~Shader();
 
-    void setBool(const std::string &name, bool value) const;  
-    void setInt(const std::string &name, int value) const;   
-    void setFloat(const std::string &name, float value) const;
+        void useShader();
 
-};
+        void setBool(const std::string &name, bool value) const;  
+        void setInt(const std::string &name, int value) const;   
+        void setFloat(const std::string &name, float value) const;
+    };
+}
 
 #endif

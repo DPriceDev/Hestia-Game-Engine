@@ -4,6 +4,9 @@
 
 #include "SpriteSystem.hpp"
 
-void SpriteComponent::registerSystem() {
-        Engine::getInstance()->getSystemManager()->registerSystem<SpriteSystem>();
+namespace HGE {
+
+    void SpriteComponent::registerSystem() {
+            Engine::getInstance()->getSystemManager()->registerSystem<SpriteSystem>();    
     }
+}
