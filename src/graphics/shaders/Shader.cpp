@@ -112,6 +112,7 @@ namespace HGE {
             glGetShaderInfoLog(id, 512, NULL, infoLog);
             std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
         };
+        return success;
     }
 
     bool checkProgramLoadedCorrectly(unsigned int id) {
@@ -124,5 +125,6 @@ namespace HGE {
             glGetProgramInfoLog(id, 512, NULL, infoLog);
             std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
         }
+        return success;
     }
 }
