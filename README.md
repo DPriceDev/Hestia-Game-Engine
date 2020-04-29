@@ -1,2 +1,2 @@
-# 2D-Game-Engine
-2D game Engine
+# Hestia Game Engine
+OpenGl Game Engine for 2D Games.
