@@ -16,9 +16,10 @@ namespace HGE {
     struct SpriteComponent : public Component {
         
         public:
-        Vector2f mVertices[4];
-        Shader* mShader;
+        float mVertices[8];
         unsigned int mVAO, mVBO;
+        Shader* mShader;
+        Transform2f mTransform;
 
         SpriteComponent() : Component("Sprite") {
             LogDebug("Sprite Component Created");
@@ -27,6 +28,10 @@ namespace HGE {
         ~SpriteComponent() { }
 
         void registerSystem() override;
+
+        void setWidth(float width);
+        void setHeight(float height);
+        void setWidthAndHeight(float width, float height);
     };
 }
 

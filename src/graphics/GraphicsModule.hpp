@@ -3,6 +3,7 @@
 
 #include "../src/maths/MathsTypes.hpp"
 #include "../src/graphics/shaders/Shader.hpp"
+#include "../src/maths/MathsTypes.hpp"
 
 namespace HGE {
 
@@ -20,11 +21,13 @@ namespace HGE {
         virtual void drawTriangle(Shader* pShader, unsigned int vao) = 0;
         virtual void renderFrame() = 0;
 
+        virtual void drawSprite(Shader* pShader, unsigned int VAO) = 0;
+
         virtual double getGameTime() = 0;
         virtual void setGameTitle(const char * title) = 0;
 
         virtual unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) = 0;
-        virtual void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) = 0;
+        virtual void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;
     };
 }
 

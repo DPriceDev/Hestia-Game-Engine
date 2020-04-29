@@ -10,6 +10,7 @@
 #include "../src/util/Logger.hpp"
 
 #include "SpriteComponent.hpp"
+#include "../src/graphics/GraphicsModule.hpp"
 
 namespace HGE {
 
@@ -17,6 +18,7 @@ namespace HGE {
 
         private:
         std::vector<Component*>* mComponents;
+        GraphicsModule* mGraphicsModule;
 
         public:
         SpriteSystem();

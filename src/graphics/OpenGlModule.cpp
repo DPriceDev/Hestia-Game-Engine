@@ -115,32 +115,57 @@ namespace HGE {
         return vaoOut;
     }
 
-    void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) {
+    void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
 
         float vertices[12];
         int index;
-        for(int i = 0; i < 3; i++) {
-            Vector2f vertex = pVertices[i];
-            vertices[index++] = vertex.x;
-            vertices[index++] = vertex.y;
+        for(int i = 0; i < 8; i += 2) {
+            vertices[index++] = pVertices[i];
+            vertices[index++] = pVertices[i + 1];
             vertices[index++] = 0;
         }
 
+        unsigned int indices[] = {
+            0, 1, 2,
+            1, 2, 3
+        };
+
+        /* generate id for vertex array object. */
         glGenVertexArrays(1, &vaoOut);
+
+        /* generate id for vertex buffer object. */
         glGenBuffers(1, &vboOut);
 
+        /* generate id for element buffer object. */
+        unsigned int EBO;
+        glGenBuffers(1, &EBO);
+
+        /* bind VAO */
         glBindVertexArray(vaoOut);
 
-        // 2. copy our vertices array in a buffer for OpenGL to use
+        /* bind the vertices for the sprite. */
         glBindBuffer(GL_ARRAY_BUFFER, vboOut);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-        // 3. then set our vertex attributes pointers
+
+        /* Bind the Element buffer for the shared vertices. */
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        /* Vertex data (currently just position) attributes */
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(0); 
 
         glBindBuffer(GL_ARRAY_BUFFER, 0); 
-
         glBindVertexArray(0);
+    }
+
+    void OpenGlModule::drawSprite(Shader* pShader, unsigned int VAO) {
+
+        // make array
+        pShader->useShader();
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 
     /**

@@ -3,10 +3,12 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+
 #include <vector>
 #include <string>
 
 #include "GraphicsModule.hpp"
+#include "../src/maths/MathsTypes.hpp"
 
 namespace HGE {
 
@@ -17,13 +19,8 @@ namespace HGE {
         std::string mGameTitle;
 
         public:
-        OpenGlModule() {
-
-        }
-
-        ~OpenGlModule() {
-
-        }
+        OpenGlModule() { }
+        ~OpenGlModule() { }
 
         bool init() override;
         void terminate() override;
@@ -34,11 +31,13 @@ namespace HGE {
         void drawTriangle(Shader* pShader, unsigned int vao) override;
         void startFrame() override;
 
+        void drawSprite(Shader* pShader, unsigned int VAO) override;
+
         double getGameTime() override;
         void setGameTitle(const char * title) override;
 
         unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) override;
-        void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) override;
+        void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) override;
     };
 }
 

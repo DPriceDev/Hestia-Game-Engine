@@ -4,23 +4,23 @@
 
 #include <iostream>
 
-namespace HGE {
+using namespace HGE;
 
-    SpriteSystem::SpriteSystem()
-    {
-        LogDebug("Graphics System Created");
-        mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<SpriteComponent>();
-    }
+SpriteSystem::SpriteSystem()
+{
+    LogDebug("Graphics System Created");
+    mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<SpriteComponent>();
+    mGraphicsModule = Engine::getInstance()->getGraphicsModule();
+}
 
-    void SpriteSystem::run() {
+void SpriteSystem::run() {
 
-        SpriteComponent* spriteComponent;
+    SpriteComponent* spriteComponent;
 
-        for(auto & component : *mComponents) {
-            spriteComponent = dynamic_cast<SpriteComponent*>(component);
+    for(auto & component : *mComponents) {
+        spriteComponent = dynamic_cast<SpriteComponent*>(component);
 
-            Engine::getInstance()->getGraphicsModule()->generateSpriteVAO(spriteComponent->mVAO, spriteComponent->mVBO, spriteComponent->mVertices);
-            Engine::getInstance()->getGraphicsModule()->drawTriangle(spriteComponent->mShader, spriteComponent->mVAO);
-        }
+        mGraphicsModule->generateSpriteVAO(spriteComponent->mVAO, spriteComponent->mVBO, spriteComponent->mVertices);
+        mGraphicsModule->drawSprite(spriteComponent->mShader, spriteComponent->mVAO);
     }
 }

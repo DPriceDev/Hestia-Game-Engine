@@ -23,10 +23,8 @@ class SampleTriangleObject : public HGE::Object {
     void onCreate() override {
         mSpriteComponent = new HGE::SpriteComponent();
 
-        mSpriteComponent->mVertices[0].setXY(0.5, 0.5);
-        mSpriteComponent->mVertices[1].setXY(0.5, -0.5);
-        mSpriteComponent->mVertices[2].setXY(-0.5, -0.5);
-        mSpriteComponent->mVertices[3].setXY(-0.5, 0.5);
+        mSpriteComponent->setWidth(1.0f);
+        mSpriteComponent->setHeight(1.0f);
 
         mSpriteComponent->mShader = new HGE::Shader("./assets/shaders/vertexShader.vs", "./assets/shaders/fragmentShader.fs");
  
@@ -36,17 +34,17 @@ class SampleTriangleObject : public HGE::Object {
     void tick(double deltaTime) override {
         mCurrentAngle += 6.28 * deltaTime;
 
-        mSpriteComponent->mVertices[0].x = -0.5 + (0.1 * cos(mCurrentAngle));
-        mSpriteComponent->mVertices[0].y = -0.5 + (0.1 * sin(mCurrentAngle));
+        // mSpriteComponent->mVertices[0].x = -0.5 + (0.1 * cos(mCurrentAngle));
+        // mSpriteComponent->mVertices[0].y = -0.5 + (0.1 * sin(mCurrentAngle));
 
-        mSpriteComponent->mVertices[1].x = 0.5 - (0.1 * cos(mCurrentAngle + 1.57));
-        mSpriteComponent->mVertices[1].y = -0.5 + (0.1 * sin(mCurrentAngle + 1.57));
+        // mSpriteComponent->mVertices[1].x = 0.5 - (0.1 * cos(mCurrentAngle + 1.57));
+        // mSpriteComponent->mVertices[1].y = -0.5 + (0.1 * sin(mCurrentAngle + 1.57));
 
-        mSpriteComponent->mVertices[2].x = 0 + (0.1 * cos(mCurrentAngle + 3.14));
-        mSpriteComponent->mVertices[2].y = 0.5 - (0.1 * sin(mCurrentAngle + 3.14));
+        // mSpriteComponent->mVertices[2].x = 0 + (0.1 * cos(mCurrentAngle + 3.14));
+        // mSpriteComponent->mVertices[2].y = 0.5 - (0.1 * sin(mCurrentAngle + 3.14));
 
-        mSpriteComponent->mVertices[3].x = -0.5 + (0.1 * cos(mCurrentAngle + 4.71));
-        mSpriteComponent->mVertices[3].y = 0.5 - (0.1 * sin(mCurrentAngle + 4.71));
+        // mSpriteComponent->mVertices[3].x = -0.5 + (0.1 * cos(mCurrentAngle + 4.71));
+        // mSpriteComponent->mVertices[3].y = 0.5 - (0.1 * sin(mCurrentAngle + 4.71));
     }
 };
 

@@ -36,6 +36,15 @@ namespace HGE {
         }
     };
 
+    struct Transform2f {
+
+        Transform2f(Vector2f localPosition = Vector2f(), float rotation = 0, float scale = 1) { }
+        
+        Vector2f mLocalPosition;
+        float mRotation;
+        float mScale;
+    };
+
 }
 
 #endif
