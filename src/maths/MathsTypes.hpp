@@ -6,7 +6,14 @@
 struct Vector2f {
     float x, y;
 
+    Vector2f() : x(0), y(0) { }
+
     Vector2f(float x, float y) : x(x), y(y) { }
+
+    void setXY(float x, float y) {
+        x = x;
+        y = y;
+    }
 
     std::array<float, 2> asArray2f() {
         return {x, y};

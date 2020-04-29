@@ -105,6 +105,34 @@ unsigned int OpenGlModule::generateVAO(unsigned int &vaoOut, unsigned int &vboOu
     return vaoOut;
 }
 
+void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) {
+
+    float vertices[12];
+    int index;
+    for(int i = 0; i < 3; i++) {
+        Vector2f vertex = pVertices[i];
+        vertices[index++] = vertex.x;
+        vertices[index++] = vertex.y;
+        vertices[index++] = 0;
+    }
+
+    glGenVertexArrays(1, &vaoOut);
+    glGenBuffers(1, &vboOut);
+
+    glBindVertexArray(vaoOut);
+
+    // 2. copy our vertices array in a buffer for OpenGL to use
+    glBindBuffer(GL_ARRAY_BUFFER, vboOut);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    // 3. then set our vertex attributes pointers
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0); 
+
+    glBindVertexArray(0);
+}
+
 /**
  * Draw Triangle
  * Draws a triangle to the screen.

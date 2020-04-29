@@ -34,6 +34,7 @@ class OpenGlModule : public GraphicsModule {
     void startFrame() override;
 
     unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) override;
+    void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) override;
 };
 
 
