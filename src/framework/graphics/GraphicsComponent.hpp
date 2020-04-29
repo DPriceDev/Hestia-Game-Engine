@@ -27,6 +27,7 @@ struct GraphicsComponent : public Component {
 
     std::vector<Vector2f> mVertices;
     Shader* mShader;
+    unsigned int mVAO, mVBO;
 
     std::vector<Vector2f>* getVerticesPointer() {
         return &mVertices;

@@ -18,8 +18,10 @@ class GraphicsModule {
     virtual bool isWindowOpen() = 0;
 
     virtual void startFrame() = 0;
-    virtual void drawTriangle(std::vector<Vector2f>* pVertices, Shader* pShader) = 0;
+    virtual void drawTriangle(Shader* pShader, unsigned int vao) = 0;
     virtual void renderFrame() = 0;
+
+    virtual unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) = 0;
 };
 
 

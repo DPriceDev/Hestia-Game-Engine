@@ -19,5 +19,7 @@ void GameEnvironment::Init() {
 void GameEnvironment::GameLoop() { 
 
     Engine::getInstance()->getObjectManager()->tick();
+    Engine::getInstance()->getGraphicsModule()->startFrame();
     Engine::getInstance()->getSystemManager()->run();
+    Engine::getInstance()->getGraphicsModule()->renderFrame();
 }

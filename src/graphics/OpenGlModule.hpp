@@ -30,8 +30,10 @@ class OpenGlModule : public GraphicsModule {
     bool isWindowOpen() override;
 
     void renderFrame() override;
-    void drawTriangle(std::vector<Vector2f>* pVertices, Shader* pShader) override;
+    void drawTriangle(Shader* pShader, unsigned int vao) override;
     void startFrame() override;
+
+    unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) override;
 };
 
 

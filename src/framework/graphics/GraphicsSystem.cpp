@@ -12,14 +12,12 @@ GraphicsSystem::GraphicsSystem()
 
 void GraphicsSystem::run() {
 
-    Engine::getInstance()->getGraphicsModule()->startFrame();
+    GraphicsComponent* graphicsComponent;
 
     for(auto & component : *mComponents) {
-        GraphicsComponent* graphicsComponent = dynamic_cast<GraphicsComponent*>(component);
+        graphicsComponent = dynamic_cast<GraphicsComponent*>(component);
 
-        // DO THING HERE!
-        Engine::getInstance()->getGraphicsModule()->drawTriangle(graphicsComponent->getVerticesPointer(), graphicsComponent->mShader);
+        Engine::getInstance()->getGraphicsModule()->generateVAO(graphicsComponent->mVAO, graphicsComponent->mVBO, graphicsComponent->getVerticesPointer());
+        Engine::getInstance()->getGraphicsModule()->drawTriangle(graphicsComponent->mShader, graphicsComponent->mVAO);
     }
-
-    Engine::getInstance()->getGraphicsModule()->renderFrame();
 }
