@@ -9,10 +9,10 @@ namespace HGE {
 
     GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
     void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
-    void showFPS(GLFWwindow* pWindow);
+    void showFPS(GLFWwindow* pWindow, std::string &gameTitle);
 
     double lastTime;
-    int nbFrames;
+    int numberOfFrames;
 
     /**
      * Initialize Open Gl Module
@@ -65,7 +65,7 @@ namespace HGE {
      */
     void OpenGlModule::renderFrame() {
 
-        showFPS(mWindow);
+        showFPS(mWindow, mGameTitle);
 
         glfwSwapBuffers(mWindow);
         glfwPollEvents();  
@@ -76,6 +76,10 @@ namespace HGE {
      */
     double OpenGlModule::getGameTime() {
         return glfwGetTime();
+    }
+
+    void OpenGlModule::setGameTitle(const char * title) {
+        mGameTitle = title;
     }
 
     /**
@@ -213,22 +217,22 @@ namespace HGE {
      * Show Fps
      * Displays Fps in the title bar.
      */
-    void showFPS(GLFWwindow* pWindow)
+    void showFPS(GLFWwindow* pWindow, std::string &gameTitle)
     {
         // Measure speed
         double currentTime = glfwGetTime();
         double delta = currentTime - lastTime;
-        nbFrames++;
-        if ( delta >= 1.0 ){ // If last cout was more than 1 sec ago
+        numberOfFrames++;
+        if ( delta >= 1.0 ) {
 
-            double fps = double(nbFrames) / delta;
+            double fps = double(numberOfFrames) / delta;
 
             std::stringstream ss;
-            ss << "title" << " " << "v1" << " [" << fps << " FPS]";
+            ss << gameTitle << " [" << fps << " FPS]";
 
             glfwSetWindowTitle(pWindow, ss.str().c_str());
 
-            nbFrames = 0;
+            numberOfFrames = 0;
             lastTime = currentTime;
         }
     }

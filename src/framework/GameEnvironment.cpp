@@ -8,6 +8,7 @@ namespace HGE {
 
     void HGE::GameEnvironment::Init() {
         //TODO: Replace with some sort of game instance config, load from file?
+        Engine::getInstance()->getGraphicsModule()->setGameTitle("Hestia Game Engine v1.0-Alpha");
         Engine::getInstance()->getObjectManager()->CreateObject<SampleTriangleObject>();
     }
 

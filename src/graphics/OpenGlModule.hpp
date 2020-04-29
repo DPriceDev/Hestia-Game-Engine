@@ -4,6 +4,7 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include <vector>
+#include <string>
 
 #include "GraphicsModule.hpp"
 
@@ -13,6 +14,7 @@ namespace HGE {
 
         private:
         GLFWwindow* mWindow;
+        std::string mGameTitle;
 
         public:
         OpenGlModule() {
@@ -33,6 +35,7 @@ namespace HGE {
         void startFrame() override;
 
         double getGameTime() override;
+        void setGameTitle(const char * title) override;
 
         unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) override;
         void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, Vector2f* pVertices) override;
