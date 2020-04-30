@@ -1,6 +1,7 @@
 #include "SpriteSystem.hpp"
 
 #include "../src/framework/Engine.hpp"
+#include "glm/ext.hpp"
 
 #include <iostream>
 
@@ -11,16 +12,19 @@ SpriteSystem::SpriteSystem()
     LogDebug("Graphics System Created");
     mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<SpriteComponent>();
     mGraphicsModule = Engine::getInstance()->getGraphicsModule();
+
+    mOrthographic = glm::ortho(0.0f, 50.0f, 0.0f, 50.0f);
+
+    float vertices[] = { -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5 };
+    mGraphicsModule->generateSpriteVAO(mSpriteVao, mSpriteVbo, vertices);
 }
 
 void SpriteSystem::run() {
-
     SpriteComponent* spriteComponent;
 
     for(auto & component : *mComponents) {
         spriteComponent = dynamic_cast<SpriteComponent*>(component);
 
-        mGraphicsModule->generateSpriteVAO(spriteComponent->mVAO, spriteComponent->mVBO, spriteComponent->mVertices);
-        mGraphicsModule->drawSprite(spriteComponent->mShader, spriteComponent->mVAO);
+        mGraphicsModule->drawSprite(spriteComponent->mShader, mSpriteVao, spriteComponent->mLocalPosition, mOrthographic);
     }
 }

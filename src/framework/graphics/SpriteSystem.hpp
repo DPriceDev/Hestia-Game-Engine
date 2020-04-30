@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "glm/glm.hpp"
 
 #include "../src/framework/ecs/System.hpp"
 #include "../src/framework/ecs/Component.hpp"
@@ -19,12 +20,13 @@ namespace HGE {
         private:
         std::vector<Component*>* mComponents;
         GraphicsModule* mGraphicsModule;
+        unsigned int mSpriteVao, mSpriteVbo;
+        glm::mat4 mOrthographic;
 
         public:
         SpriteSystem();
 
-        ~SpriteSystem() {
-        }
+        ~SpriteSystem() { }
 
         void run() override;
     };

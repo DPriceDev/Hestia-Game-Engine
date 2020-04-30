@@ -3,6 +3,7 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "glm/glm.hpp"
 
 #include <vector>
 #include <string>
@@ -31,7 +32,7 @@ namespace HGE {
         void drawTriangle(Shader* pShader, unsigned int vao) override;
         void startFrame() override;
 
-        void drawSprite(Shader* pShader, unsigned int VAO) override;
+        void drawSprite(Shader* pShader, unsigned int vao, glm::vec3 local, glm::mat4 screenProjection) override;
 
         double getGameTime() override;
         void setGameTitle(const char * title) override;

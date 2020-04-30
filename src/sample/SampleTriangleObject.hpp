@@ -23,10 +23,10 @@ class SampleTriangleObject : public HGE::Object {
     void onCreate() override {
         mSpriteComponent = new HGE::SpriteComponent();
 
-        mSpriteComponent->setWidth(1.0f);
-        mSpriteComponent->setHeight(1.0f);
+        mSpriteComponent->mLocalPosition.x = 25.0f;
+        mSpriteComponent->mLocalPosition.y = 25.0f;
 
-        mSpriteComponent->mShader = new HGE::Shader("./assets/shaders/vertexShader.vs", "./assets/shaders/fragmentShader.fs");
+        mSpriteComponent->mShader = new HGE::Shader("./assets/shaders/basicSpriteVertexShader.vs", "./assets/shaders/fragmentShader.fs");
  
         registerComponent(mSpriteComponent);
     }
