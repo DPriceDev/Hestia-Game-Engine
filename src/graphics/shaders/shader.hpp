@@ -2,7 +2,7 @@
 #define GRAPHICS_SHADER_HPP
 
 #include "glad/glad.h"
-#include "glm/glm.hpp"
+#include "glm/glm/glm.hpp"
 #include <string>
 
 namespace HGE {

@@ -1,7 +1,7 @@
 #ifndef HESTIA_GRAPHICS_GRAPHICSMODULE_HPP_
 #define HESTIA_GRAPHICS_GRAPHICSMODULE_HPP_
 
-#include "glm/glm.hpp"
+#include "glm/glm/glm.hpp"
 
 #include "../src/maths/MathsTypes.hpp"
 #include "../src/graphics/shaders/Shader.hpp"

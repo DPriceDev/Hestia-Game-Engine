@@ -5,13 +5,13 @@ CXXFLAGS = -std=c++17 -O3 -MMD
 BINARYFLAGS = -std=c++17 -O3
 FRAMEWORKS = -framework Cocoa -framework IOKit -framework OpenGl
 LIBS = -lglfw3
-INCLUDES = -I ./src/framework/Engine.hpp -I ./include
+INCLUDES = -I ./include/glm -I ./include
 
 SRC_DIR = ./src
 BUILD_DIR = ./build
 OUTPUT_DIR = ./output
 
-SRCS = $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*/*.cpp) $(wildcard */*/*/*/*.cpp) $(wildcard */*.c)  $(wildcard */*/*.c) $(wildcard */*/*/*.c) 
+SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp) $(wildcard src/*/*/*/*.cpp) $(wildcard src/*.c)  $(wildcard src/*/*.c) $(wildcard src/*/*/*.c) 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 MKDIR_P = mkdir -p
 

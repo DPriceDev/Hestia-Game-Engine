@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include "glm/glm.hpp"
+#include "glm/glm/glm.hpp"
 
 #include "../src/framework/ecs/System.hpp"
 #include "../src/framework/ecs/Component.hpp"

@@ -1,7 +1,7 @@
 #include "SpriteSystem.hpp"
 
 #include "../src/framework/Engine.hpp"
-#include "glm/ext.hpp"
+#include "glm/glm/ext.hpp"
 
 #include <iostream>
 

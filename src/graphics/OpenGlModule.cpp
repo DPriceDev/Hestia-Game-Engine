@@ -2,9 +2,9 @@
 
 #include <iostream>
 #include <sstream>
-#include "glm/ext.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include <glm/gtx/transform.hpp>
+#include "glm/glm/ext.hpp"
+#include "glm/glm/gtc/matrix_transform.hpp"
+#include <glm/glm/gtx/transform.hpp>
 
 #include "shaders/Shader.hpp"
 
