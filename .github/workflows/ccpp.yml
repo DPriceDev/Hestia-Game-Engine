@@ -13,8 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: configure
-      run: ./configure
     - name: get-cmake
       uses: lukka/get-cmake@v3.17.1
     - name: make
