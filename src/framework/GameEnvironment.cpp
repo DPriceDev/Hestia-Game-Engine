@@ -1,51 +1,25 @@
-#include "GameEnvironment.hpp"
+#include "framework/GameEnvironment.hpp"
 
-/**
- * 
- */
-void GameEnvironment::Init() {
-    //TODO: Replace with some sort of game instance config, load from file?
-    AddObject(new SampleTriangleObject());
-}
+#include "sample/SampleTriangleObject.hpp"
 
-/**
- * 
- */
-void GameEnvironment::GameLoop() {
-    for(auto & object : mObjects) {
-        object->tick();
-    }
-}
+#include "framework/Engine.hpp"
 
-void GameEnvironment::AddObject(Object* object) {
-    auto it = std::find(mObjects.begin(), mObjects.end(), object);
+namespace HGE {
 
-    if(it == mObjects.end()) {
-        mObjects.push_back(object);
+    void HGE::GameEnvironment::Init() {
+        //TODO: Replace with some sort of game instance config, load from file?
+        Engine::getInstance()->getGraphicsModule()->setGameTitle("Hestia Game Engine v1.0-Alpha");
 
-        if (Viewable* viewable = dynamic_cast<Viewable*>(object)) {
-            mGraphicsController->AddViewable(viewable);
+        for(int i = 0; i < 10; i++) {
+            Engine::getInstance()->getObjectManager()->CreateObject<SampleTriangleObject>();
         }
     }
-}
 
-void GameEnvironment::RemoveObject(Object* object) {
-    auto it = std::find(mObjects.begin(), mObjects.end(), object);
-
-    if(it != mObjects.end()) {
-        mObjects.erase(it);
-
-        if (Viewable* viewable = dynamic_cast<Viewable*>(object)) {
-            mGraphicsController->RemoveViewable(viewable);
-        }
+    void HGE::GameEnvironment::GameLoop() { 
+        Engine::getInstance()->getObjectManager()->tick();
+        Engine::getInstance()->getGraphicsModule()->startFrame();
+        Engine::getInstance()->getSystemManager()->run();
+        Engine::getInstance()->getGraphicsModule()->renderFrame();
     }
-}
 
-Object* GameEnvironment::GetObject(long id) {
-    auto it = std::find_if(mObjects.begin(), mObjects.end(), [id] (const auto & object) { return object->getId() == id; });
-    if(it != mObjects.end()) {
-        return *it;
-    } else {
-        return nullptr;
-    }
 }
