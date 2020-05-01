@@ -13,7 +13,7 @@ SpriteSystem::SpriteSystem()
     mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<SpriteComponent>();
     mGraphicsModule = Engine::getInstance()->getGraphicsModule();
 
-    mOrthographic = glm::ortho(0.0f, 50.0f, 0.0f, 50.0f);
+    mOrthographic = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
 
     float vertices[] = { -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5 };
     mGraphicsModule->generateSpriteVAO(mSpriteVao, mSpriteVbo, vertices);
@@ -25,6 +25,6 @@ void SpriteSystem::run() {
     for(auto & component : *mComponents) {
         spriteComponent = dynamic_cast<SpriteComponent*>(component);
 
-        mGraphicsModule->drawSprite(spriteComponent->mShader, mSpriteVao, spriteComponent->mLocalPosition, mOrthographic);
+        mGraphicsModule->drawSprite(spriteComponent->mShader, mSpriteVao, spriteComponent->mTransform, mOrthographic);
     }
 }

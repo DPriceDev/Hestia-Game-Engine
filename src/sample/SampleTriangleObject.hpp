@@ -9,6 +9,7 @@
 
 #include "../src/framework/ecs/Object.hpp"
 #include "../src/framework/graphics/SpriteComponent.hpp"
+#include "../src/maths/HGEMath.hpp"
 
 #include "../util/Logger.hpp"
 
@@ -17,14 +18,23 @@ class SampleTriangleObject : public HGE::Object {
     private:
     HGE::SpriteComponent* mSpriteComponent;
 
-    float mCurrentAngle;
+    float rotation;
+
+    float initialX, initialY;
 
     public:
     void onCreate() override {
         mSpriteComponent = new HGE::SpriteComponent();
 
-        mSpriteComponent->mLocalPosition.x = 25.0f;
-        mSpriteComponent->mLocalPosition.y = 25.0f;
+        HGE::randomFloatBetween(initialX, 100.0f, 700.0f);
+        HGE::randomFloatBetween(initialY, 100.0f, 500.0f);
+
+        HGE::randomFloatBetween(rotation, 0.0f, 6.28f);
+
+        mSpriteComponent->mTransform.mLocalPosition.x = initialX;
+        mSpriteComponent->mTransform.mLocalPosition.y = initialY;
+        HGE::randomFloatBetween(mSpriteComponent->mTransform.mScale.x, 20.0f, 40.0f);
+        HGE::randomFloatBetween(mSpriteComponent->mTransform.mScale.y, 20.0f, 40.0f);
 
         mSpriteComponent->mShader = new HGE::Shader("./assets/shaders/basicSpriteVertexShader.vs", "./assets/shaders/fragmentShader.fs");
  
@@ -32,19 +42,13 @@ class SampleTriangleObject : public HGE::Object {
     }
 
     void tick(double deltaTime) override {
-        mCurrentAngle += 6.28 * deltaTime;
 
-        // mSpriteComponent->mVertices[0].x = -0.5 + (0.1 * cos(mCurrentAngle));
-        // mSpriteComponent->mVertices[0].y = -0.5 + (0.1 * sin(mCurrentAngle));
+        mSpriteComponent->mTransform.mRotation += 360/3 * deltaTime;
 
-        // mSpriteComponent->mVertices[1].x = 0.5 - (0.1 * cos(mCurrentAngle + 1.57));
-        // mSpriteComponent->mVertices[1].y = -0.5 + (0.1 * sin(mCurrentAngle + 1.57));
+        rotation += 6.28 * deltaTime;
 
-        // mSpriteComponent->mVertices[2].x = 0 + (0.1 * cos(mCurrentAngle + 3.14));
-        // mSpriteComponent->mVertices[2].y = 0.5 - (0.1 * sin(mCurrentAngle + 3.14));
-
-        // mSpriteComponent->mVertices[3].x = -0.5 + (0.1 * cos(mCurrentAngle + 4.71));
-        // mSpriteComponent->mVertices[3].y = 0.5 - (0.1 * sin(mCurrentAngle + 4.71));
+        mSpriteComponent->mTransform.mLocalPosition.x = initialX + (50.0f * sin(rotation));
+        mSpriteComponent->mTransform.mLocalPosition.y = initialY + (50.0f * cos(rotation));
     }
 };
 

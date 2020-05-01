@@ -30,7 +30,6 @@ namespace HGE {
         /* Adds a component to its corrosponding array within the component array map. */
         void addComponentToMappedArray(Component* component) {
             mMappedComponentArrays[component->getTag()]->push_back(component);
-            LogDebug("Component added to array");
         }
 
         /* Checks if a component array exists within the map by the component tag. */

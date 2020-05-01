@@ -5,7 +5,6 @@
 
 #include "../src/maths/MathsTypes.hpp"
 #include "../src/graphics/shaders/Shader.hpp"
-#include "../src/maths/MathsTypes.hpp"
 
 namespace HGE {
 
@@ -23,7 +22,7 @@ namespace HGE {
         virtual void drawTriangle(Shader* pShader, unsigned int vao) = 0;
         virtual void renderFrame() = 0;
 
-        virtual void drawSprite(Shader* pShader, unsigned int vao, glm::vec3 local, glm::mat4 screenProjection) = 0;
+        virtual void drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) = 0;
 
         virtual double getGameTime() = 0;
         virtual void setGameTitle(const char * title) = 0;

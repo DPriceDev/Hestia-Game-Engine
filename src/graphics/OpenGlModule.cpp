@@ -3,6 +3,8 @@
 #include <iostream>
 #include <sstream>
 #include "glm/ext.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include <glm/gtx/transform.hpp>
 
 #include "shaders/Shader.hpp"
 
@@ -163,9 +165,11 @@ void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut,
 }
 
 /* */
-void OpenGlModule::drawSprite(Shader* pShader, unsigned int vao, glm::vec3 local, glm::mat4 screenProjection) {
+void OpenGlModule::drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) {
 
-    glm::mat4 model = glm::translate(glm::mat4(1.0), local);
+    glm::mat4 translation = glm::translate(glm::mat4(1.0), glm::vec3(localTransform.mLocalPosition.x, localTransform.mLocalPosition.y, 1.0));
+    glm::mat4 rotation = glm::rotate(translation, glm::radians(localTransform.mRotation), glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 model = glm::scale(rotation, glm::vec3(localTransform.mScale.x, localTransform.mScale.y, 1.0f));
 
     // make array
     pShader->useShader();

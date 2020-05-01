@@ -32,7 +32,7 @@ namespace HGE {
         void drawTriangle(Shader* pShader, unsigned int vao) override;
         void startFrame() override;
 
-        void drawSprite(Shader* pShader, unsigned int vao, glm::vec3 local, glm::mat4 screenProjection) override;
+        void drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) override;
 
         double getGameTime() override;
         void setGameTitle(const char * title) override;
