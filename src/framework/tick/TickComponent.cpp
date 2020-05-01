@@ -1,8 +1,8 @@
-#include "TickComponent.hpp"
+#include "framework/tick/TickComponent.hpp"
 
-#include "../src/framework/Engine.hpp"
+#include "framework/Engine.hpp"
 
-#include "TickSystem.hpp"
+#include "framework/tick/TickSystem.hpp"
 
 namespace HGE {
 

@@ -4,7 +4,7 @@
 #include <set>
 
 #include "System.hpp"
-#include "../src/util/Logger.hpp"
+#include "util/Logger.hpp"
 
 namespace HGE {
     

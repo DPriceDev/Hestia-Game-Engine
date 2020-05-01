@@ -9,7 +9,7 @@
 #include <string>
 
 #include "GraphicsModule.hpp"
-#include "../src/maths/MathsTypes.hpp"
+#include "maths/MathsTypes.hpp"
 
 namespace HGE {
 

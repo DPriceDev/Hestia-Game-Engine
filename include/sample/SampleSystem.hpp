@@ -4,12 +4,12 @@
 #include <iostream>
 #include <vector>
 
-#include "../src/framework/ecs/System.hpp"
-#include "../src/framework/ecs/Component.hpp"
+#include "framework/ecs/System.hpp"
+#include "framework/ecs/Component.hpp"
 
-#include "../util/Logger.hpp"
+#include "util/Logger.hpp"
 
-#include "SampleComponent.hpp"
+#include "sample/SampleComponent.hpp"
 
 class SampleSystem : public HGE::System {
 

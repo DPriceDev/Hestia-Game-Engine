@@ -1,4 +1,6 @@
-#include "Engine.hpp"
+#include "framework/Engine.hpp"
+
+using namespace HGE;
 
 /* */
 bool HGE::Engine::Init(GraphicsModule* graphicsModule) {

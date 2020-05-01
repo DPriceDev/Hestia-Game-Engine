@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Component.hpp"
-#include "../src/util/UidLib.hpp"
+#include "util/UidLib.hpp"
 
 namespace HGE {
     

@@ -3,8 +3,8 @@
 
 #include "glm/glm/glm.hpp"
 
-#include "../src/maths/MathsTypes.hpp"
-#include "../src/graphics/shaders/Shader.hpp"
+#include "maths/MathsTypes.hpp"
+#include "graphics/Shader.hpp"
 
 namespace HGE {
 

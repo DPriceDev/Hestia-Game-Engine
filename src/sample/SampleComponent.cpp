@@ -1,8 +1,8 @@
-#include "SampleComponent.hpp"
+#include "sample/SampleComponent.hpp"
 
-#include "../framework/Engine.hpp"
+#include "framework/Engine.hpp"
 
-#include "SampleSystem.hpp"
+#include "sample/SampleSystem.hpp"
 
 void SampleComponent::registerSystem() {
         HGE::Engine::getInstance()->getSystemManager()->registerSystem<SampleSystem>();

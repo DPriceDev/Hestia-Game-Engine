@@ -1,6 +1,6 @@
-#include "SpriteSystem.hpp"
+#include "framework/graphics/SpriteSystem.hpp"
 
-#include "../src/framework/Engine.hpp"
+#include "framework/Engine.hpp"
 #include "glm/glm/ext.hpp"
 
 #include <iostream>

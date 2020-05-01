@@ -1,8 +1,6 @@
-#include "SpriteComponent.hpp"
-
-#include "../src/framework/Engine.hpp"
-
-#include "SpriteSystem.hpp"
+#include "framework/graphics/SpriteComponent.hpp"
+#include "framework/Engine.hpp"
+#include "framework/graphics/SpriteSystem.hpp"
 
 using namespace HGE;
 

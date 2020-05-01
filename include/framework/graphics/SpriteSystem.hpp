@@ -5,13 +5,13 @@
 #include <vector>
 #include "glm/glm/glm.hpp"
 
-#include "../src/framework/ecs/System.hpp"
-#include "../src/framework/ecs/Component.hpp"
+#include "framework/ecs/System.hpp"
+#include "framework/ecs/Component.hpp"
 
-#include "../src/util/Logger.hpp"
+#include "util/Logger.hpp"
 
-#include "SpriteComponent.hpp"
-#include "../src/graphics/GraphicsModule.hpp"
+#include "framework/graphics/SpriteComponent.hpp"
+#include "graphics/GraphicsModule.hpp"
 
 namespace HGE {
 

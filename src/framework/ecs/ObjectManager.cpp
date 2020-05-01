@@ -1,12 +1,12 @@
-#include "ObjectManager.hpp"
+#include "framework/ecs/ObjectManager.hpp"
 
 #include <chrono>
 #include <iostream>
 
-#include "../src/framework/Engine.hpp"
+#include "framework/Engine.hpp"
 
-#include "Object.hpp"
-#include "../src/util/Logger.hpp"
+#include "framework/ecs/Object.hpp"
+#include "util/Logger.hpp"
 
 namespace HGE {
 

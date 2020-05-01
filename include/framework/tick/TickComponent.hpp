@@ -5,11 +5,11 @@
 #include <vector>
 #include <functional>
 
-#include "../src/framework/ecs/Component.hpp"
+#include "framework/ecs/Component.hpp"
 
-#include "../src/maths/MathsTypes.hpp"
+#include "maths/MathsTypes.hpp"
 
-#include "../src/util/Logger.hpp"
+#include "util/Logger.hpp"
 
 typedef void (*tickfunc_t)(float);
 

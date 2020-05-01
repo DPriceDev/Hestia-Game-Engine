@@ -4,12 +4,12 @@
 #include <iostream>
 #include <vector>
 
-#include "../src/framework/ecs/Component.hpp"
+#include "framework/ecs/Component.hpp"
 
-#include "../src/maths/MathsTypes.hpp"
-#include "../src/graphics/shaders/Shader.hpp"
+#include "maths/MathsTypes.hpp"
+#include "graphics/Shader.hpp"
 
-#include "../src/util/Logger.hpp"
+#include "util/Logger.hpp"
 
 namespace HGE {
 

@@ -5,7 +5,7 @@ CXXFLAGS = -std=c++17 -O3 -MMD
 BINARYFLAGS = -std=c++17 -O3
 FRAMEWORKS = -framework Cocoa -framework IOKit -framework OpenGl
 LIBS = -lglfw3
-INCLUDES = -I ./include/glm -I ./include
+INCLUDES = -I ./include/glm -Iinclude
 
 SRC_DIR = ./src
 BUILD_DIR = ./build

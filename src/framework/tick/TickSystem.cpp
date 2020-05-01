@@ -1,6 +1,6 @@
-#include "TickSystem.hpp"
+#include "framework/tick/TickSystem.hpp"
 
-#include "../src/framework/Engine.hpp"
+#include "framework/Engine.hpp"
 
 #include <iostream>
 

@@ -5,9 +5,9 @@
 #include "ecs/ComponentManager.hpp"
 #include "ecs/ObjectManager.hpp"
 
-#include "../src/graphics/GraphicsModule.hpp"
+#include "graphics/GraphicsModule.hpp"
 
-#include "../src/framework/graphics/GraphicsSystem.hpp"
+#include "framework/graphics/GraphicsSystem.hpp"
 namespace HGE {
 
     class Engine {

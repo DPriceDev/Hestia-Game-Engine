@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "../src/framework/ecs/System.hpp"
-#include "../src/framework/ecs/Component.hpp"
+#include "framework/ecs/System.hpp"
+#include "framework/ecs/Component.hpp"
 
-#include "../src/util/Logger.hpp"
+#include "util/Logger.hpp"
 
 #include "TickComponent.hpp"
 

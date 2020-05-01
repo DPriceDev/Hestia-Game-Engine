@@ -1,6 +1,6 @@
-#include "Object.hpp"
+#include "framework/ecs/Object.hpp"
 
-#include "../src/framework/Engine.hpp"
+#include "framework/Engine.hpp"
 
 namespace HGE {
 

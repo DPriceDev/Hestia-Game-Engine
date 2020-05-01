@@ -1,8 +1,8 @@
-#include "GraphicsComponent.hpp"
+#include "framework/graphics/GraphicsComponent.hpp"
 
-#include "../src/framework/Engine.hpp"
+#include "framework/Engine.hpp"
 
-#include "GraphicsSystem.hpp"
+#include "framework/graphics/GraphicsSystem.hpp"
 
 namespace HGE {
 

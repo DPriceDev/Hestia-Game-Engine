@@ -6,7 +6,7 @@
 #include <string>
 
 #include "Component.hpp"
-#include "../src/util/Logger.hpp"
+#include "util/Logger.hpp"
 
 namespace HGE {
     

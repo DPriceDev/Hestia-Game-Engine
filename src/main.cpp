@@ -7,7 +7,7 @@
 #include "framework/Engine.hpp"
 #include "framework/GameEnvironment.hpp"
 
-#include "../src/graphics/OpenGlModule.hpp"
+#include "graphics/OpenGlModule.hpp"
 
 /* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);

@@ -1,4 +1,4 @@
-#include "OpenGlModule.hpp"
+#include "graphics/OpenGlModule.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -6,7 +6,7 @@
 #include "glm/glm/gtc/matrix_transform.hpp"
 #include <glm/glm/gtx/transform.hpp>
 
-#include "shaders/Shader.hpp"
+#include "graphics/Shader.hpp"
 
 using namespace HGE;
 

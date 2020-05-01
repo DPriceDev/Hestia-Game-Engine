@@ -1,8 +1,8 @@
-#include "GameEnvironment.hpp"
+#include "framework/GameEnvironment.hpp"
 
-#include "../src/sample/SampleTriangleObject.hpp"
+#include "sample/SampleTriangleObject.hpp"
 
-#include "Engine.hpp"
+#include "framework/Engine.hpp"
 
 namespace HGE {
 

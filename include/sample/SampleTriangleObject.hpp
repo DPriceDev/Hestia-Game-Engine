@@ -7,11 +7,11 @@
 
 #include "math.h"
 
-#include "../src/framework/ecs/Object.hpp"
-#include "../src/framework/graphics/SpriteComponent.hpp"
-#include "../src/maths/HGEMath.hpp"
+#include "framework/ecs/Object.hpp"
+#include "framework/graphics/SpriteComponent.hpp"
+#include "maths/HGEMath.hpp"
 
-#include "../util/Logger.hpp"
+#include "util/Logger.hpp"
 
 class SampleTriangleObject : public HGE::Object {
 
