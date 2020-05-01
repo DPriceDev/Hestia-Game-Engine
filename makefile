@@ -199,7 +199,7 @@ uninstall: cmake_check_build_system
 
 # fast build rule for target.
 uninstall/fast:
-	$(MAKE) $(MAKESILENT) -f include/glfw/CMakeFiles/uninstall.dir/build.make include/glfw/CMakeFiles/uninstall.dir/build
+	$(MAKE) $(MAKESILENT) -f depends/glfw/CMakeFiles/uninstall.dir/build.make depends/glfw/CMakeFiles/uninstall.dir/build
 .PHONY : uninstall/fast
 
 #=============================================================================
@@ -212,7 +212,7 @@ glfw: cmake_check_build_system
 
 # fast build rule for target.
 glfw/fast:
-	$(MAKE) $(MAKESILENT) -f include/glfw/src/CMakeFiles/glfw.dir/build.make include/glfw/src/CMakeFiles/glfw.dir/build
+	$(MAKE) $(MAKESILENT) -f depends/glfw/src/CMakeFiles/glfw.dir/build.make depends/glfw/src/CMakeFiles/glfw.dir/build
 .PHONY : glfw/fast
 
 src/framework/Engine.o: src/framework/Engine.cpp.o

@@ -10,8 +10,8 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
-add_subdirectory(include/glfw)
-include_directories(include/glfw/include)
+add_subdirectory(depends/glfw)
+include_directories(depends/glfw/include)
 
 find_package(OpenGL REQUIRED)
 
@@ -35,7 +35,8 @@ set (
       include/glfw
       include/glfw/include
       include/glfw/include/GLFW
-      include/glm
+      depends/glm
+      depends
       include/glad
     )
 
