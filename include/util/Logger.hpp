@@ -7,9 +7,10 @@
 /**
  * Log a debug message to console
  * TODO: Add array of items that will follow?
+ * TODO: Add to separate thread
  */
-static void LogDebug(std::string msg) {
-    std::cout << "LOG - DEBUG: " << msg << std::endl;
+static void LogDebug(std::string tag, std::string msg) {
+    std::cout << "DEBUG: " << tag << " - " << msg << std::endl;
 }
 
 #endif

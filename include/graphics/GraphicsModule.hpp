@@ -11,7 +11,7 @@ namespace HGE {
     class GraphicsModule {
 
         public:
-        virtual ~GraphicsModule() { }
+        virtual ~GraphicsModule() = default;
 
         virtual bool init() = 0;
         virtual void terminate() = 0;

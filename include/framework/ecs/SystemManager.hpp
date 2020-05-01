@@ -18,7 +18,7 @@ namespace HGE {
         void registerSystem() {
             T* system = new T();
             mSystems.insert(system);
-            LogDebug("System Registered");
+            LogDebug("System Manager","System Registered");
         }
 
         void run() {

@@ -20,8 +20,8 @@ namespace HGE {
         std::string mGameTitle;
 
         public:
-        OpenGlModule() { }
-        ~OpenGlModule() { }
+        OpenGlModule();
+        ~OpenGlModule();
 
         bool init() override;
         void terminate() override;

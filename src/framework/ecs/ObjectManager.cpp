@@ -16,7 +16,7 @@ namespace HGE {
     }
 
     void ObjectManager::AddObject(Object* object) {
-        LogDebug("Added to object controller stack");
+        LogDebug("Object Manager", "Added to object vector array");
         mObjects.push_back(object);
     }
 

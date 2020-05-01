@@ -10,7 +10,6 @@
 #include "graphics/OpenGlModule.hpp"
 
 /* Function Declarations */
-GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
 HGE::Engine *HGE::Engine::mEngine;
 
 /**

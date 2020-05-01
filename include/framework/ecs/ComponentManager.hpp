@@ -22,7 +22,7 @@ namespace HGE {
 
             component->registerSystem();
 
-            LogDebug("New Array Created");
+            LogDebug("Component Manager","New Array Created");
 
             return pArray;
         }
@@ -54,7 +54,7 @@ namespace HGE {
 
             T* component = new T();
 
-            LogDebug("Component array retrieved.");
+            LogDebug("Component array", "retrieved.");
 
             if(!doesKeyExistInMappedArrays(component->getTag())) {
                 return createNewMappedComponentArray(component);

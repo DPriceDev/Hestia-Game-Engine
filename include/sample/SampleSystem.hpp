@@ -15,7 +15,7 @@ class SampleSystem : public HGE::System {
 
     public:
     SampleSystem() {
-        LogDebug("Sample System Created");
+        LogDebug("Sample System", "Created");
         mComponentArray = HGE::Engine::getInstance()->getComponentManager()->getComponentArray<SampleComponent>();
     }
 

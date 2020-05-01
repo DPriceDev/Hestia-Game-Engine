@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <sstream>
+
 #include "glm/glm/ext.hpp"
 #include "glm/glm/gtc/matrix_transform.hpp"
 #include <glm/glm/gtx/transform.hpp>
@@ -16,6 +17,9 @@ void showFPS(GLFWwindow* pWindow, std::string &gameTitle);
 
 double lastTime;
 int numberOfFrames;
+
+OpenGlModule::OpenGlModule() { }
+OpenGlModule::~OpenGlModule() { }
 
 /**
  * Initialize Open Gl Module
@@ -92,13 +96,20 @@ void OpenGlModule::setGameTitle(const char * title) {
 unsigned int OpenGlModule::generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) {
 
     /* */
-    float vertices[pVertices->size()*3];
-    int index;
-    for(auto & vertex : *pVertices) {
-        vertices[index++] = vertex.x;
-        vertices[index++] = vertex.y;
-        vertices[index++] = 0;
-    }
+    float vertices[] = {
+        0.5f,  0.5f, 0.0f,  // top right
+        0.5f, -0.5f, 0.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f,  // bottom left
+        -0.5f,  0.5f, 0.0f   // top left 
+    };
+
+    unsigned int indices[] = {  // note that we start from 0!
+        0, 1, 3,   // first triangle
+        1, 2, 3    // second triangle
+    };  
+
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
 
     glGenVertexArrays(1, &vaoOut);
     glGenBuffers(1, &vboOut);
@@ -108,6 +119,10 @@ unsigned int OpenGlModule::generateVAO(unsigned int &vaoOut, unsigned int &vboOu
     // 2. copy our vertices array in a buffer for OpenGL to use
     glBindBuffer(GL_ARRAY_BUFFER, vboOut);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
     // 3. then set our vertex attributes pointers
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -122,46 +137,34 @@ unsigned int OpenGlModule::generateVAO(unsigned int &vaoOut, unsigned int &vboOu
 /* */
 void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
 
-    float vertices[12];
-    int index;
-    for(int i = 0; i < 8; i += 2) {
-        vertices[index++] = pVertices[i];
-        vertices[index++] = pVertices[i + 1];
-        vertices[index++] = 0;
-    }
+    unsigned int indices[] = {  // note that we start from 0!
+        0, 1, 3,   // first triangle
+        1, 2, 3    // second triangle
+    };  
 
-    unsigned int indices[] = {
-        0, 1, 2,
-        1, 2, 3
-    };
-
-    /* generate id for vertex array object. */
-    glGenVertexArrays(1, &vaoOut);
-
-    /* generate id for vertex buffer object. */
-    glGenBuffers(1, &vboOut);
-
-    /* generate id for element buffer object. */
     unsigned int EBO;
     glGenBuffers(1, &EBO);
 
-    /* bind VAO */
+    glGenVertexArrays(1, &vaoOut);
+    glGenBuffers(1, &vboOut);
+
     glBindVertexArray(vaoOut);
 
-    /* bind the vertices for the sprite. */
+    // 2. copy our vertices array in a buffer for OpenGL to use
     glBindBuffer(GL_ARRAY_BUFFER, vboOut);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(float), pVertices, GL_STATIC_DRAW);
 
-    /* Bind the Element buffer for the shared vertices. */
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    /* Vertex data (currently just position) attributes */
+    // 3. then set our vertex attributes pointers
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0); 
+    glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0); 
+
     glBindVertexArray(0);
+
 }
 
 /* */

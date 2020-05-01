@@ -4,15 +4,15 @@
 #include <iostream>
 #include <vector>
 
-#include "../framework/ecs/Component.hpp"
+#include "framework/ecs/Component.hpp"
 
-#include "../util/Logger.hpp"
+#include "util/Logger.hpp"
 
 struct SampleComponent : public HGE::Component {
 
     public:
     SampleComponent() : HGE::Component("Sample") {
-        LogDebug("Sample Component Created");
+        LogDebug("Sample Component", "Created");
     }
 
     int value = 5;

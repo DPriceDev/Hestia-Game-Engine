@@ -9,13 +9,14 @@ using namespace HGE;
 
 SpriteSystem::SpriteSystem()
 {
-    LogDebug("Graphics System Created");
+    LogDebug("Graphics System", "Created");
     mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<SpriteComponent>();
     mGraphicsModule = Engine::getInstance()->getGraphicsModule();
 
     mOrthographic = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
 
-    float vertices[] = { -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5 };
+    float vertices[12] = { 0.5, 0.5, 0.0, -0.5, 0.5, 0.0, -0.5, -0.5, 0.0, 0.5, -0.5, 0.0 };
+
     mGraphicsModule->generateSpriteVAO(mSpriteVao, mSpriteVbo, vertices);
 }
 
