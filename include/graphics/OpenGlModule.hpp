@@ -17,7 +17,7 @@
 
 namespace HGE {
 
-    class OpenGlModule : public HGE::GraphicsModule {
+    class OpenGlModule : public GraphicsModule {
 
         private:
         GLFWwindow* mWindow;

@@ -10,7 +10,7 @@
 
 #include "util/Logger.hpp"
 
-#include "framework/graphics/SpriteComponent.hpp"
+#include "framework/sprite/SpriteComponent.hpp"
 #include "graphics/GraphicsModule.hpp"
 
 namespace HGE {

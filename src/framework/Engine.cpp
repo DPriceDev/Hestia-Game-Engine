@@ -3,8 +3,8 @@
 using namespace HGE;
 
 /* */
-bool HGE::Engine::Init(GraphicsModule* graphicsModule) {
-    mGraphicsModule = graphicsModule;
-
+bool Engine::Init(std::unique_ptr<GraphicsModule> graphicsModule) {
+    mGraphicsModule.swap(graphicsModule);
+    graphicsModule.release();
     return mGraphicsModule->init();
 }

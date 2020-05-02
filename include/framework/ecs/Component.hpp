@@ -1,21 +1,23 @@
 #ifndef HESTIA_FRAMEWORK_ECS_COMPONENT_HPP_
 #define HESTIA_FRAMEWORK_ECS_COMPONENT_HPP_
 
+#include <string>
+
 namespace HGE {
     
     class Component {
         
         private:
-        const char * mTag;
+        std::string mTag;
 
         protected:
         // TODO: This may work, may not :S
-        Component(const char * tag) : mTag(tag) { }
+        Component(std::string tag) : mTag(tag) { }
 
         public:
-        ~Component() { }
+        virtual ~Component() = default;
 
-        const char * getTag() {
+        std::string getTag() {
             return mTag;
         }
 

@@ -14,7 +14,7 @@ namespace HGE {
         long id = GenerateUniqueId();
 
         public:
-        ~Object() { }
+        virtual ~Object() = default;
 
         /* Setters and Getters */
         long getId() const {

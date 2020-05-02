@@ -2,6 +2,7 @@
 #define HESTIA_FRAMEWORK_ECS_SYSTEMMANAGER_H_
 
 #include <set>
+#include <memory>
 
 #include "System.hpp"
 #include "util/Logger.hpp"
@@ -11,13 +12,12 @@ namespace HGE {
     class SystemManager {
         
         private:
-        std::set<System*> mSystems;
+        std::set<std::unique_ptr<System>> mSystems;
 
         public:
         template<class T>
         void registerSystem() {
-            T* system = new T();
-            mSystems.insert(system);
+            mSystems.insert(std::unique_ptr<T>(new T()));
             Logger::getInstance()->logDebug("System Manager","System Registered");
         }
 

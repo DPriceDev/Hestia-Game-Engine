@@ -12,25 +12,20 @@
 namespace HGE {
 
     ObjectManager::ObjectManager() {
-        mObjects = std::vector<Object*>();
+        mObjects = std::vector<std::unique_ptr<Object>>();
         start = 0;
     }
 
-    void ObjectManager::AddObject(Object* object) {
-        Logger::getInstance()->logDebug("Object Manager", "Added to object vector array");
-        mObjects.push_back(object);
-    }
-
     Object* ObjectManager::GetObject(long uid) {
-        auto it = std::find_if(mObjects.begin(), mObjects.end(), [&uid] (const Object* pObject) { 
+        auto it = std::find_if(mObjects.begin(), mObjects.end(), [&uid] (const std::unique_ptr<Object> & pObject) { 
             return pObject->getId() == uid;
             });
 
-            return *it;
+            return it->get();
     }
 
     void ObjectManager::DestroyObject(long uid) {
-            auto it = std::find_if(mObjects.begin(), mObjects.end(), [&uid] (const Object* pObject) { 
+            auto it = std::find_if(mObjects.begin(), mObjects.end(), [&uid] (const std::unique_ptr<Object> & pObject) { 
             return pObject->getId() == uid;
             });
             mObjects.erase(it);
