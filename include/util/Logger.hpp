@@ -3,14 +3,50 @@
 
 #include <iostream>
 #include <string>
+#include <queue>
 
-/**
- * Log a debug message to console
- * TODO: Add array of items that will follow?
- * TODO: Add to separate thread
- */
-static void LogDebug(std::string tag, std::string msg) {
-    std::cout << "DEBUG: " << tag << " - " << msg << std::endl;
+#include <thread>
+
+namespace HGE {
+    class Logger {
+
+        static Logger mLogger;
+        std::queue<std::string> mMsgQueue;
+        std::thread mThread;
+        bool mThreadRunning;
+
+        void loggingThreadLoop() {
+
+          while (mThreadRunning) {
+            if (!mMsgQueue.empty()) {
+              std::cout << mMsgQueue.front() << "\n";
+              mMsgQueue.pop();
+            }
+          }
+        }
+
+        Logger() {
+          mThreadRunning = true;
+          mThread = std::thread(&Logger::loggingThreadLoop, this);
+        }
+        
+        public:
+        static Logger* getInstance() {
+            return &mLogger;
+         }
+
+        ~Logger() {
+          mThreadRunning = false;
+          mThread.join();
+        }
+
+        void logDebug(std::string tag, std::string msg) {
+            mMsgQueue.push("DEBUG: " + tag + " - " + msg);
+        }
+
+        void logError(std::string tag, std::string msg) {
+            mMsgQueue.push("ERROR: " + tag + " - " + msg);
+        }
+    };
 }
-
 #endif

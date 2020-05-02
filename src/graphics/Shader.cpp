@@ -1,9 +1,9 @@
 #include "graphics/Shader.hpp"
 
 #include <iostream>
-#include <fstream>
-#include <sstream>
 #include <string>
+
+#include <util/ResourceLoader.hpp>
 
 namespace HGE {
 
@@ -18,33 +18,9 @@ namespace HGE {
 
         std::string vertexCode;
         std::string fragmentCode;
-        std::ifstream vShaderFile;
-        std::ifstream fShaderFile;
 
-        /* Exceptions */
-        vShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-        fShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-
-        try {
-            // open files
-            vShaderFile.open(vertexShaderPath);  
-            fShaderFile.open(fragmentShaderPath);
-
-            std::stringstream vShaderStream, fShaderStream;
-            // read file's buffer contents into streams
-            vShaderStream << vShaderFile.rdbuf();
-            fShaderStream << fShaderFile.rdbuf();
-
-            // close file handlers
-            vShaderFile.close();
-            fShaderFile.close();
-            // convert stream into string
-            vertexCode = vShaderStream.str();
-            fragmentCode = fShaderStream.str();
-
-        } catch(std::ifstream::failure e) {
-            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-        }
+        loadFileIntoString(vertexCode, vertexShaderPath);
+        loadFileIntoString(fragmentCode, fragmentShaderPath);
 
         const char* vShaderCode = vertexCode.c_str();
         const char* fShaderCode = fragmentCode.c_str();

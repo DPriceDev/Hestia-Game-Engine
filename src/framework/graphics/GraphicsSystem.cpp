@@ -8,7 +8,7 @@ namespace HGE {
 
     GraphicsSystem::GraphicsSystem()
     {
-        LogDebug("Graphics System", "Created");
+        Logger::getInstance()->logDebug("Graphics System", "Created");
         mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<GraphicsComponent>();
     }
 

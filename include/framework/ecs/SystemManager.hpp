@@ -18,7 +18,7 @@ namespace HGE {
         void registerSystem() {
             T* system = new T();
             mSystems.insert(system);
-            LogDebug("System Manager","System Registered");
+            Logger::getInstance()->logDebug("System Manager","System Registered");
         }
 
         void run() {

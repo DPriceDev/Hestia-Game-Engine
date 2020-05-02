@@ -9,7 +9,7 @@ using namespace HGE;
 
 SpriteSystem::SpriteSystem()
 {
-    LogDebug("Graphics System", "Created");
+    Logger::getInstance()->logDebug("Graphics System", "Created");
     mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<SpriteComponent>();
     mGraphicsModule = Engine::getInstance()->getGraphicsModule();
 
