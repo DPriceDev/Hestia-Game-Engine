@@ -15,7 +15,7 @@ namespace HGE {
         Component(std::string tag) : mTag(tag) { }
 
         public:
-        ~Component() { }
+        virtual ~Component() = default;
 
         std::string getTag() {
             return mTag;

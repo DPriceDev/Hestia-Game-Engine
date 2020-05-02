@@ -15,7 +15,7 @@ namespace HGE {
         public:
         virtual void run() = 0;
 
-        ~System() { }
+        virtual ~System() = default;
     };
 }
 
