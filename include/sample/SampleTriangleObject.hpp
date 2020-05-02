@@ -10,7 +10,7 @@
 
 #include "framework/Engine.hpp"
 #include "framework/ecs/Object.hpp"
-#include "framework/graphics/SpriteComponent.hpp"
+#include "framework/sprite/SpriteComponent.hpp"
 #include "maths/HGEMath.hpp"
 
 #include "util/Logger.hpp"

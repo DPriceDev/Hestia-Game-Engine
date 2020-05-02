@@ -1,8 +1,9 @@
 #include "framework/GameEnvironment.hpp"
 
 #include "sample/SampleTriangleObject.hpp"
-
 #include "framework/Engine.hpp"
+#include "util/Logger.hpp"
+#include <string>
 
 namespace HGE {
 
@@ -10,9 +11,13 @@ namespace HGE {
         //TODO: Replace with some sort of game instance config, load from file?
         Engine::getInstance()->getGraphicsModule()->setGameTitle("Hestia Game Engine v1.0-Alpha");
 
+        auto start = Engine::getInstance()->getGraphicsModule()->getGameTime();
         for(int i = 0; i < 10; i++) {
             Engine::getInstance()->getObjectManager()->CreateObject<SampleTriangleObject>();
         }
+        auto delta = Engine::getInstance()->getGraphicsModule()->getGameTime() - start;
+        std::string time("Object Time" + std::to_string(delta));
+        Logger::getInstance()->logDebug("Game Environment", time);
     }
 
     void HGE::GameEnvironment::GameLoop() { 
