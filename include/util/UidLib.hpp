@@ -6,8 +6,8 @@
  * TODO: Create a better way of generating and reusing id's.
  * TODO: Integrate with object manager?
  */
-static long GenerateUniqueId() {
-    static unsigned long long int id = 0;
+static int GenerateUniqueId() {
+    static int id = 0;
     return ++id;
 }
 

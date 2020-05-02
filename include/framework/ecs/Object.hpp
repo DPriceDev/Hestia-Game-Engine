@@ -11,13 +11,13 @@ namespace HGE {
     class Object {
 
         protected:
-        long id = GenerateUniqueId();
+        int id = GenerateUniqueId();
 
         public:
         virtual ~Object() = default;
 
         /* Setters and Getters */
-        long getId() const {
+        int getId() const {
         return id;
         }
 

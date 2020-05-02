@@ -23,16 +23,14 @@ namespace HGE {
             return mObjects.back().get();
         }
 
-        Object* GetObject(long uid);
-        void DestroyObject(long uid);
+        Object* GetObject(int uid);
+        void DestroyObject(int uid);
 
         void tick();
 
         ObjectManager();
 
-        ~ObjectManager() {
-            // TODO: Check delete objects here?
-        }
+        ~ObjectManager() { }
     };
 }
 
