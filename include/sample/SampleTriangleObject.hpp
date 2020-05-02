@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <functional>
+#include <memory>
 
 #include "math.h"
 
@@ -17,7 +18,7 @@
 class SampleTriangleObject : public HGE::Object {
 
     private:
-    HGE::SpriteComponent* mSpriteComponent;
+    std::unique_ptr<HGE::SpriteComponent> mSpriteComponent;
 
     float rotation;
 
@@ -25,7 +26,7 @@ class SampleTriangleObject : public HGE::Object {
 
     public:
     void onCreate() override {
-        mSpriteComponent = new HGE::SpriteComponent();
+        mSpriteComponent = std::make_unique<HGE::SpriteComponent>();
 
         HGE::randomFloatBetween(initialX, 100.0f, 700.0f);
         HGE::randomFloatBetween(initialY, 100.0f, 500.0f);
@@ -42,7 +43,7 @@ class SampleTriangleObject : public HGE::Object {
                 ->getShader("./assets/shaders/basicSpriteVertexShader.vs",
                             "./assets/shaders/fragmentShader.fs");
  
-        registerComponent(mSpriteComponent);
+        registerComponent(mSpriteComponent.get());
     }
 
     void tick(double deltaTime) override {
