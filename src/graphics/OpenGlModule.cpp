@@ -7,20 +7,27 @@
 #include "glm/glm/gtc/matrix_transform.hpp"
 #include <glm/glm/gtx/transform.hpp>
 
-#include "graphics/Shader.hpp"
+#include "util/ResourceLoader.hpp"
 #include "util/Logger.hpp"
 
 using namespace HGE;
 
+/* Function Declarations */
 GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 void showFPS(GLFWwindow* pWindow, std::string &gameTitle);
+
+ShaderProgram loadAndBuildShader(const char * vertexShaderPath, const char * fragmentShaderPath);
+bool checkShaderLoadedCorrectly(unsigned int id);
+bool checkProgramLoadedCorrectly(unsigned int id);
 
 double lastTime;
 int numberOfFrames;
 
 OpenGlModule::OpenGlModule() { }
-OpenGlModule::~OpenGlModule() { }
+OpenGlModule::~OpenGlModule() { 
+    // TODO: delete unique pointers
+}
 
 /**
  * Initialize Open Gl Module
@@ -89,6 +96,92 @@ double OpenGlModule::getGameTime() {
 /* */
 void OpenGlModule::setGameTitle(const char * title) {
     mGameTitle = title;
+}
+
+/* */
+Shader* OpenGlModule::getShader(const char * vertexShaderPath, const char * fragmentShaderPath) {
+
+    //check if shader exists, if so, return.
+    auto pair = std::make_pair(vertexShaderPath, fragmentShaderPath);
+    auto it = mShaders.find(pair);
+
+    if(it != mShaders.end()) {
+        Logger::getInstance()->logDebug("OpenGl Module", "Shader Retrieved");
+        return it->second.get();
+    } else {
+         Logger::getInstance()->logDebug("OpenGl Module", "Shader created");
+        ShaderProgram id = loadAndBuildShader(vertexShaderPath, fragmentShaderPath);
+        mShaders.insert(std::make_pair(pair, std::make_unique<Shader>(id)));
+        return mShaders.at(pair).get();
+    }
+}
+
+ShaderProgram loadAndBuildShader(const char * vertexShaderPath, const char * fragmentShaderPath) {
+
+    ShaderProgram id;
+    std::string vertexCode;
+    std::string fragmentCode;
+
+    loadFileIntoString(vertexCode, vertexShaderPath);
+    loadFileIntoString(fragmentCode, fragmentShaderPath);
+
+    const char* vShaderCode = vertexCode.c_str();
+    const char* fShaderCode = fragmentCode.c_str();
+
+    unsigned int vertex, fragment;
+    int success;
+    char infoLog[512];
+    
+    // vertex Shader
+    vertex = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertex, 1, &vShaderCode, NULL);
+    glCompileShader(vertex);
+    checkShaderLoadedCorrectly(vertex);
+
+    // fragment Shader
+    fragment = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragment, 1, &fShaderCode, NULL);
+    glCompileShader(fragment);
+    checkShaderLoadedCorrectly(fragment);
+    
+    // shader Program
+    id = glCreateProgram();
+    glAttachShader(id, vertex);
+    glAttachShader(id, fragment);
+    glLinkProgram(id);
+    checkProgramLoadedCorrectly(id);
+    
+    glDeleteShader(vertex);
+    glDeleteShader(fragment);
+
+    return id;
+}
+
+/* Helper Methods */
+bool checkShaderLoadedCorrectly(unsigned int id) {
+    int success;
+    char infoLog[512];
+
+    glGetShaderiv(id, GL_COMPILE_STATUS, &success);
+    if(!success)
+    {
+        glGetShaderInfoLog(id, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    };
+    return success;
+}
+
+bool checkProgramLoadedCorrectly(unsigned int id) {
+    int success;
+    char infoLog[512];
+
+    glGetProgramiv(id, GL_LINK_STATUS, &success);
+    if(!success)
+    {
+        glGetProgramInfoLog(id, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+    }
+    return success;
 }
 
 /**

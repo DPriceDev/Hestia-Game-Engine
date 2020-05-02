@@ -7,8 +7,12 @@
 
 #include <vector>
 #include <string>
+#include <map>
+#include <utility>
+#include <memory>
 
 #include "GraphicsModule.hpp"
+#include "Shader.hpp"
 #include "maths/MathsTypes.hpp"
 
 namespace HGE {
@@ -18,6 +22,7 @@ namespace HGE {
         private:
         GLFWwindow* mWindow;
         std::string mGameTitle;
+        std::map<std::pair<const char*, const char*>, std::unique_ptr<Shader>> mShaders;
 
         public:
         OpenGlModule();
@@ -33,6 +38,8 @@ namespace HGE {
         void startFrame() override;
 
         void drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) override;
+
+        Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) override;
 
         double getGameTime() override;
         void setGameTitle(const char * title) override;
