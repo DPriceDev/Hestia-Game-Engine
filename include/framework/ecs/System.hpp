@@ -1,6 +1,8 @@
 #ifndef HESTIA_FRAMEWORK_ECS_SYSTEM_H_
 #define HESTIA_FRAMEWORK_ECS_SYSTEM_H_
 
+#include <vector>
+
 #include "Component.hpp"
 
 namespace HGE {
