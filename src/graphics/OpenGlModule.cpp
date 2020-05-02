@@ -7,6 +7,9 @@
 #include "glm/glm/gtc/matrix_transform.hpp"
 #include <glm/glm/gtx/transform.hpp>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb/stb_image.h"
+
 #include "util/ResourceLoader.hpp"
 #include "util/Logger.hpp"
 
@@ -144,11 +147,13 @@ void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut,
 }
 
 /* */
-void OpenGlModule::drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) {
+void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) {
 
     glm::mat4 translation = glm::translate(glm::mat4(1.0), glm::vec3(localTransform.mLocalPosition.x, localTransform.mLocalPosition.y, 1.0));
     glm::mat4 rotation = glm::rotate(translation, glm::radians(localTransform.mRotation), glm::vec3(0.0f, 0.0f, 1.0f));
     glm::mat4 model = glm::scale(rotation, glm::vec3(localTransform.mScale.x, localTransform.mScale.y, 1.0f));
+
+    pMaterial->useTexture();
 
     pShader->useShader();
     pShader->setMat4("model", model);
@@ -263,7 +268,29 @@ ShaderProgram loadAndBuildShader(const char * vertexShaderPath, const char * fra
 }
 
 TextureId loadAndBuildTexture(const char * filename) {
-    return 0;
+
+    unsigned int id;
+    glGenTextures(1, &id);
+    glBindTexture(GL_TEXTURE_2D, id);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    int width, height, nrChannels;
+    unsigned char *data = stbi_load(filename, &width, &height, &nrChannels, 0);
+
+    if (data) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else {
+        Logger::getInstance()->logError("OpenGl Module", "Failed to load texture");
+    }
+    stbi_image_free(data);
+
+    return id;
 }
 
 /* */

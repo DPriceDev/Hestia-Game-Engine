@@ -22,7 +22,7 @@ namespace HGE {
         virtual void startFrame() = 0;
         virtual void renderFrame() = 0;
 
-        virtual void drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) = 0;
+        virtual void drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) = 0;
 
         virtual Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) = 0;
         virtual Material* getMaterial(const char * texturePath) = 0;

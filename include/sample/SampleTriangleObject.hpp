@@ -42,6 +42,10 @@ class SampleTriangleObject : public HGE::Object {
                 ->getGraphicsModule()
                 ->getShader("./assets/shaders/basicSpriteVertexShader.vs",
                             "./assets/shaders/fragmentShader.fs");
+
+        mSpriteComponent->mMaterial = HGE::Engine::getInstance()
+                ->getGraphicsModule()
+                ->getMaterial("./assets/textures/smileyFace.png");
  
         registerComponent(mSpriteComponent.get());
     }

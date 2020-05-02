@@ -26,6 +26,6 @@ void SpriteSystem::run() {
     for(auto & component : *mComponents) {
         spriteComponent = dynamic_cast<SpriteComponent*>(component);
 
-        mGraphicsModule->drawSprite(spriteComponent->mShader, mSpriteVao, spriteComponent->mTransform, mOrthographic);
+        mGraphicsModule->drawSprite(spriteComponent->mShader, spriteComponent->mMaterial, mSpriteVao, spriteComponent->mTransform, mOrthographic);
     }
 }
