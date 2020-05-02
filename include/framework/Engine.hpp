@@ -12,7 +12,6 @@
 namespace HGE {
     class Engine {
         
-        private:
         static Engine* mEngine;
         std::unique_ptr<GraphicsModule> mGraphicsModule;
 
