@@ -4,3 +4,6 @@
 [submodule "depends/glfw"]
 	path = depends/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "depends/stb"]
+	path = depends/stb
+	url = https://github.com/nothings/stb.git

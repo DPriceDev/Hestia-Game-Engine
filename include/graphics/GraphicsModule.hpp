@@ -5,6 +5,7 @@
 
 #include "maths/MathsTypes.hpp"
 #include "graphics/Shader.hpp"
+#include "graphics/Material.hpp"
 
 namespace HGE {
 
@@ -19,17 +20,16 @@ namespace HGE {
         virtual bool isWindowOpen() = 0;
 
         virtual void startFrame() = 0;
-        virtual void drawTriangle(Shader* pShader, unsigned int vao) = 0;
         virtual void renderFrame() = 0;
 
         virtual void drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) = 0;
 
         virtual Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) = 0;
+        virtual Material* getMaterial(const char * texturePath) = 0;
 
         virtual double getGameTime() = 0;
         virtual void setGameTitle(const char * title) = 0;
 
-        virtual unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) = 0;
         virtual void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;
     };
 }
