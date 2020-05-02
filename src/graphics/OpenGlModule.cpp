@@ -120,8 +120,8 @@ Material* OpenGlModule::getMaterial(const char * texturePath) {
 void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
 
     unsigned int indices[] = {
-        0, 1, 3,   // first triangle
-        1, 2, 3    // second triangle
+        1, 0, 3,   // first triangle
+        3, 1, 2    // second triangle
     };  
 
     unsigned int ebo;
@@ -133,13 +133,16 @@ void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut,
     glBindVertexArray(vaoOut);
 
     glBindBuffer(GL_ARRAY_BUFFER, vboOut);
-    glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(float), pVertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 16 * sizeof(float), pVertices, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0); 
 
@@ -154,6 +157,8 @@ void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int
     glm::mat4 model = glm::scale(rotation, glm::vec3(localTransform.mScale.x, localTransform.mScale.y, 1.0f));
 
     pMaterial->useTexture();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     pShader->useShader();
     pShader->setMat4("model", model);
@@ -279,10 +284,12 @@ TextureId loadAndBuildTexture(const char * filename) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(1);
     unsigned char *data = stbi_load(filename, &width, &height, &nrChannels, 0);
 
     if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else {

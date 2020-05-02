@@ -35,8 +35,8 @@ class SampleTriangleObject : public HGE::Object {
 
         mSpriteComponent->mTransform.mLocalPosition.x = initialX;
         mSpriteComponent->mTransform.mLocalPosition.y = initialY;
-        HGE::randomFloatBetween(mSpriteComponent->mTransform.mScale.x, 20.0f, 40.0f);
-        HGE::randomFloatBetween(mSpriteComponent->mTransform.mScale.y, 20.0f, 40.0f);
+        HGE::randomFloatBetween(mSpriteComponent->mTransform.mScale.x, 100.0f, 200.0f);
+        mSpriteComponent->mTransform.mScale.y = mSpriteComponent->mTransform.mScale.x;
 
         mSpriteComponent->mShader = HGE::Engine::getInstance()
                 ->getGraphicsModule()
