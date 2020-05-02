@@ -13,6 +13,7 @@
 
 #include "GraphicsModule.hpp"
 #include "Shader.hpp"
+#include "Material.hpp"
 #include "maths/MathsTypes.hpp"
 
 namespace HGE {
@@ -23,6 +24,7 @@ namespace HGE {
         GLFWwindow* mWindow;
         std::string mGameTitle;
         std::map<std::pair<const char*, const char*>, std::unique_ptr<Shader>> mShaders;
+        std::map<const char*, std::unique_ptr<Material>> mMaterials;
 
         public:
         OpenGlModule();
@@ -33,19 +35,17 @@ namespace HGE {
 
         bool isWindowOpen() override;
 
-        void renderFrame() override;
-        void drawTriangle(Shader* pShader, unsigned int vao) override;
-        void startFrame() override;
-
-        void drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) override;
-
-        Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) override;
-
         double getGameTime() override;
         void setGameTitle(const char * title) override;
 
-        unsigned int generateVAO(unsigned int &vaoOut, unsigned int &vboOut, std::vector<Vector2f>* pVertices) override;
+        void renderFrame() override;
+        void startFrame() override;
+
+        Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) override;
+        Material* getMaterial(const char * texturePath) override;
+
         void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) override;
+        void drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) override;
     };
 }
 
