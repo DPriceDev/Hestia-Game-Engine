@@ -1,10 +1,6 @@
 name: C/C++ CI
 
-on:
-  push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
+on: [push, pull_request]
 
 jobs:
   ubuntu_build:
@@ -18,7 +14,7 @@ jobs:
       run: sudo apt-get update -m && sudo apt-get install xorg-dev libglu1-mesa-dev libalut-dev
       shell: bash
 
-    - name: get-cmake
+    - name: run-and-build-cmake
       uses: lukka/run-cmake@v2.3
       with: 
         cmakeListsOrSettingsJson: CMakeListsTxtBasic
@@ -30,11 +26,35 @@ jobs:
   
   mac_os_build:
     runs-on: macos-latest
+    
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: true
 
-    - name: Build mac executable
+    - name: run-and-build-cmake
       uses: lukka/run-cmake@v2.3
       with:
         cmakeListsOrSettingsJson: CMakeListsTxtBasic
         configurationRegexFilter: 'mac-Release'
+        cmakeGenerator: 'Ninja'  
+        buildWithCMakeArgs: '-- -v'
+        buildDirectory: '${{ runner.workspace }}/b/ninja-bash/'
+        useShell: bash
+
+  windows_os_build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - name: run-and-build-cmake
+      uses: lukka/run-cmake@v2.3
+      with:
+        cmakeListsOrSettingsJson: CMakeListsTxtBasic
+        configurationRegexFilter: 'windows-Release'
+        cmakeGenerator: 'Ninja'  
+        buildWithCMakeArgs: '-- -v'
+        buildDirectory: '${{ runner.workspace }}/b/ninja-bash/'
