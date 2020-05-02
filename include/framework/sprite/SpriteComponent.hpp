@@ -20,9 +20,13 @@ namespace HGE {
         Transform2f mTransform; 
         Shader* mShader;
         Material* mMaterial;
+        ColourRGBA mTint;
+        Pointf mAlpha;
 
         SpriteComponent() : Component("Sprite") {
             mTransform = Transform2f();
+            mTint = ColourRGBA(0.0f, 0.0f, 0.0f, 0.0f);
+            mAlpha = 1.0f;
         }
 
         ~SpriteComponent() { }

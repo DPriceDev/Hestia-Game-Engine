@@ -4,9 +4,17 @@
 #include <array>
 
 namespace HGE {
+
+    struct Vector2f;
+    struct Vector3f;
+    struct Vector4f;
+    struct Transform2f;
+    
     using Pointf = float;
     using Rotf = float;
     using Scalef = float;
+    using ColourRGB = Vector3f;
+    using ColourRGBA = Vector4f;
 
     struct Vector2f {
         Pointf x, y;
@@ -34,10 +42,22 @@ namespace HGE {
     struct Vector3f {
         Pointf x, y, z;
 
+        Vector3f() : x(0.0f), y(0.0f), z(0.0f) { }
         Vector3f(Pointf x, Pointf y, Pointf z) : x(x), y(y), z(z) { }
 
         std::array<Pointf, 3> asArray3f() {
             return {x, y, z};
+        }
+    };
+
+        struct Vector4f {
+        Pointf x, y, z, w;
+
+        Vector4f() : x(0.0f), y(0.0f), z(0.0f), w(0.0f) { }
+        Vector4f(Pointf x, Pointf y, Pointf z, Pointf w) : x(x), y(y), z(z), w(w) { }
+
+        std::array<Pointf, 4> asArray4f() {
+            return {x, y, z, w};
         }
     };
 

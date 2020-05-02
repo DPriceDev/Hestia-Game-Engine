@@ -45,7 +45,7 @@ namespace HGE {
         Material* getMaterial(const char * texturePath) override;
 
         void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) override;
-        void drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) override;
+        void drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) override;
     };
 }
 

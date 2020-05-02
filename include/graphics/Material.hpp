@@ -4,15 +4,15 @@
 #include "glad/glad.h"
 #include "glm/glm/glm.hpp"
 
+#include "maths/MathsTypes.hpp"
+
 namespace HGE {
 
     using TextureId = unsigned int;
 
-    class Material {
-
+    struct Material {
         TextureId mId;
 
-        public:
         Material(TextureId id) : mId(id) { }
         ~Material() { }
 

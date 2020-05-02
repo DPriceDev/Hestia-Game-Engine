@@ -151,7 +151,7 @@ void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut,
 }
 
 /* */
-void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) {
+void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
 
     glm::mat4 translation = glm::translate(glm::mat4(1.0), glm::vec3(localTransform.mLocalPosition.x, localTransform.mLocalPosition.y, 1.0));
     glm::mat4 rotation = glm::rotate(translation, glm::radians(localTransform.mRotation), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -161,11 +161,12 @@ void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glm::vec3 tint = glm::vec3(0.0, 1.0, 0.0);
+    glm::vec4 tint4f = glm::vec4(tint.x, tint.y, tint.z, tint.w);
 
     pShader->useShader();
+    pShader->setFloat("alpha", alpha);
     pShader->setMat4("model", model);
-    pShader->setVec3("tint", tint);
+    pShader->setVec4("tint", tint4f);
     pShader->setMat4("screen", screenProjection);
 
     glBindVertexArray(vao);
