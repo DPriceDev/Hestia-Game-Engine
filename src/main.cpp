@@ -26,7 +26,7 @@ int main(void)
         return -1;
     }
 
-    HGE::GameEnvironment* gameEnvironment = new HGE::GameEnvironment();
+    std::unique_ptr<HGE::GameEnvironment> gameEnvironment = std::make_unique<HGE::GameEnvironment>();
     gameEnvironment->Init();
     // TODO: Load inital config and get initial level?
     // TODO: Load inital level and init the gameEnvironment
