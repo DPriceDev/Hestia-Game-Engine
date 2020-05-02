@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <memory>
 
 #include "Component.hpp"
 #include "util/Logger.hpp"
@@ -13,7 +14,7 @@ namespace HGE {
     class ComponentManager {
         
         private:
-        std::map<const char *, std::vector<Component*>*> mMappedComponentArrays;
+        std::map<std::string, std::vector<Component*>*> mMappedComponentArrays;
 
         /* Creates a new component array for the provided component, mapped to the component tag. */
         std::vector<Component*>* createNewMappedComponentArray(Component* component) {
@@ -22,18 +23,18 @@ namespace HGE {
 
             component->registerSystem();
 
-            Logger::getInstance()->logDebug("Component Manager","New Array Created");
+            Logger::getInstance()->logDebug("Component Manager", "New Array Created");
 
             return pArray;
         }
 
-        /* Adds a component to its corrosponding array within the component array map. */
+        /* Adds a component to its corresponding array within the component array map. */
         void addComponentToMappedArray(Component* component) {
             mMappedComponentArrays[component->getTag()]->push_back(component);
         }
 
         /* Checks if a component array exists within the map by the component tag. */
-        bool doesKeyExistInMappedArrays(const char * key) {
+        bool doesKeyExistInMappedArrays(std::string key) {
             return mMappedComponentArrays.find(key) != mMappedComponentArrays.end();
         }
 
@@ -67,7 +68,7 @@ namespace HGE {
 
         /** Constructors and Deconstructors */
         ComponentManager() {
-            mMappedComponentArrays = std::map<const char *, std::vector<Component*>*>();
+            mMappedComponentArrays = std::map<std::string, std::vector<Component*>*>();
         }
 
         ~ComponentManager() { }
