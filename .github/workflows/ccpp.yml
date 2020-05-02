@@ -16,7 +16,9 @@ jobs:
       run: sudo apt-get update -m && sudo apt-get install xorg-dev libglu1-mesa-dev libalut-dev
       shell: bash
     - name: get-cmake
-      uses: lukka/run-cmake@v3.17.1
+      uses: lukka/get-cmake@v3.17.1
+    - name: get-cmake
+      uses: lukka/run-cmake@v2.3
       with: 
         cmakeListsOrSettingsJson: CMakeListsTxtBasic
         configurationRegexFilter: 'Linux-Release'
@@ -25,9 +27,10 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-
+    - name: get-cmake
+      uses: lukka/get-cmake@v3.17.1
     - name: Build mac executable
-      uses: lukka/run-cmake@v3.17.1
+      uses: lukka/run-cmake@v2.3
       with:
         cmakeListsOrSettingsJson: CMakeListsTxtBasic
         configurationRegexFilter: 'mac-Release'
