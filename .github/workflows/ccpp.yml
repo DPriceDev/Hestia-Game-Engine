@@ -7,19 +7,27 @@ on:
     branches: [ develop ]
 
 jobs:
-  build:
-
+  ubuntu_build:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+    - name: install packages
+      run: sudo apt-get update -m && sudo apt-get install xorg-dev libglu1-mesa-dev libalut-dev
+      shell: bash
     - name: get-cmake
       uses: lukka/get-cmake@v3.17.1
       with: 
         cmakeListsOrSettingsJson: CMakeListsTxtBasic
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+        configurationRegexFilter: 'Linux-Release'
+  
+  mac_os_build:
+    runs-on: macos_latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build mac executable
+      uses: lukka/run-cmake@v3.17.1
+      with:
+        cmakeListsOrSettingsJson: CMakeListsTxtBasic
+        configurationRegexFilter: 'mac-Release'
