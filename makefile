@@ -68,10 +68,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/C64258A/repos/2D-Game-Engine
+CMAKE_SOURCE_DIR = /Users/C64258A/repos/Hestia-Game-Engine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/C64258A/repos/2D-Game-Engine
+CMAKE_BINARY_DIR = /Users/C64258A/repos/Hestia-Game-Engine
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -146,9 +146,9 @@ list_install_components/fast: list_install_components
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/C64258A/repos/2D-Game-Engine/CMakeFiles /Users/C64258A/repos/2D-Game-Engine/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/C64258A/repos/Hestia-Game-Engine/CMakeFiles /Users/C64258A/repos/Hestia-Game-Engine/CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/C64258A/repos/2D-Game-Engine/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/C64258A/repos/Hestia-Game-Engine/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
