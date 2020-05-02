@@ -32,12 +32,13 @@ OpenGlModule::OpenGlModule() {
 
 OpenGlModule::~OpenGlModule() { }
 
+/* */
 bool OpenGlModule::init() {
 
     mWindow = OpenGlInit("2D Game Engine", 800, 600);
 
     // vsync
-    glfwSwapInterval(0);
+    glfwSwapInterval(true);
 
     if(mWindow == nullptr) {
         return false;
@@ -160,8 +161,11 @@ void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    glm::vec3 tint = glm::vec3(0.0, 1.0, 0.0);
+
     pShader->useShader();
     pShader->setMat4("model", model);
+    pShader->setVec3("tint", tint);
     pShader->setMat4("screen", screenProjection);
 
     glBindVertexArray(vao);
