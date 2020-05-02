@@ -106,7 +106,6 @@ Shader* OpenGlModule::getShader(const char * vertexShaderPath, const char * frag
     auto it = mShaders.find(pair);
 
     if(it != mShaders.end()) {
-        Logger::getInstance()->logDebug("OpenGl Module", "Shader Retrieved");
         return it->second.get();
     } else {
          Logger::getInstance()->logDebug("OpenGl Module", "Shader created");
