@@ -12,7 +12,7 @@ struct SampleComponent : public HGE::Component {
 
     public:
     SampleComponent() : HGE::Component("Sample") {
-        LogDebug("Sample Component", "Created");
+        HGE::Logger::getInstance()->logDebug("Sample Component", "Created");
     }
 
     int value = 5;

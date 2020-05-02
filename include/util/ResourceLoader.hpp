@@ -23,7 +23,7 @@ namespace HGE {
         
         stringOut = ss.str();
         } catch (std::ifstream::failure e) {
-            LogError("Resource Loader", "Failed to load file.");
+            Logger::getInstance()->logDebug("Resource Loader", "Failed to load file.");
             stringOut = "";
         }
     }

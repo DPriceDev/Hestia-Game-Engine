@@ -8,6 +8,7 @@
 #include <glm/glm/gtx/transform.hpp>
 
 #include "graphics/Shader.hpp"
+#include "util/Logger.hpp"
 
 using namespace HGE;
 
@@ -231,20 +232,20 @@ GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY) {
     /* If the window is not created, log and return error. Also terminate GLFW. */
     if (window == NULL)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        Logger::getInstance()->logError("OpenGl Module", "Failed to create GLFW window");
         return nullptr;
     }
 
     /* If GLAD library is not loaded, log and return error. Also terminate GLFW. */
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        Logger::getInstance()->logError("OpenGl Module", "Failed to initialize GLAD");
         return nullptr;
     } 
 
     /* Set the initial window size. */
     glViewport(0, 0, windowX, windowY);
-    std::cout << "Window Initialized" << std::endl;
+    Logger::getInstance()->logDebug("OpenGl Module", "Window Initialized Successfully.");
 
     return window;
 }

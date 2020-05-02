@@ -9,8 +9,11 @@
 
 #include "graphics/OpenGlModule.hpp"
 
+#include "util/Logger.hpp"
+
 /* Function Declarations */
 HGE::Engine *HGE::Engine::mEngine;
+HGE::Logger HGE::Logger::mLogger;
 
 /**
  * Main Entry Point.

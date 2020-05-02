@@ -17,7 +17,7 @@ namespace HGE {
         
         public:
         GraphicsComponent() : Component("Graphics") {
-            LogDebug("Graphics Component", "Created");
+            Logger::getInstance()->logDebug("Graphics Component", "Created");
             mVertices = std::vector<Vector2f>();
         }
 
