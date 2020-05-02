@@ -24,6 +24,8 @@ namespace HGE {
 
         virtual void drawSprite(Shader* pShader, unsigned int vao, Transform2f localTransform, glm::mat4 screenProjection) = 0;
 
+        virtual Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) = 0;
+
         virtual double getGameTime() = 0;
         virtual void setGameTitle(const char * title) = 0;
 

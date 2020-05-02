@@ -7,18 +7,20 @@
 
 namespace HGE {
 
+    using ShaderProgram = unsigned int;
+
     struct Shader {
 
         private:
-        unsigned int mId;
+        ShaderProgram mId;
 
         public:
-        Shader(const char *vertexShaderPath, const char *fragmentShaderPath);
+        Shader(ShaderProgram id);
         ~Shader();
 
         void useShader();
 
-        unsigned int getShaderId() {
+        ShaderProgram getShaderId() {
             return mId;
         }
 

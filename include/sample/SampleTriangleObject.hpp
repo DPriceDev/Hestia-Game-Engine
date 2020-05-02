@@ -7,6 +7,7 @@
 
 #include "math.h"
 
+#include "framework/Engine.hpp"
 #include "framework/ecs/Object.hpp"
 #include "framework/graphics/SpriteComponent.hpp"
 #include "maths/HGEMath.hpp"
@@ -36,7 +37,10 @@ class SampleTriangleObject : public HGE::Object {
         HGE::randomFloatBetween(mSpriteComponent->mTransform.mScale.x, 20.0f, 40.0f);
         HGE::randomFloatBetween(mSpriteComponent->mTransform.mScale.y, 20.0f, 40.0f);
 
-        mSpriteComponent->mShader = new HGE::Shader("./assets/shaders/basicSpriteVertexShader.vs", "./assets/shaders/fragmentShader.fs");
+        mSpriteComponent->mShader = HGE::Engine::getInstance()
+                ->getGraphicsModule()
+                ->getShader("./assets/shaders/basicSpriteVertexShader.vs",
+                            "./assets/shaders/fragmentShader.fs");
  
         registerComponent(mSpriteComponent);
     }
