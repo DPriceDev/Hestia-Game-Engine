@@ -3,16 +3,17 @@
 
 #include "input/InputTypes.hpp"
 
-namespace {
-
+namespace HGE {
     class InputManager {
 
         public:
         InputManager();
         ~InputManager();
 
-        void registerKeyCallback();
-        void deregisterKeyCallback();
+        bool getKeyValue(KeyType key);
+
+        // void registerKeyCallback();
+        // void deregisterKeyCallback();
     };
 }
 #endif

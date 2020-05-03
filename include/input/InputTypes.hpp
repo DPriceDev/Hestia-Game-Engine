@@ -4,7 +4,7 @@
 namespace HGE {
     using KeyType = unsigned int;
 
-    #define ESCAPE_KEY  0
+    const KeyType ESCAPE_KEY = 256;
 
     #define ZERO_KEY    10
     #define ONE_KEY     11
@@ -16,6 +16,11 @@ namespace HGE {
     #define SEVEN_KEY   17
     #define EIGHT_KEY   18
     #define NINE_KEY    19
+
+    const KeyType UP_ARROW_KEY =    265;
+    const KeyType DOWN_ARROW_KEY =  264;
+    const KeyType LEFT_ARROW_KEY =  263;
+    const KeyType RIGHT_ARROW_KEY = 262;
 }
 
 #endif

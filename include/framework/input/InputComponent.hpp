@@ -2,6 +2,7 @@
 #define HESTIA_FRAMEWORK_INPUT_COMPONENT_HPP_
 
 #include <vector>
+#include <map>
 #include <utility>
 
 #include "framework/ecs/Component.hpp"
@@ -11,13 +12,16 @@ namespace HGE {
 
     struct InputComponent : Component {
 
-        std::vector<std::pair<KeyType, bool>> mKeys;
+        std::map<KeyType, bool> mKeys;
 
         InputComponent() : Component("Input") {
-            mKeys = std::vector<std::pair<KeyType, bool>>();
+            mKeys = std::map<KeyType, bool>();
         }
         ~InputComponent() { }
 
+        void addKey(KeyType key);
+        void removeKey(KeyType key);
+        bool getKeyValue(KeyType key);
         void registerSystem() override;
     };
 }

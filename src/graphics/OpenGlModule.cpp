@@ -87,6 +87,11 @@ void OpenGlModule::setGameTitle(const char * title) {
 }
 
 /* */
+bool OpenGlModule::getKeyValue(KeyType key) {
+    return glfwGetKey(mWindow, key) == GLFW_PRESS;
+}
+
+/* */
 Shader* OpenGlModule::getShader(const char * vertexShaderPath, const char * fragmentShaderPath) {
 
     auto pair = std::make_pair(vertexShaderPath, fragmentShaderPath);

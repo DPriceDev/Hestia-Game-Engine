@@ -36,6 +36,7 @@ namespace HGE {
         virtual void setGameTitle(const char * title) = 0;
 
         virtual void setKeyCallback(KeyType key) = 0;
+        virtual bool getKeyValue(KeyType key) = 0;
 
         virtual void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;
         virtual void generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;

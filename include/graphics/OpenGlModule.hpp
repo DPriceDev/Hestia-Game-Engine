@@ -38,6 +38,8 @@ namespace HGE {
         double getGameTime() override;
         void setGameTitle(const char * title) override;
 
+        bool getKeyValue(KeyType key) override;
+
         void setKeyCallback(KeyType key) override {
             
         }
