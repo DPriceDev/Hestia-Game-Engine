@@ -5,17 +5,16 @@ project(hestia-game-engine VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+find_package(OpenGL REQUIRED)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(depends/glfw)
-include_directories(depends/glfw/include)
-include_directories(depends/stb)
-
-find_package(OpenGL REQUIRED)
-
+add_subdirectory(depends/glm)
 
 file(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/*/*/*/*.cpp"
@@ -26,10 +25,6 @@ file(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/*/*.c"
         "${PROJECT_SOURCE_DIR}/src/*.c"
         )
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set (
       INCLUDE_DIRS
@@ -48,3 +43,4 @@ include_directories(${INCLUDE_DIRS})
 add_executable(engine.app ${all_SRCS})
 target_link_libraries(engine.app OpenGL::GL)
 target_link_libraries(engine.app glfw)
+target_link_libraries(engine.app glm)
