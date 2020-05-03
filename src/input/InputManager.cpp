@@ -1,4 +1,4 @@
-#include "framework/InputController.hpp"
+#include "input/InputManager.hpp"
 
 // /* Process Input */
 // void InputController::processInput(GLFWwindow *window) {
