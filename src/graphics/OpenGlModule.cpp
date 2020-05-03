@@ -150,6 +150,11 @@ void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut,
     glBindVertexArray(0);
 }
 
+/* To Update! */ 
+void OpenGlModule::generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
+
+}
+
 /* */
 void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
 
@@ -172,6 +177,19 @@ void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+/* */
+void OpenGlModule::drawInstancedSprites(VAO vao, Shader* pShader, Material* pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
+
+
+
+    pMaterial->useTexture();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    pShader->useShader();
+
 }
 
 /** Helper functions */
