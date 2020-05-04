@@ -11,9 +11,6 @@ namespace HGE {
         ~InputManager();
 
         bool getKeyValue(KeyType key);
-
-        // void registerKeyCallback();
-        // void deregisterKeyCallback();
     };
 }
 #endif

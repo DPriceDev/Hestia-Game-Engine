@@ -40,11 +40,11 @@ namespace HGE {
           mThread.join();
         }
 
-        void logDebug(std::string tag, std::string msg) {
+        void logDebug(const std::string &tag, const std::string &msg) {
             mMsgQueue.push("DEBUG: " + tag + " - " + msg);
         }
 
-        void logError(std::string tag, std::string msg) {
+        void logError(const std::string &tag, const std::string &msg) {
             mMsgQueue.push("ERROR: " + tag + " - " + msg);
         }
     };

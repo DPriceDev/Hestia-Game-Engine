@@ -26,7 +26,7 @@ class SampleTriangleObject : public HGE::Object {
     std::unique_ptr<HGE::SpriteComponent> mSpriteComponent;
     std::unique_ptr<HGE::InputComponent> mInputComponent;
 
-    float mMovementSpeed = 150;
+    float mMovementSpeed = 220;
 
     public:
     void onCreate() override {

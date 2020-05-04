@@ -12,7 +12,7 @@ namespace HGE {
 
         protected:
         // TODO: This may work, may not :S
-        Component(std::string tag) : mTag(tag) { }
+        Component(const std::string &tag) : mTag(tag) { }
 
         public:
         virtual ~Component() = default;

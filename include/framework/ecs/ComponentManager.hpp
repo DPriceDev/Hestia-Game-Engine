@@ -14,11 +14,11 @@ namespace HGE {
     class ComponentManager {
         
         private:
-        std::map<std::string, std::unique_ptr<std::vector<Component*>>> mMappedComponentArrays;
+        std::map<std::string, std::unique_ptr<std::vector<Component*>>> mMappedComponentArrays { };
 
         /* Creates a new component array for the provided component, mapped to the component tag. */
         std::vector<Component*>* createNewMappedComponentArray(Component* component) {
-            mMappedComponentArrays[component->getTag()] = std::make_unique<std::vector<Component*>>();
+            mMappedComponentArrays[component->getTag()] = std::make_unique<std::vector<Component*> >();
 
             component->registerSystem();
 
@@ -66,9 +66,7 @@ namespace HGE {
         }
 
         /** Constructors and Deconstructors */
-        ComponentManager() {
-            mMappedComponentArrays = std::map<std::string, std::unique_ptr<std::vector<Component*>>>();
-        }
+        ComponentManager() { }
 
         ~ComponentManager() { }
     };
