@@ -12,7 +12,7 @@ namespace HGE {
     class ObjectManager 
     {
         private:
-        std::vector<std::unique_ptr<Object>> mObjects;
+        std::vector<std::unique_ptr<Object>> mObjects{ };
         double start;
 
         public:

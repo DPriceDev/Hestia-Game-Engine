@@ -8,6 +8,7 @@
 #include "ecs/ObjectManager.hpp"
 
 #include "graphics/GraphicsModule.hpp"
+#include "input/InputManager.hpp"
 
 namespace HGE {
     class Engine {
@@ -18,12 +19,14 @@ namespace HGE {
         std::unique_ptr<SystemManager> mSystemManager;
         std::unique_ptr<ComponentManager> mComponentManager;
         std::unique_ptr<ObjectManager> mObjectManager;
+        std::unique_ptr<InputManager> mInputManager;
         
         /* Private Constructor */
         Engine() {
             mSystemManager = std::make_unique<SystemManager>();
             mComponentManager = std::make_unique<ComponentManager>();
             mObjectManager = std::make_unique<ObjectManager>();
+            mInputManager = std::make_unique<InputManager>();
         }
 
         public:
@@ -33,22 +36,6 @@ namespace HGE {
             }
             return mEngine;
         }
-
-        // static ObjectManager* objectManager() {
-        //     return mEngine->mObjectManager;
-        // }
-
-        // static ComponentManager* componentManager() {
-        //     return mEngine->mComponentManager;
-        // }
-
-        // static SystemManager* systemManager() {
-        //     return mEngine->mSystemManager;
-        // }
-
-        // static GraphicsModule* graphicsModule() {
-        //     return mEngine->mGraphicsModule;
-        // }
 
         bool Init(std::unique_ptr<GraphicsModule> graphicsModule);
 
@@ -70,6 +57,10 @@ namespace HGE {
 
         GraphicsModule* getGraphicsModule() {
             return mGraphicsModule.get();
+        }
+
+        InputManager* getInputManager() {
+            return mInputManager.get();
         }
 
         ~Engine() { 
