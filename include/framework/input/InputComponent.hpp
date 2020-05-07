@@ -12,11 +12,9 @@ namespace HGE {
 
     struct InputComponent : Component {
 
-        std::map<KeyType, bool> mKeys;
+        std::map<KeyType, bool> mKeys = std::map<KeyType, bool>();
 
-        InputComponent() : Component("Input") {
-            mKeys = std::map<KeyType, bool>();
-        }
+        InputComponent(UID ownerId) : Component(ownerId) { }
         ~InputComponent() { }
 
         void addKey(KeyType key);

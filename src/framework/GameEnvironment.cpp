@@ -5,6 +5,9 @@
 #include "util/Logger.hpp"
 #include <string>
 
+#include "framework/ecs/System.hpp"
+#include "framework/sprite/SpriteSystem.hpp"
+
 namespace HGE {
 
     void HGE::GameEnvironment::Init() {

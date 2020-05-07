@@ -2,73 +2,129 @@
 #define HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H_
 
 #include <map>
+#include <typeinfo>
 #include <vector>
 #include <string>
 #include <memory>
+#include <iostream>
 
 #include "Component.hpp"
+
 #include "util/Logger.hpp"
 
 namespace HGE {
+    using UID = int;
     
-    class ComponentManager {
-        
-        private:
-        std::map<std::string, std::unique_ptr<std::vector<Component*>>> mMappedComponentArrays { };
+    /**
+     * Component Array Interface
+     */
+    class IComponentArray {
+        public:
+        virtual ~IComponentArray() = default;
+    };
 
-        /* Creates a new component array for the provided component, mapped to the component tag. */
-        std::vector<Component*>* createNewMappedComponentArray(Component* component) {
-            mMappedComponentArrays[component->getTag()] = std::make_unique<std::vector<Component*> >();
-
-            component->registerSystem();
-
-            Logger::getInstance()->logDebug("Component Manager", "New Array Created");
-
-            return mMappedComponentArrays[component->getTag()].get();;
-        }
-
-        /* Adds a component to its corresponding array within the component array map. */
-        void addComponentToMappedArray(Component* component) {
-            mMappedComponentArrays[component->getTag()]->push_back(component);
-        }
-
-        /* Checks if a component array exists within the map by the component tag. */
-        bool doesKeyExistInMappedArrays(std::string key) {
-            return mMappedComponentArrays.find(key) != mMappedComponentArrays.end();
-        }
+    /**
+     * Component Array
+     */
+    template <class C>
+    class ComponentArray : public IComponentArray {
+        std::vector<C> mComponents;
+        friend class ComponentManager;
 
         public:
-        /* registers a component to the component manager. */
-        void registerComponent(Component* component) {
-            if(doesKeyExistInMappedArrays(component->getTag())) {
-                addComponentToMappedArray(component);
-            } else {
-                createNewMappedComponentArray(component);
-                addComponentToMappedArray(component);
-            }
-        }
+        ComponentArray() : mComponents(std::vector<C>()) { }
+        ~ComponentArray() = default;
+        ComponentArray& operator= (const ComponentArray &other) = delete;
 
-        /* Retrieves a component array for the given T component class. creates a new array if missing. */
-        template <class T>
-        std::vector<Component*>* getComponentArray() {
+        const std::vector<C>& getComponents() const { return mComponents; }
+    };
 
-            T* component = new T();
-            std::string tag = component->getTag();
-            delete component;
+    /**
+     * Component Manager
+     */
+    class ComponentManager {
+        std::map<std::string, std::unique_ptr<IComponentArray>> mTypedComponentArrays;
 
-            Logger::getInstance()->logDebug("Component array", "retrieved.");
-
-            if(!doesKeyExistInMappedArrays(tag)) {
-                return createNewMappedComponentArray(component);
-            }
- 
-            return mMappedComponentArrays[tag].get();
-        }
-
-        /** Constructors and Deconstructors */
-        ComponentManager() { }
-
+        public:
+        ComponentManager() : mTypedComponentArrays(std::map<std::string, std::unique_ptr<IComponentArray>>()) { }
         ~ComponentManager() { }
+
+        /* Create a component vector within the typed component map. returns the vector. */
+        template <class C>
+        ComponentArray<C>* createComponentArray() {
+            auto type = typeid(C).name();
+            mTypedComponentArrays[type] = std::make_unique<ComponentArray<C>>();
+            std::cout << "component Iarray pointer: " << mTypedComponentArrays[type].get() << "\n";
+            auto componentArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+            std::cout << "component array pointer: " << componentArray << "\n";
+            return componentArray;
+        }
+
+        /* Creates a component and adds it to the corresponding typed vector. returns the component. */
+        /* TODO: Check if need to delete pointer?? */
+        template <class C>
+        C* createComponent(const UID &ownerId) {
+            auto type = typeid(C).name();
+            auto it = mTypedComponentArrays.find(type);
+
+            if(it == mTypedComponentArrays.end()) {
+                std::cout << "need to create\n";
+                auto pArray = createComponentArray<C>();
+                std::cout << "created!!\n";
+                auto comp = C(ownerId);
+                std::cout << "component created: " << type << "\n";
+                pArray->mComponents.push_back(comp);
+                std::cout << "pushed into component array\n";
+                return &pArray->mComponents.back();
+            } else {
+                auto pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+                pArray->mComponents.push_back(C(ownerId));
+                return &pArray->mComponents.back();
+            }
+        }
+
+        /* Takes the pointer for a component and removes it from the selected component array, if it exists. */
+        template <class C>
+        void deleteComponent(C* component) {
+            auto type = typeid(C).name();
+            auto it = mTypedComponentArrays.find(type);
+
+            if(it != mTypedComponentArrays.end()) {
+                auto pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+                auto deleteIt = pArray.mComponents.find_if(pArray.mComponents.begin(), pArray.mComponents.end(), [&] (auto & arrayComponent) { 
+                    return component->getOwnerUID() == arrayComponent.getOwnerUID();
+                });
+                pArray.mComponents.erase(deleteIt);
+            }
+        }
+
+        /* deletes a component by its owning id, if it exists. */
+        template <class C>
+        void deleteComponent(UID ownerId) {
+            auto type = typeid(C).name();
+            auto it = mTypedComponentArrays.find(type);
+
+            if(it != mTypedComponentArrays.end()) {
+                auto pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+                auto deleteIt = pArray.mComponents.find_if(pArray.mComponents.begin(), pArray.mComponents.end(), [&] (auto & arrayComponent) { 
+                    return ownerId == arrayComponent.getOwnerUID();
+                });
+                pArray.mComponents.erase(deleteIt);
+            }
+        }
+
+        /* Get the component vector for the given type. creates and returns the vector if it doesn't exist. */
+        template <class C>
+        ComponentArray<C>* getComponentArray() {
+            auto type = typeid(C).name();
+            auto it = mTypedComponentArrays.find(type);
+
+            if(it == mTypedComponentArrays.end()) {
+                return createComponentArray<C>();
+            } else {
+                return dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+            }
+        }
     };
 }
 

@@ -5,13 +5,13 @@
 #include "framework/ecs/Component.hpp"
 
 #include "input/InputManager.hpp"
+#include "framework/input/InputComponent.hpp"
 
 namespace HGE {
 
-    class InputSystem : public System {
+    class InputSystem : public System<InputComponent> {
         
         private:
-        std::vector<Component*>* mComponents;
         InputManager* mInputManager;
 
         public:

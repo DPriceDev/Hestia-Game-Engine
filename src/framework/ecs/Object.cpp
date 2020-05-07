@@ -4,7 +4,7 @@
 
 namespace HGE {
 
-    void Object::registerComponent(Component* component) {
-        Engine::getInstance()->getComponentManager()->registerComponent(component);
-    }
+    // void Object::registerComponent(Component* component) {
+    //     //Engine::getInstance()->getComponentManager()->registerComponent(component);
+    // }
 }

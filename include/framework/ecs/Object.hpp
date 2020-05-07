@@ -7,25 +7,24 @@
 #include "util/UidLib.hpp"
 
 namespace HGE {
-    
+    using UID = int;
+
     class Object {
 
         protected:
-        int id = GenerateUniqueId();
+        UID id = GenerateUniqueId();
 
         public:
         virtual ~Object() = default;
 
         /* Setters and Getters */
-        int getId() const {
+        UID getId() const {
         return id;
         }
 
         /* Public Methods */
         virtual void onCreate() = 0;
         virtual void tick(double deltaTime) = 0;
-
-        void registerComponent(Component* component);
     };
 }
 #endif

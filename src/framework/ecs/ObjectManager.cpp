@@ -16,17 +16,9 @@ namespace HGE {
         start = 0;
     }
 
-    Object* ObjectManager::GetObject(int uid) {
-        auto it = std::find_if(mObjects.begin(), mObjects.end(), [&uid] (const std::unique_ptr<Object> & pObject) { 
-            return pObject->getId() == uid;
-            });
-
-            return it->get();
-    }
-
-    void ObjectManager::DestroyObject(int uid) {
-            auto it = std::find_if(mObjects.begin(), mObjects.end(), [&uid] (const std::unique_ptr<Object> & pObject) { 
-            return pObject->getId() == uid;
+    void ObjectManager::DestroyObject(UID id) {
+            auto it = std::find_if(mObjects.begin(), mObjects.end(), [&] (const std::unique_ptr<Object> & pObject) { 
+            return pObject->getId() == id;
             });
             mObjects.erase(it);
     }

@@ -9,27 +9,33 @@
 
 namespace HGE {
     
-    class ObjectManager 
-    {
-        private:
+    class ObjectManager {
         std::vector<std::unique_ptr<Object>> mObjects{ };
         double start;
 
         public:
         template<class T>
-        Object* CreateObject() {
-            mObjects.push_back(std::unique_ptr<T>(new T()));
+        T* CreateObject() {
+            auto objectPointer = std::unique_ptr<T>(new T());
+            auto ptr = objectPointer.get();
+            mObjects.push_back(std::move(objectPointer));
             mObjects.back()->onCreate();
-            return mObjects.back().get();
+            return ptr;
         }
 
-        Object* GetObject(int uid);
-        void DestroyObject(int uid);
+        template<class T>
+        T* GetObject(UID id) {
+            auto func = [&] (const std::unique_ptr<Object> & pObject) { 
+                return pObject->getId() == id;
+            };
+            auto it = std::find_if(mObjects.begin(), mObjects.end(), func);
+            return dynamic_cast<T*>(*it);
+        }
 
+        void DestroyObject(UID id);
         void tick();
 
         ObjectManager();
-
         ~ObjectManager() { }
     };
 }

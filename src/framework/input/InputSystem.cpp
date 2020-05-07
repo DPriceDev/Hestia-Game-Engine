@@ -8,9 +8,9 @@
 using namespace HGE;
 
 InputSystem::InputSystem() {
-    Logger::getInstance()->logDebug("Graphics System", "Created");
-    mComponents = Engine::getInstance()->getComponentManager()->getComponentArray<InputComponent>();
+    //std::get<std::vector<std::unique_ptr<InputComponent>>>(mComponents) = std::vector<std::unique_ptr<InputComponent>>();
     mInputManager = Engine::getInstance()->getInputManager();
+    Logger::getInstance()->logDebug("Input System", "Created");
 }
 
 InputSystem::~InputSystem() {
@@ -18,13 +18,12 @@ InputSystem::~InputSystem() {
 }
 
 void InputSystem::run() {
-    InputComponent* inputComponent;
+    //InputComponent* inputComponent;
 
-    for(auto & component : *mComponents) {
-        inputComponent = dynamic_cast<InputComponent*>(component);
+    // for(auto & component : std::get<std::vector<std::unique_ptr<InputComponent>>>(mComponents)) {
 
-        for( auto & [key, val] : inputComponent->mKeys ) {
-            val = mInputManager->getKeyValue(key);
-        }
-    }
+    //     for( auto & [key, val] : component->mKeys ) {
+    //         val = mInputManager->getKeyValue(key);
+    //     }
+    // }
 }

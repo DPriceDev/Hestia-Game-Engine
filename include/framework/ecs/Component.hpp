@@ -4,24 +4,20 @@
 #include <string>
 
 namespace HGE {
-    
+    using UID = int;
     class Component {
-        
-        private:
-        std::string mTag;
 
-        protected:
-        // TODO: This may work, may not :S
-        Component(const std::string &tag) : mTag(tag) { }
+        UID mOwnerUID;
 
         public:
+        Component(UID ownerId) : mOwnerUID(ownerId) { }
         virtual ~Component() = default;
 
-        std::string getTag() {
-            return mTag;
-        }
-
         virtual void registerSystem() = 0;
+        
+        UID getOwnerUID() const { 
+            return mOwnerUID; 
+        }
     };
 }
 

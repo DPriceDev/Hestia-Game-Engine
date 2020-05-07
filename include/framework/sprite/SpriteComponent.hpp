@@ -23,13 +23,8 @@ namespace HGE {
         ColourRGBA mTint;
         Pointf mAlpha;
 
-        SpriteComponent() : Component("Sprite") {
-            mTransform = Transform2f();
-            mTint = ColourRGBA(0.0f, 0.0f, 0.0f, 0.0f);
-            mAlpha = 1.0f;
-        }
-
-        ~SpriteComponent() { }
+        SpriteComponent(UID ownerId);
+        ~SpriteComponent();
 
         void registerSystem() override;
     };
