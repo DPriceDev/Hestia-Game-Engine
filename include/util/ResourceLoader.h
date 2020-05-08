@@ -1,11 +1,11 @@
-#ifndef HESTIA_UTIL_RESOURCE_LOADER_HPP_
-#define HESTIA_UTIL_RESOURCE_LOADER_HPP_
+#ifndef HESTIA_UTIL_RESOURCE_LOADER_H
+#define HESTIA_UTIL_RESOURCE_LOADER_H
 
 #include <string>
 #include <fstream>
 #include <sstream>
 
-#include "Logger.hpp"
+#include "Logger.h"
 
 namespace HGE {
 

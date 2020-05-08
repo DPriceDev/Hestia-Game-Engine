@@ -1,9 +1,9 @@
-#include "framework/systems/SpriteSystem.hpp"
+#include "framework/systems/SpriteSystem.h"
 
 #include <iostream>
+#include <glm/glm/ext.hpp>
 
-#include "framework/Engine.hpp"
-#include "glm/glm/ext.hpp"
+#include "framework/Engine.h"
 
 namespace HGE {
 

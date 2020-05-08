@@ -1,5 +1,5 @@
-#ifndef SAMPLE_TRIANGLE_OBJECT_HPP
-#define SAMPLE_TRIANGLE_OBJECT_HPP
+#ifndef SAMPLE_TRIANGLE_OBJECT_H
+#define SAMPLE_TRIANGLE_OBJECT_H
 
 #include <iostream>
 #include <vector>
@@ -8,18 +8,18 @@
 
 #include "math.h"
 
-#include "framework/Engine.hpp"
+#include "framework/Engine.h"
 #include "framework/ecs/ecs.h"
-#include "framework/systems/SpriteSystem.hpp"
-#include "framework/systems/ControlSystem.hpp"
+#include "framework/systems/SpriteSystem.h"
+#include "framework/systems/ControlSystem.h"
 #include "framework/systems/WorldPositionSystem.h"
 
-#include "input/InputTypes.hpp"
+#include "input/InputTypes.h"
 
-#include "maths/HGEMath.hpp"
-#include "maths/MathsTypes.hpp"
+#include "maths/HGEMath.h"
+#include "maths/MathsTypes.h"
 
-#include "util/Logger.hpp"
+#include "util/Logger.h"
 
 class SampleTriangleObject : public HGE::Object {
 

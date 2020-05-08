@@ -1,13 +1,13 @@
-#include "framework/GameEnvironment.hpp"
+#include "framework/GameEnvironment.h"
 
 #include <string>
 
-#include "framework/Engine.hpp"
+#include "framework/Engine.h"
 #include "framework/ecs/ecs.h"
 
-#include "sample/SampleTriangleObject.hpp"
+#include "sample/SampleTriangleObject.h"
 
-#include "util/Logger.hpp"
+#include "util/Logger.h"
 
 namespace HGE {
 

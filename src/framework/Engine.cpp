@@ -1,10 +1,10 @@
-#include "framework/Engine.hpp"
+#include "framework/Engine.h"
 
-using namespace HGE;
+namespace HGE {
 
-/* */
-bool Engine::Init(std::unique_ptr<GraphicsModule> graphicsModule) {
-    mGraphicsModule.swap(graphicsModule);
-    graphicsModule.release();
-    return mGraphicsModule->init();
+    bool Engine::Init(std::unique_ptr<GraphicsModule> graphicsModule) {
+        mGraphicsModule.swap(graphicsModule);
+        graphicsModule.release();
+        return mGraphicsModule->init();
+    }
 }

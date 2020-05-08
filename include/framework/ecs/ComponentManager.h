@@ -1,5 +1,5 @@
-#ifndef HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H_
-#define HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H_
+#ifndef HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H
+#define HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H
 
 #include <map>
 #include <typeinfo>
@@ -9,9 +9,9 @@
 #include <iostream>
 
 #include "ecs.h"
-#include "SystemManager.hpp"
+#include "SystemManager.h"
 
-#include "util/Logger.hpp"
+#include "util/Logger.h"
 
 namespace HGE {
     using UID = int;

@@ -1,11 +1,11 @@
-#ifndef HESTIA_FRAMEWORK_ECS_OBJECTMANAGER_H_
-#define HESTIA_FRAMEWORK_ECS_OBJECTMANAGER_H_
+#ifndef HESTIA_FRAMEWORK_ECS_OBJECTMANAGER_H
+#define HESTIA_FRAMEWORK_ECS_OBJECTMANAGER_H
 
 #include <vector>
 #include <memory>
 
 #include "ecs.h"
-#include "ComponentManager.hpp"
+#include "ComponentManager.h"
 
 namespace HGE {
     class ObjectManager {

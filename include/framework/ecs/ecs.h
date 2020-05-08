@@ -5,8 +5,8 @@
 #include <string>
 #include <memory>
 
-#include "util/UidLib.hpp"
-#include "util/Logger.hpp"
+#include "util/Uid.h"
+#include "util/Logger.h"
 
 namespace HGE {
     using UID = int;

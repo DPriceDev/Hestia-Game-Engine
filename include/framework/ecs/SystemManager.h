@@ -1,5 +1,5 @@
-#ifndef HESTIA_FRAMEWORK_ECS_SYSTEMMANAGER_H_
-#define HESTIA_FRAMEWORK_ECS_SYSTEMMANAGER_H_
+#ifndef HESTIA_FRAMEWORK_ECS_SYSTEMMANAGER_H
+#define HESTIA_FRAMEWORK_ECS_SYSTEMMANAGER_H
 
 #include <map>
 #include <memory>
@@ -7,7 +7,7 @@
 #include <typeinfo>
 
 #include "ecs.h"
-#include "util/Logger.hpp"
+#include "util/Logger.h"
 
 namespace HGE {
     class ComponentManager;

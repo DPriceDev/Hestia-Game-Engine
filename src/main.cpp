@@ -5,12 +5,12 @@
 #include <iostream>
 #include <memory>
 
-#include "framework/Engine.hpp"
-#include "framework/GameEnvironment.hpp"
+#include "framework/Engine.h"
+#include "framework/GameEnvironment.h"
 
-#include "graphics/OpenGlModule.hpp"
+#include "graphics/OpenGlModule.h"
 
-#include "util/Logger.hpp"
+#include "util/Logger.h"
 
 /* Function Declarations */
 HGE::Engine *HGE::Engine::mEngine;

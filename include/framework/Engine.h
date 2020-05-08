@@ -1,14 +1,14 @@
-#ifndef HESTIA_FRAMEWORK_ENGINE_H_
-#define HESTIA_FRAMEWORK_ENGINE_H_
+#ifndef HESTIA_FRAMEWORK_ENGINE_H
+#define HESTIA_FRAMEWORK_ENGINE_H
 
 #include <memory>
 
-#include "ecs/SystemManager.hpp"
-#include "ecs/ComponentManager.hpp"
-#include "ecs/ObjectManager.hpp"
+#include "ecs/SystemManager.h"
+#include "ecs/ComponentManager.h"
+#include "ecs/ObjectManager.h"
 
-#include "graphics/GraphicsModule.hpp"
-#include "input/InputManager.hpp"
+#include "graphics/GraphicsModule.h"
+#include "input/InputManager.h"
 
 namespace HGE {
     class Engine {

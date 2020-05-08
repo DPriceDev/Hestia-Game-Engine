@@ -1,14 +1,14 @@
-#ifndef HESTIA_FRAMEWORK_SPRITE_SYSTEM_HPP_
-#define HESTIA_FRAMEWORK_SPRITE_SYSTEM_HPP_
+#ifndef HESTIA_FRAMEWORK_SPRITE_SYSTEM_H
+#define HESTIA_FRAMEWORK_SPRITE_SYSTEM_H
 
 #include <vector>
 #include <glm/glm/glm.hpp>
 
 #include "framework/ecs/ecs.h"
 
-#include "graphics/GraphicsModule.hpp"
+#include "graphics/GraphicsModule.h"
 
-#include "util/Logger.hpp"
+#include "util/Logger.h"
 
 namespace HGE {
 

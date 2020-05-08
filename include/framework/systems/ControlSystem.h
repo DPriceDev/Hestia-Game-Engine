@@ -1,14 +1,14 @@
-#ifndef HESTIA_FRAMEWORK_CONTROL_SYSTEM_HPP_
-#define HESTIA_FRAMEWORK_CONTROL_SYSTEM_HPP_
+#ifndef HESTIA_FRAMEWORK_CONTROL_SYSTEM_H
+#define HESTIA_FRAMEWORK_CONTROL_SYSTEM_H
 
 #include <map>
 
 #include "framework/ecs/ecs.h"
 
-#include "input/InputManager.hpp"
-#include "input/InputTypes.hpp"
+#include "input/InputManager.h"
+#include "input/InputTypes.h"
 
-#include "util/Logger.hpp"
+#include "util/Logger.h"
 
 namespace HGE {
 

@@ -1,23 +1,19 @@
-#ifndef GRAPHICS_SHADER_HPP
-#define GRAPHICS_SHADER_HPP
+#ifndef HESTIA_GRAPHICS_SHADER_H
+#define HESTIA_GRAPHICS_SHADER_H
 
+#include <string>
 #include "glad/glad.h"
 #include "glm/glm/glm.hpp"
-#include <string>
 
 namespace HGE {
-
     using ShaderProgram = unsigned int;
 
     struct Shader {
-
-        private:
         ShaderProgram mId;
 
         public:
-        Shader(ShaderProgram id);
-        ~Shader();
-
+        Shader(ShaderProgram id) : mId(id) { }
+        ~Shader() = default;
         void useShader();
 
         ShaderProgram getShaderId() {

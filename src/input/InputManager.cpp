@@ -1,17 +1,9 @@
-#include "input/InputManager.hpp"
+#include "input/InputManager.h"
 
-#include "framework/Engine.hpp"
+#include "framework/Engine.h"
 
-using namespace HGE;
-
-InputManager::InputManager() {
-
-}
-
-InputManager::~InputManager() {
-    
-}
-
-bool InputManager::getKeyValue(KeyType key) {
-    return Engine::getInstance()->getGraphicsModule()->getKeyValue(key);
+namespace HGE {
+    bool InputManager::getKeyValue(KeyType key) {
+        return Engine::getInstance()->getGraphicsModule()->getKeyValue(key);
+    }
 }

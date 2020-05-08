@@ -1,5 +1,5 @@
-#ifndef HESTIA_GRAPHICS_OPENGL_MODULE_HPP_
-#define HESTIA_GRAPHICS_OPENGL_MODULE_HPP_
+#ifndef HESTIA_GRAPHICS_OPENGL_MODULE_H
+#define HESTIA_GRAPHICS_OPENGL_MODULE_H
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -11,24 +11,28 @@
 #include <utility>
 #include <memory>
 
-#include "GraphicsModule.hpp"
-#include "Shader.hpp"
-#include "Material.hpp"
-#include "maths/MathsTypes.hpp"
+#include "GraphicsModule.h"
+#include "Shader.h"
+#include "Material.h"
+#include "maths/MathsTypes.h"
 
 namespace HGE {
-
     class OpenGlModule : public GraphicsModule {
 
-        private:
         GLFWwindow* mWindow;
         std::string mGameTitle;
         std::map<std::pair<const char*, const char*>, std::unique_ptr<Shader>> mShaders;
         std::map<const char*, std::unique_ptr<Material>> mMaterials;
 
         public:
-        OpenGlModule();
-        ~OpenGlModule();
+        OpenGlModule() : 
+            mShaders(std::map<std::pair<const char*, const char*>, std::unique_ptr<Shader>>()),
+            mMaterials(std::map<const char*, std::unique_ptr<Material>>()), 
+            mGameTitle(""), 
+            mWindow(nullptr) { }
+             
+        ~OpenGlModule() = default;
+
 
         bool init() override;
         void terminate() override;
