@@ -11,7 +11,7 @@ namespace HGE {
 
     void System<ControlComponent>::run() {
         for(auto & component : mComponentsArray->getComponents()) {
-            for( auto & [key, val] : component.mKeys ) {
+            for( auto & [key, val] : component->mKeys ) {
                 val = mInputManager->getKeyValue(key);
             }
         }

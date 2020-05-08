@@ -15,34 +15,7 @@
 
 namespace HGE {
     using UID = int;
-    
-    /**
-     * Component Array Interface
-     */
-    class IComponentArray {
-        public:
-        virtual ~IComponentArray() = default;
-    };
 
-    /**
-     * Component Array
-     */
-    template <class C>
-    class ComponentArray : public IComponentArray {
-        std::vector<C> mComponents;
-        friend class ComponentManager;
-
-        public:
-        ComponentArray() : mComponents(std::vector<C>()) { }
-        ~ComponentArray() = default;
-        ComponentArray& operator= (const ComponentArray &other) = delete;
-
-        std::vector<C>& getComponents() { return mComponents; }
-    };
-
-    /**
-     * Component Manager
-     */
     class ComponentManager {
         std::map<std::string, std::unique_ptr<IComponentArray>> mTypedComponentArrays;
         SystemManager* mSystemManager;
@@ -64,6 +37,7 @@ namespace HGE {
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<C>>();
             auto componentArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
             mSystemManager->createSystem<C>(componentArray);
+            Logger::getInstance()->logDebug("Component Manager", "Component Array created!");
             return componentArray;
         }
 
@@ -80,9 +54,9 @@ namespace HGE {
             } else {
                 pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
             }
-            pArray->mComponents.push_back(C(std::forward<Args>(args)...));
+            pArray->mComponents.push_back(std::make_unique<C>(std::forward<Args>(args)...));
             Logger::getInstance()->logDebug("Component Manager", "Component Created!");
-            return &pArray->mComponents.back();
+            return pArray->mComponents.back().get();
         }
 
         /* Takes the pointer for a component and removes it from the selected component array, if it exists. */

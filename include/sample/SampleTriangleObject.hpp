@@ -12,6 +12,7 @@
 #include "framework/ecs/Object.hpp"
 #include "framework/sprite/SpriteComponent.hpp"
 #include "framework/control/ControlComponent.hpp"
+#include "framework/position/WorldPositionSystem.h"
 
 #include "input/InputTypes.hpp"
 
@@ -25,11 +26,13 @@ class SampleTriangleObject : public HGE::Object {
     private:
     HGE::SpriteComponent* mSpriteComponent;
     HGE::ControlComponent* mControlComponent;
+    HGE::WorldPositionComponent* mPositionComponent;
 
     float mMovementSpeed = 220;
 
     public:
     void onCreate() override {
+        mPositionComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::WorldPositionComponent>(id);
         mSpriteComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::SpriteComponent>(id);
 
         mSpriteComponent->mTransform.mLocalPosition.x = 400;
@@ -47,6 +50,7 @@ class SampleTriangleObject : public HGE::Object {
         mControlComponent->addKey(HGE::DOWN_ARROW_KEY);
         mControlComponent->addKey(HGE::LEFT_ARROW_KEY);
         mControlComponent->addKey(HGE::RIGHT_ARROW_KEY);
+        HGE::Logger::getInstance()->logDebug("Sample Game Object", "Created!");
     }
 
     void tick(double deltaTime) override {

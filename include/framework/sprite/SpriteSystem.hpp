@@ -28,8 +28,8 @@ namespace HGE {
 
         void run() override {
             for(auto const & component : mComponentsArray->getComponents()) {
-               mGraphicsModule->drawSprite(component.mShader, component.mMaterial, mSpriteVao, component.mTransform, component.mTint, component.mAlpha, mOrthographic);
-            } 
+                mGraphicsModule->drawSprite(component->mShader, component->mMaterial, mSpriteVao, component->mTransform, component->mTint, component->mAlpha, mOrthographic);
+            }
         }
     };
 }
