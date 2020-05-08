@@ -16,12 +16,12 @@ namespace HGE {
         Engine::getInstance()->getGraphicsModule()->setGameTitle("Hestia Game Engine v1.0-Alpha");
 
         auto start = Engine::getInstance()->getGraphicsModule()->getGameTime();
-        for(int i = 0; i < 100; ++i) {
+        for(int i = 0; i < 2; ++i) {
             Engine::getInstance()->getObjectManager()->CreateObject<SampleTriangleObject>();
         }
         auto delta = Engine::getInstance()->getGraphicsModule()->getGameTime() - start;
-        std::string time("Object Time: " + std::to_string(delta));
-        Logger::getInstance()->logDebug("Game Environment", time);
+        //std::string time("Object Time: " + std::to_string(delta));
+        Logger::getInstance()->logDebug("Game Environment", "Object time:", delta);
     }
 
     void HGE::GameEnvironment::GameLoop() { 
