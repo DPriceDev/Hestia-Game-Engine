@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-#include "Object.hpp"
+#include "ecs.h"
 #include "ComponentManager.hpp"
 
 namespace HGE {

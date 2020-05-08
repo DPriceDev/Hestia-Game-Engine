@@ -1,21 +1,24 @@
 #ifndef HESTIA_FRAMEWORK_WORLD_POSITION_H
 #define HESTIA_FRAMEWORK_WORLD_POSITION_H
 
+#include "framework/ecs/ecs.h"
 #include "framework/ecs/ComponentManager.hpp"
-#include "framework/ecs/Component.hpp"
-#include "framework/ecs/System.hpp"
 
 #include "util/Logger.hpp"
 
 namespace HGE {
 
+    /**
+     * World Position Component
+     */
     struct WorldPositionComponent : public Component {
-
         WorldPositionComponent(UID ownerId) : Component(ownerId) { }
         ~WorldPositionComponent() = default;
-
     };
 
+    /**
+     * World Position System
+     */
     template <>
     class System<WorldPositionComponent> : public ISystem {
 

@@ -8,7 +8,7 @@
 #include <memory>
 #include <iostream>
 
-#include "Component.hpp"
+#include "ecs.h"
 #include "SystemManager.hpp"
 
 #include "util/Logger.hpp"

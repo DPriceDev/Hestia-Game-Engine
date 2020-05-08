@@ -9,10 +9,10 @@
 #include "math.h"
 
 #include "framework/Engine.hpp"
-#include "framework/ecs/Object.hpp"
-#include "framework/sprite/SpriteComponent.hpp"
-#include "framework/control/ControlComponent.hpp"
-#include "framework/position/WorldPositionSystem.h"
+#include "framework/ecs/ecs.h"
+#include "framework/systems/SpriteSystem.hpp"
+#include "framework/systems/ControlSystem.hpp"
+#include "framework/systems/WorldPositionSystem.h"
 
 #include "input/InputTypes.hpp"
 

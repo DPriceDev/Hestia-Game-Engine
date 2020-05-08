@@ -2,17 +2,34 @@
 #define HESTIA_FRAMEWORK_SPRITE_SYSTEM_HPP_
 
 #include <vector>
-#include "glm/glm/glm.hpp"
+#include <glm/glm/glm.hpp>
 
-#include "framework/ecs/System.hpp"
-#include "framework/ecs/ComponentManager.hpp"
-#include "framework/sprite/SpriteComponent.hpp"
+#include "framework/ecs/ecs.h"
 
 #include "graphics/GraphicsModule.hpp"
 
 #include "util/Logger.hpp"
 
 namespace HGE {
+
+    /**
+     * Sprite Component
+     */
+    struct SpriteComponent : public Component {
+        
+        Transform2f mTransform; 
+        Shader* mShader;
+        Material* mMaterial;
+        ColourRGBA mTint;
+        Pointf mAlpha;
+
+        SpriteComponent(UID ownerId) : Component(ownerId), mTransform(Transform2f()), mTint(ColourRGBA()), mAlpha(1.0f) { }
+        ~SpriteComponent() = default;
+    };
+
+    /**
+     * Sprite System
+     */
     template <> 
     class System<SpriteComponent> : public ISystem {
 

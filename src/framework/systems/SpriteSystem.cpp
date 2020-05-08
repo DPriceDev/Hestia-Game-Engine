@@ -1,4 +1,4 @@
-#include "framework/sprite/SpriteSystem.hpp"
+#include "framework/systems/SpriteSystem.hpp"
 
 #include <iostream>
 

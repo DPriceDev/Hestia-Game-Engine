@@ -6,7 +6,7 @@
 #include <functional>
 #include <typeinfo>
 
-#include "System.hpp"
+#include "ecs.h"
 #include "util/Logger.hpp"
 
 namespace HGE {
