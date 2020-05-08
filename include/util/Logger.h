@@ -1,5 +1,5 @@
-#ifndef HESTIA_UTIL_LOGGER_HPP_
-#define HESTIA_UTIL_LOGGER_HPP_
+#ifndef HESTIA_UTIL_LOGGER_H
+#define HESTIA_UTIL_LOGGER_H
 
 #include <iostream>
 #include <string>

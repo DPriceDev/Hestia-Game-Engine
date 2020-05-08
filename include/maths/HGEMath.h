@@ -1,7 +1,7 @@
-#ifndef HESTIA_MATHS_HGE_MATHES_HPP_
-#define HESTIA_MATHS_HGE_MATHES_HPP_
+#ifndef HESTIA_MATHS_HGE_MATHS_H
+#define HESTIA_MATHS_HGE_MATHS_H
 
-#include "MathsTypes.hpp"
+#include "MathsTypes.h"
 
 namespace HGE {
 

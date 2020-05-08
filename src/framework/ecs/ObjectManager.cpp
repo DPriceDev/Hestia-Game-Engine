@@ -1,13 +1,13 @@
-#include "framework/ecs/ObjectManager.hpp"
+#include "framework/ecs/ObjectManager.h"
 
 #include <chrono>
 #include <iostream>
 #include <algorithm>
 
-#include "framework/Engine.hpp"
+#include "framework/Engine.h"
 
-#include "framework/ecs/Object.hpp"
-#include "util/Logger.hpp"
+#include "framework/ecs/ecs.h"
+#include "util/Logger.h"
 
 namespace HGE {
 
@@ -16,17 +16,9 @@ namespace HGE {
         start = 0;
     }
 
-    Object* ObjectManager::GetObject(int uid) {
-        auto it = std::find_if(mObjects.begin(), mObjects.end(), [&uid] (const std::unique_ptr<Object> & pObject) { 
-            return pObject->getId() == uid;
-            });
-
-            return it->get();
-    }
-
-    void ObjectManager::DestroyObject(int uid) {
-            auto it = std::find_if(mObjects.begin(), mObjects.end(), [&uid] (const std::unique_ptr<Object> & pObject) { 
-            return pObject->getId() == uid;
+    void ObjectManager::DestroyObject(UID id) {
+            auto it = std::find_if(mObjects.begin(), mObjects.end(), [&] (const std::unique_ptr<Object> & pObject) { 
+            return pObject->getId() == id;
             });
             mObjects.erase(it);
     }

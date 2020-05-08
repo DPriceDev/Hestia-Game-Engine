@@ -1,5 +1,5 @@
-#ifndef HESTIA_INPUT_INPUT_TYPES_HPP_
-#define HESTIA_INPUT_INPUT_TYPES_HPP_
+#ifndef HESTIA_INPUT_INPUT_TYPES_H
+#define HESTIA_INPUT_INPUT_TYPES_H
 
 namespace HGE {
     using KeyType = unsigned int;

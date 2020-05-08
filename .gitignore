@@ -41,6 +41,7 @@ install_manifest.txt
 
 # vs code files
 .vscode
+.vscode/*
 
 # clangd
 .clangd

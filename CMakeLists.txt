@@ -17,6 +17,7 @@ add_subdirectory(depends/glfw)
 add_subdirectory(depends/glm)
 
 file(GLOB all_SRCS
+        "${PROJECT_SOURCE_DIR}/src/*/*/*/*/*.cpp"
         "${PROJECT_SOURCE_DIR}/src/*/*/*/*.cpp"
         "${PROJECT_SOURCE_DIR}/src/**/*/*.cpp"
         "${PROJECT_SOURCE_DIR}/src/*/*.cpp"

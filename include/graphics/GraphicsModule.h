@@ -1,12 +1,12 @@
-#ifndef HESTIA_GRAPHICS_GRAPHICSMODULE_HPP_
-#define HESTIA_GRAPHICS_GRAPHICSMODULE_HPP_
+#ifndef HESTIA_GRAPHICS_GRAPHICS_MODULE_H
+#define HESTIA_GRAPHICS_GRAPHICS_MODULE_H
 
 #include "glm/glm/glm.hpp"
 
-#include "input/InputTypes.hpp"
-#include "maths/MathsTypes.hpp"
-#include "graphics/Shader.hpp"
-#include "graphics/Material.hpp"
+#include "input/InputTypes.h"
+#include "maths/MathsTypes.h"
+#include "graphics/Shader.h"
+#include "graphics/Material.h"
 
 namespace HGE {
     using VAO = unsigned int;
@@ -26,7 +26,7 @@ namespace HGE {
         virtual void startFrame() = 0;
         virtual void renderFrame() = 0;
 
-        virtual void drawSprite(Shader* pShader, Material* pMaterial, VAO vao, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) = 0;
+        virtual void drawSprite(Shader* pShader, Material* pMaterial, VAO vao, Transform2f localTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) = 0;
         virtual void drawInstancedSprites(VAO vao, Shader* pShader, Material* pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) = 0;
 
         virtual Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) = 0;

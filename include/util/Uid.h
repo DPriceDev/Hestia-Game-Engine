@@ -1,5 +1,5 @@
-#ifndef UIDLIB_HPP
-#define UIDLIB_HPP
+#ifndef HESTIA_UTIL_UID_H
+#define HESTIA_UTIL_UID_H
 
 /**
  * 
