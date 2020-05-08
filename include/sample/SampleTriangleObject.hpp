@@ -11,7 +11,7 @@
 #include "framework/Engine.hpp"
 #include "framework/ecs/Object.hpp"
 #include "framework/sprite/SpriteComponent.hpp"
-#include "framework/input/InputComponent.hpp"
+#include "framework/control/ControlComponent.hpp"
 
 #include "input/InputTypes.hpp"
 
@@ -24,14 +24,16 @@ class SampleTriangleObject : public HGE::Object {
 
     private:
     HGE::SpriteComponent* mSpriteComponent;
-    HGE::InputComponent* mInputComponent;
+    HGE::SpriteComponent* mSpriteComponentTwo;
+    HGE::ControlComponent* mControlComponent;
 
     float mMovementSpeed = 220;
 
     public:
     void onCreate() override {
         mSpriteComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::SpriteComponent>(id);
-
+        mSpriteComponentTwo = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::SpriteComponent>(id);
+        mControlComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::ControlComponent>(id);
 
 
         // mSpriteComponent->mTransform.mLocalPosition.x = 400;

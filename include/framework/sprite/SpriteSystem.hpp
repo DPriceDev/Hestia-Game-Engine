@@ -1,16 +1,15 @@
-#ifndef HESTIA_GRAPHICS_SPRITE_SYSTEM_HPP_
-#define HESTIA_GRAPHICS_SPRITE_SYSTEM_HPP_
+#ifndef HESTIA_FRAMEWORK_SPRITE_SYSTEM_HPP_
+#define HESTIA_FRAMEWORK_SPRITE_SYSTEM_HPP_
 
-#include <iostream>
 #include <vector>
 #include "glm/glm/glm.hpp"
 
 #include "framework/ecs/System.hpp"
+#include "framework/sprite/SpriteComponent.hpp"
+
+#include "graphics/GraphicsModule.hpp"
 
 #include "util/Logger.hpp"
-
-#include "framework/sprite/SpriteComponent.hpp"
-#include "graphics/GraphicsModule.hpp"
 
 namespace HGE {
     template <> 

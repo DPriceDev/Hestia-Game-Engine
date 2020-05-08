@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "Component.hpp"
+#include "SystemManager.hpp"
 
 #include "util/Logger.hpp"
 
@@ -44,43 +45,44 @@ namespace HGE {
      */
     class ComponentManager {
         std::map<std::string, std::unique_ptr<IComponentArray>> mTypedComponentArrays;
+        SystemManager* mSystemManager;
 
         public:
         ComponentManager() : mTypedComponentArrays(std::map<std::string, std::unique_ptr<IComponentArray>>()) { }
         ~ComponentManager() { }
+        ComponentManager& operator= (const ComponentManager &other) = delete;
+
+        /* Assign the System manager. */
+        void setSystemManager(SystemManager* pSystemManager) { 
+            mSystemManager = pSystemManager; 
+        }
 
         /* Create a component vector within the typed component map. returns the vector. */
         template <class C>
         ComponentArray<C>* createComponentArray() {
             auto type = typeid(C).name();
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<C>>();
-            std::cout << "component Iarray pointer: " << mTypedComponentArrays[type].get() << "\n";
             auto componentArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
-            std::cout << "component array pointer: " << componentArray << "\n";
+            mSystemManager->createSystem<C>();
             return componentArray;
         }
 
         /* Creates a component and adds it to the corresponding typed vector. returns the component. */
         /* TODO: Check if need to delete pointer?? */
-        template <class C>
-        C* createComponent(const UID &ownerId) {
+        template <class C, typename ... Args>
+        C* createComponent(Args&& ... args) {
             auto type = typeid(C).name();
             auto it = mTypedComponentArrays.find(type);
+            ComponentArray<C>* pArray;
 
             if(it == mTypedComponentArrays.end()) {
-                std::cout << "need to create\n";
-                auto pArray = createComponentArray<C>();
-                std::cout << "created!!\n";
-                auto comp = C(ownerId);
-                std::cout << "component created: " << type << "\n";
-                pArray->mComponents.push_back(comp);
-                std::cout << "pushed into component array\n";
-                return &pArray->mComponents.back();
+                pArray = createComponentArray<C>();
             } else {
-                auto pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
-                pArray->mComponents.push_back(C(ownerId));
-                return &pArray->mComponents.back();
+                pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
             }
+            pArray->mComponents.push_back(C(std::forward<Args>(args)...));
+            Logger::getInstance()->logDebug("Component Manager", "Component Created!");
+            return &pArray->mComponents.back();
         }
 
         /* Takes the pointer for a component and removes it from the selected component array, if it exists. */

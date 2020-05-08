@@ -8,7 +8,6 @@
 #include "ComponentManager.hpp"
 
 namespace HGE {
-    
     class ObjectManager {
         std::vector<std::unique_ptr<Object>> mObjects{ };
         double start;

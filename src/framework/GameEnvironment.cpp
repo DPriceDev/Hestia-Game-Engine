@@ -7,6 +7,7 @@
 
 #include "framework/ecs/System.hpp"
 #include "framework/sprite/SpriteSystem.hpp"
+#include "framework/control/ControlSystem.hpp"
 
 namespace HGE {
 

@@ -5,11 +5,9 @@
 #include <memory>
 
 #include "Component.hpp"
-#include "framework/sprite/SpriteComponent.hpp"
 #include "util/Logger.hpp"
 
 namespace HGE {
-
 
     class ISystem {
         public:
@@ -20,11 +18,10 @@ namespace HGE {
     template <class C>
     class System : public ISystem {
 
+        System() = default;
         public:
-        System() { }
-        ~System() { }
-
-        void run() override { }
+        ~System() = default;
+        void run() = 0;
     };
 }
 #endif

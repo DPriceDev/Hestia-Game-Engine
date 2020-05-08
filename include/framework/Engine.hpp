@@ -25,6 +25,8 @@ namespace HGE {
         Engine() {
             mSystemManager = std::make_unique<SystemManager>();
             mComponentManager = std::make_unique<ComponentManager>();
+            mComponentManager->setSystemManager(mSystemManager.get());
+
             mObjectManager = std::make_unique<ObjectManager>();
             mInputManager = std::make_unique<InputManager>();
         }

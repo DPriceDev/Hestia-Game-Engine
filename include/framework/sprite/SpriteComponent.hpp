@@ -25,8 +25,6 @@ namespace HGE {
 
         SpriteComponent(UID ownerId);
         ~SpriteComponent();
-
-        void registerSystem() override;
     };
 }
 

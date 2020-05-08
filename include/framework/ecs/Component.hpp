@@ -12,8 +12,6 @@ namespace HGE {
         public:
         Component(UID ownerId) : mOwnerUID(ownerId) { }
         virtual ~Component() = default;
-
-        virtual void registerSystem() = 0;
         
         UID getOwnerUID() const { 
             return mOwnerUID; 
