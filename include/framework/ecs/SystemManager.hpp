@@ -21,13 +21,13 @@ namespace HGE {
         SystemManager& operator=(const SystemManager &sm) = delete;
 
         /* create a system for a given component. return the system if it already exists. */
-        template <class C>
-        System<C>* createSystem() {
+        template <class C, typename ... Args>
+        System<C>* createSystem(Args&& ... args) {
             auto type = typeid(System<C>).name();
             auto it = mTypedSystems.find(type);
 
             if(it == mTypedSystems.end()) {
-                mTypedSystems[type] = std::make_unique<System<C>>();
+                mTypedSystems[type] = std::make_unique<System<C>>(std::forward<Args>(args)...);
             }
             return dynamic_cast<System<C>*>(mTypedSystems[type].get());
         }

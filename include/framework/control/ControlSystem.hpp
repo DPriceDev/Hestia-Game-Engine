@@ -2,6 +2,8 @@
 #define HESTIA_FRAMEWORK_CONTROL_SYSTEM_HPP_
 
 #include "framework/ecs/System.hpp"
+#include "framework/ecs/ComponentManager.hpp"
+#include "input/InputManager.hpp"
 #include "ControlComponent.hpp"
 
 #include "util/Logger.hpp"
@@ -11,13 +13,14 @@ namespace HGE {
     template <>
     class System<ControlComponent> : public ISystem {
 
-        public:
-        System() { 
-            Logger::getInstance()->logDebug("Control System", "Created");
-        }
-        ~System() { }
+        ComponentArray<ControlComponent>* mComponentsArray;
+        InputManager* mInputManager;
 
-        void run() override { }
+        public:
+        System(ComponentArray<ControlComponent>* componentArray);
+        ~System() = default;
+
+        void run() override;
     };
 }
 

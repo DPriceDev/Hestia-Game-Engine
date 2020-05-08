@@ -5,6 +5,7 @@
 #include "glm/glm/glm.hpp"
 
 #include "framework/ecs/System.hpp"
+#include "framework/ecs/ComponentManager.hpp"
 #include "framework/sprite/SpriteComponent.hpp"
 
 #include "graphics/GraphicsModule.hpp"
@@ -15,20 +16,20 @@ namespace HGE {
     template <> 
     class System<SpriteComponent> : public ISystem {
 
-        std::tuple<std::vector<std::unique_ptr<SpriteComponent>>> mComponents;
+        ComponentArray<SpriteComponent>* mComponentsArray;
         GraphicsModule* mGraphicsModule;
         unsigned int mSpriteVao, mSpriteVbo;
         glm::mat4 mOrthographic;
 
         public:
-        System();
+        System(ComponentArray<SpriteComponent>* componentArray);
 
         ~System() { }
 
         void run() override {
-            for(auto & component : std::get<std::vector<std::unique_ptr<SpriteComponent>>>(mComponents)) {
-                mGraphicsModule->drawSprite(component->mShader, component->mMaterial, mSpriteVao, component->mTransform, component->mTint, component->mAlpha, mOrthographic);
-            }
+            for(auto const & component : mComponentsArray->getComponents()) {
+               mGraphicsModule->drawSprite(component.mShader, component.mMaterial, mSpriteVao, component.mTransform, component.mTint, component.mAlpha, mOrthographic);
+            } 
         }
     };
 }

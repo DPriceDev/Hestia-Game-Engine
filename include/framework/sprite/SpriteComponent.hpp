@@ -14,7 +14,6 @@
 #include "util/Logger.hpp"
 
 namespace HGE {
-
     struct SpriteComponent : public Component {
         
         Transform2f mTransform; 

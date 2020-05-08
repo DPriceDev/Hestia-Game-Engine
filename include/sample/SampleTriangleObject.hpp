@@ -24,7 +24,6 @@ class SampleTriangleObject : public HGE::Object {
 
     private:
     HGE::SpriteComponent* mSpriteComponent;
-    HGE::SpriteComponent* mSpriteComponentTwo;
     HGE::ControlComponent* mControlComponent;
 
     float mMovementSpeed = 220;
@@ -32,52 +31,42 @@ class SampleTriangleObject : public HGE::Object {
     public:
     void onCreate() override {
         mSpriteComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::SpriteComponent>(id);
-        mSpriteComponentTwo = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::SpriteComponent>(id);
+
+        mSpriteComponent->mTransform.mLocalPosition.x = 400;
+        mSpriteComponent->mTransform.mLocalPosition.y = 300;
+        mSpriteComponent->mTransform.mScale.x = 100;
+        mSpriteComponent->mTransform.mScale.y = mSpriteComponent->mTransform.mScale.x;
+
+        mSpriteComponent->mShader = HGE::Engine::getInstance()->getGraphicsModule()->getShader("./assets/shaders/basicSpriteVertexShader.vs",
+                            "./assets/shaders/fragmentShader.fs");
+
+        mSpriteComponent->mMaterial = HGE::Engine::getInstance()->getGraphicsModule()->getMaterial("./assets/textures/smileyFace.png");
+
         mControlComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::ControlComponent>(id);
-
-
-        // mSpriteComponent->mTransform.mLocalPosition.x = 400;
-        // mSpriteComponent->mTransform.mLocalPosition.y = 300;
-        // mSpriteComponent->mTransform.mScale.x = 100;
-        // mSpriteComponent->mTransform.mScale.y = mSpriteComponent->mTransform.mScale.x;
-
-        // mSpriteComponent->mShader = HGE::Engine::getInstance()->getGraphicsModule()->getShader("./assets/shaders/basicSpriteVertexShader.vs",
-        //                     "./assets/shaders/fragmentShader.fs");
-
-        // mSpriteComponent->mMaterial = HGE::Engine::getInstance()->getGraphicsModule()->getMaterial("./assets/textures/smileyFace.png");
-
-        //registerComponent(mSpriteComponent.get());
-
-        //mInputComponent = std::make_unique<HGE::InputComponent>(0);
-
-        // mInputComponent->addKey(HGE::UP_ARROW_KEY);
-        // mInputComponent->addKey(HGE::DOWN_ARROW_KEY);
-        // mInputComponent->addKey(HGE::LEFT_ARROW_KEY);
-        // mInputComponent->addKey(HGE::RIGHT_ARROW_KEY);
-
-        //registerComponent(mInputComponent.get());
-
-
+        mControlComponent->addKey(HGE::UP_ARROW_KEY);
+        mControlComponent->addKey(HGE::DOWN_ARROW_KEY);
+        mControlComponent->addKey(HGE::LEFT_ARROW_KEY);
+        mControlComponent->addKey(HGE::RIGHT_ARROW_KEY);
     }
 
     void tick(double deltaTime) override {
-        //mSpriteComponent->mTransform.mRotation += 360/3 * deltaTime;
+        mSpriteComponent->mTransform.mRotation += 360/3 * deltaTime;
 
-        // if(mInputComponent->getKeyValue(HGE::UP_ARROW_KEY)) {
-        //     mSpriteComponent->mTransform.mLocalPosition.y += mMovementSpeed * deltaTime;
-        // }
+        if(mControlComponent->getKeyValue(HGE::UP_ARROW_KEY)) {
+            mSpriteComponent->mTransform.mLocalPosition.y += mMovementSpeed * deltaTime;
+        }
 
-        // if(mInputComponent->getKeyValue(HGE::DOWN_ARROW_KEY)) {
-        //     mSpriteComponent->mTransform.mLocalPosition.y -= mMovementSpeed * deltaTime;
-        // }
+        if(mControlComponent->getKeyValue(HGE::DOWN_ARROW_KEY)) {
+            mSpriteComponent->mTransform.mLocalPosition.y -= mMovementSpeed * deltaTime;
+        }
 
-        // if(mInputComponent->getKeyValue(HGE::LEFT_ARROW_KEY)) {
-        //     mSpriteComponent->mTransform.mLocalPosition.x -= mMovementSpeed * deltaTime;
-        // }
+        if(mControlComponent->getKeyValue(HGE::LEFT_ARROW_KEY)) {
+            mSpriteComponent->mTransform.mLocalPosition.x -= mMovementSpeed * deltaTime;
+        }
 
-        // if(mInputComponent->getKeyValue(HGE::RIGHT_ARROW_KEY)) {
-        //     mSpriteComponent->mTransform.mLocalPosition.x += mMovementSpeed * deltaTime;
-        // }
+        if(mControlComponent->getKeyValue(HGE::RIGHT_ARROW_KEY)) {
+            mSpriteComponent->mTransform.mLocalPosition.x += mMovementSpeed * deltaTime;
+        }
     }
 };
 

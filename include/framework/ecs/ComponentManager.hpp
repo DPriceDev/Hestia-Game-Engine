@@ -37,7 +37,7 @@ namespace HGE {
         ~ComponentArray() = default;
         ComponentArray& operator= (const ComponentArray &other) = delete;
 
-        const std::vector<C>& getComponents() const { return mComponents; }
+        std::vector<C>& getComponents() { return mComponents; }
     };
 
     /**
@@ -63,7 +63,7 @@ namespace HGE {
             auto type = typeid(C).name();
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<C>>();
             auto componentArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
-            mSystemManager->createSystem<C>();
+            mSystemManager->createSystem<C>(componentArray);
             return componentArray;
         }
 
