@@ -20,8 +20,8 @@ namespace HGE {
             Engine::getInstance()->getObjectManager()->CreateObject<SampleTriangleObject>();
         }
         auto delta = Engine::getInstance()->getGraphicsModule()->getGameTime() - start;
-        std::string time("Object Time: " + std::to_string(delta));
-        Logger::getInstance()->logDebug("Game Environment", time);
+        //std::string time("Object Time: " + std::to_string(delta));
+        Logger::getInstance()->logDebug("Game Environment", "Object time:", delta);
     }
 
     void HGE::GameEnvironment::GameLoop() { 
