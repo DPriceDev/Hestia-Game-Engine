@@ -4,23 +4,24 @@
 #include <iostream>
 #include <string>
 #include <queue>
-
 #include <thread>
+
+#include "util/atomic_queue.h"
 
 namespace HGE {
     class Logger {
-
         static Logger mLogger;
-        std::queue<std::string> mMsgQueue;
+        AtomicQueue<std::string> mMsgQueue;
         std::thread mThread;
         bool mThreadRunning;
 
-        void loggingThreadLoop() {
+        const int maxMsgQueueSize = 1000;
 
+        void loggingThreadLoop() {
           while (mThreadRunning) {
             if (!mMsgQueue.empty()) {
-              std::cout << mMsgQueue.front() << "\n";
-              mMsgQueue.pop();
+                std::cout << mMsgQueue.front() << "\n";
+                mMsgQueue.pop();
             }
           }
         }
@@ -41,10 +42,17 @@ namespace HGE {
         }
 
         void logDebug(const std::string &tag, const std::string &msg) {
+            if(mMsgQueue.size() > maxMsgQueueSize) {
+                mMsgQueue.pop();
+            } 
             mMsgQueue.push("DEBUG: " + tag + " - " + msg);
+            
         }
 
         void logError(const std::string &tag, const std::string &msg) {
+            if(mMsgQueue.size() < maxMsgQueueSize) {
+                mMsgQueue.pop();
+            }
             mMsgQueue.push("ERROR: " + tag + " - " + msg);
         }
     };
