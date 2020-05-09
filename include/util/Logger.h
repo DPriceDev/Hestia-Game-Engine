@@ -11,7 +11,6 @@
 
 namespace HGE {
     class Logger {
-        static Logger mLogger;
         AtomicQueue<std::string> mMsgQueue;
         std::thread mThread;
         bool mThreadRunning;
@@ -67,8 +66,9 @@ namespace HGE {
         }
         
         public:
-        static Logger* getInstance() {
-            return &mLogger;
+        static Logger* instance() {
+            static Logger* logger = new Logger();
+            return logger;
         }
 
         ~Logger() {

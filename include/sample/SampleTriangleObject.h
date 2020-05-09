@@ -50,7 +50,7 @@ class SampleTriangleObject : public HGE::Object {
         mControlComponent->addKey(HGE::DOWN_ARROW_KEY);
         mControlComponent->addKey(HGE::LEFT_ARROW_KEY);
         mControlComponent->addKey(HGE::RIGHT_ARROW_KEY);
-        HGE::Logger::getInstance()->logDebug("Sample Game Object", "Created!");
+        HGE::Logger::instance()->logDebug("Sample Game Object", "Created!");
     }
 
     void tick(double deltaTime) override {

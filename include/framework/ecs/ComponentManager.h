@@ -37,7 +37,7 @@ namespace HGE {
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<C>>();
             auto componentArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
             mSystemManager->createSystem<C>(componentArray);
-            Logger::getInstance()->logDebug("Component Manager", "Component Array created:", type, "ptr:", componentArray);
+            Logger::instance()->logDebug("Component Manager", "Component Array created:", type, "ptr:", componentArray);
             return componentArray;
         }
 
@@ -55,7 +55,7 @@ namespace HGE {
                 pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
             }
             pArray->mComponents.push_back(std::make_unique<C>(std::forward<Args>(args)...));
-            Logger::getInstance()->logDebug("Component Manager", "Component Created:", type, "ptr:", pArray->mComponents.back().get());
+            Logger::instance()->logDebug("Component Manager", "Component Created:", type, "ptr:", pArray->mComponents.back().get());
             return pArray->mComponents.back().get();
         }
 

@@ -12,8 +12,6 @@
 
 #include "util/Logger.h"
 
-/* Function Declarations */
-HGE::Logger HGE::Logger::mLogger;
 /**
  * Main Entry Point.
  */

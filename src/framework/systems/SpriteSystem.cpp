@@ -21,6 +21,6 @@ namespace HGE {
             0.5, -0.5, 1.0f, 0.0f };
 
         mGraphicsModule->generateSpriteVAO(mSpriteVao, mSpriteVbo, vertices);
-        Logger::getInstance()->logDebug("Sprite System", "Created");
+        Logger::instance()->logDebug("Sprite System", "Created");
     }
 }

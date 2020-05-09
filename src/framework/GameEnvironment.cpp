@@ -20,7 +20,7 @@ namespace HGE {
         }
         auto delta = Engine::instance()->graphicsModule()->getGameTime() - start;
         //std::string time("Object Time: " + std::to_string(delta));
-        Logger::getInstance()->logDebug("Game Environment", "Object time:", delta);
+        Logger::instance()->logDebug("Game Environment", "Object time:", delta);
     }
 
     void HGE::GameEnvironment::GameLoop() { 

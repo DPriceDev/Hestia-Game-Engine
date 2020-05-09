@@ -29,7 +29,7 @@ namespace HGE {
      */    
     System<ControlComponent>::System(ComponentArray<ControlComponent>* componentArray) : mComponentsArray(componentArray) { 
         mInputManager = Engine::instance()->inputManager();
-        Logger::getInstance()->logDebug("Control System", "Created");
+        Logger::instance()->logDebug("Control System", "Created");
     }
 
     void System<ControlComponent>::run() {
