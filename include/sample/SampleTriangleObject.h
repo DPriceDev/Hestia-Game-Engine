@@ -32,20 +32,20 @@ class SampleTriangleObject : public HGE::Object {
 
     public:
     void onCreate() override {
-        mPositionComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::WorldPositionComponent>(getId());
-        mSpriteComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::SpriteComponent>(getId());
+        mPositionComponent = HGE::Engine::instance()->componentManager()->createComponent<HGE::WorldPositionComponent>(getId());
+        mSpriteComponent = HGE::Engine::instance()->componentManager()->createComponent<HGE::SpriteComponent>(getId());
 
         mPositionComponent->mTransform.mLocalPosition.x = 400;
         mPositionComponent->mTransform.mLocalPosition.y = 300;
         mSpriteComponent->mTransform.mScale.x = 100;
         mSpriteComponent->mTransform.mScale.y = mSpriteComponent->mTransform.mScale.x;
 
-        mSpriteComponent->mShader = HGE::Engine::getInstance()->getGraphicsModule()->getShader("./assets/shaders/basicSpriteVertexShader.vs",
+        mSpriteComponent->mShader = HGE::Engine::instance()->graphicsModule()->getShader("./assets/shaders/basicSpriteVertexShader.vs",
                             "./assets/shaders/fragmentShader.fs");
 
-        mSpriteComponent->mMaterial = HGE::Engine::getInstance()->getGraphicsModule()->getMaterial("./assets/textures/smileyFace.png");
+        mSpriteComponent->mMaterial = HGE::Engine::instance()->graphicsModule()->getMaterial("./assets/textures/smileyFace.png");
 
-        mControlComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::ControlComponent>(getId());
+        mControlComponent = HGE::Engine::instance()->componentManager()->createComponent<HGE::ControlComponent>(getId());
         mControlComponent->addKey(HGE::UP_ARROW_KEY);
         mControlComponent->addKey(HGE::DOWN_ARROW_KEY);
         mControlComponent->addKey(HGE::LEFT_ARROW_KEY);

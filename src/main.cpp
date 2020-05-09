@@ -13,18 +13,14 @@
 #include "util/Logger.h"
 
 /* Function Declarations */
-HGE::Engine *HGE::Engine::mEngine;
 HGE::Logger HGE::Logger::mLogger;
-
 /**
  * Main Entry Point.
  */
 int main(void) 
 {
-    HGE::Engine* engine = HGE::Engine::getInstance();
-    if(!engine->Init(std::make_unique<HGE::OpenGlModule>())) {
-        return -1;
-    }
+    auto engine = HGE::Engine::instance();
+    engine->useGraphicsModule<HGE::OpenGlModule>();
 
     std::unique_ptr<HGE::GameEnvironment> gameEnvironment = std::make_unique<HGE::GameEnvironment>();
     gameEnvironment->Init();
@@ -32,11 +28,9 @@ int main(void)
     // TODO: Load inital level and init the gameEnvironment
     
     /* Main Loop whilst window is open. */
-    while(engine->getInstance()->getGraphicsModule()->isWindowOpen())
-    {
+    while(engine->graphicsModule()->isWindowOpen()) {
         gameEnvironment->GameLoop();
     }
 
-    engine->terminate();
     return 0;
 }

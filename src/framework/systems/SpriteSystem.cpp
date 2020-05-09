@@ -8,8 +8,8 @@
 namespace HGE {
 
     System<SpriteComponent>::System(ComponentArray<SpriteComponent>* componentArray) : mSpritesArray(componentArray) { 
-        mGraphicsModule = Engine::getInstance()->getGraphicsModule();
-        mComponentManager = Engine::getInstance()->getComponentManager();
+        mGraphicsModule = Engine::instance()->graphicsModule();
+        mComponentManager = Engine::instance()->componentManager();
         mPositionsArray = mComponentManager->getComponentArray<WorldPositionComponent>();
 
         mOrthographic = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);

@@ -28,7 +28,7 @@ namespace HGE {
      * Control System Methods
      */    
     System<ControlComponent>::System(ComponentArray<ControlComponent>* componentArray) : mComponentsArray(componentArray) { 
-        mInputManager = Engine::getInstance()->getInputManager();
+        mInputManager = Engine::instance()->inputManager();
         Logger::getInstance()->logDebug("Control System", "Created");
     }
 

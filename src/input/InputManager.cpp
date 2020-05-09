@@ -4,6 +4,6 @@
 
 namespace HGE {
     bool InputManager::getKeyValue(KeyType key) {
-        return Engine::getInstance()->getGraphicsModule()->getKeyValue(key);
+        return Engine::instance()->graphicsModule()->getKeyValue(key);
     }
 }
