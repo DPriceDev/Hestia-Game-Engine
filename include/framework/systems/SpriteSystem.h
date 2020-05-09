@@ -4,7 +4,8 @@
 #include <vector>
 #include <glm/glm/glm.hpp>
 
-#include "framework/ecs/ecs.h"
+#include "framework/ecs/Component.h"
+#include "framework/ecs/System.h"
 
 #include "graphics/GraphicsModule.h"
 

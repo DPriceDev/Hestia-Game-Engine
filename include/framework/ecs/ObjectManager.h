@@ -4,8 +4,7 @@
 #include <vector>
 #include <memory>
 
-#include "ecs.h"
-#include "ComponentManager.h"
+#include "Object.h"
 
 namespace HGE {
     class ObjectManager {

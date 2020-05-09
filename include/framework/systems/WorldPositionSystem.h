@@ -1,7 +1,8 @@
 #ifndef HESTIA_FRAMEWORK_WORLD_POSITION_H
 #define HESTIA_FRAMEWORK_WORLD_POSITION_H
 
-#include "framework/ecs/ecs.h"
+#include "framework/ecs/Component.h"
+#include "framework/ecs/System.h"
 #include "framework/ecs/ComponentManager.h"
 
 #include "util/Logger.h"

@@ -3,7 +3,6 @@
 #include <string>
 
 #include "framework/Engine.h"
-#include "framework/ecs/ecs.h"
 
 #include "sample/SampleTriangleObject.h"
 

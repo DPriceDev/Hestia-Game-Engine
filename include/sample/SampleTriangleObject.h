@@ -9,7 +9,7 @@
 #include "math.h"
 
 #include "framework/Engine.h"
-#include "framework/ecs/ecs.h"
+#include "framework/ecs/Object.h"
 #include "framework/systems/SpriteSystem.h"
 #include "framework/systems/ControlSystem.h"
 #include "framework/systems/WorldPositionSystem.h"
@@ -32,8 +32,8 @@ class SampleTriangleObject : public HGE::Object {
 
     public:
     void onCreate() override {
-        mPositionComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::WorldPositionComponent>(id);
-        mSpriteComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::SpriteComponent>(id);
+        mPositionComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::WorldPositionComponent>(getId());
+        mSpriteComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::SpriteComponent>(getId());
 
         mSpriteComponent->mTransform.mLocalPosition.x = 400;
         mSpriteComponent->mTransform.mLocalPosition.y = 300;
@@ -45,7 +45,7 @@ class SampleTriangleObject : public HGE::Object {
 
         mSpriteComponent->mMaterial = HGE::Engine::getInstance()->getGraphicsModule()->getMaterial("./assets/textures/smileyFace.png");
 
-        mControlComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::ControlComponent>(id);
+        mControlComponent = HGE::Engine::getInstance()->getComponentManager()->createComponent<HGE::ControlComponent>(getId());
         mControlComponent->addKey(HGE::UP_ARROW_KEY);
         mControlComponent->addKey(HGE::DOWN_ARROW_KEY);
         mControlComponent->addKey(HGE::LEFT_ARROW_KEY);
