@@ -4,6 +4,9 @@
 #include <vector>
 #include <glm/glm/glm.hpp>
 
+
+#include "framework/ecs/ComponentManager.h"
+#include "framework/systems/WorldPositionSystem.h"
 #include "framework/ecs/Component.h"
 #include "framework/ecs/System.h"
 
@@ -34,7 +37,9 @@ namespace HGE {
     template <> 
     class System<SpriteComponent> : public ISystem {
 
-        ComponentArray<SpriteComponent>* mComponentsArray;
+        ComponentManager* mComponentManager;
+        ComponentArray<SpriteComponent>* mSpritesArray;
+        ComponentArray<WorldPositionComponent>* mPositionsArray;
         GraphicsModule* mGraphicsModule;
         unsigned int mSpriteVao, mSpriteVbo;
         glm::mat4 mOrthographic;
@@ -45,8 +50,14 @@ namespace HGE {
         ~System() { }
 
         void run() override {
-            for(auto const & component : mComponentsArray->getComponents()) {
-                mGraphicsModule->drawSprite(component->mShader, component->mMaterial, mSpriteVao, component->mTransform, component->mTint, component->mAlpha, mOrthographic);
+            for(auto const & component : mSpritesArray->getComponents()) {
+                auto worldComponent = mPositionsArray->getComponentWithOwner(component->getOwnerUID());
+                
+                if(worldComponent != nullptr) {
+                    mGraphicsModule->drawSprite(component->mShader, component->mMaterial, mSpriteVao, component->mTransform, worldComponent->mTransform, component->mTint, component->mAlpha, mOrthographic);
+                } else {
+                    Logger::getInstance()->logDebug("Sprite System", " No Position component available for object!");
+                }
             }
         }
     };

@@ -5,6 +5,8 @@
 #include "framework/ecs/System.h"
 #include "framework/ecs/ComponentManager.h"
 
+#include "maths/MathsTypes.h"
+
 #include "util/Logger.h"
 
 namespace HGE {
@@ -13,7 +15,9 @@ namespace HGE {
      * World Position Component
      */
     struct WorldPositionComponent : public Component {
-        WorldPositionComponent(UID ownerId) : Component(ownerId) { }
+        Transform2f mTransform;
+
+        WorldPositionComponent(UID ownerId) : Component(ownerId), mTransform(Transform2f()) { }
         ~WorldPositionComponent() = default;
     };
 

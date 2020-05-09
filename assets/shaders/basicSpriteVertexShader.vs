@@ -3,7 +3,8 @@ layout (location = 0) in vec2 aPos;
 layout (location = 1) in vec2 texCoords;
 
 uniform mat4 screen;
-uniform mat4 model;
+uniform mat4 world;
+uniform mat4 local;
 uniform vec4 tint;
 uniform float alpha;
 
@@ -13,7 +14,7 @@ out float alphaValue;
 
 void main()
 {
-    gl_Position = screen * model * vec4(aPos, 0.0, 1.0);
+    gl_Position = screen * world * local * vec4(aPos, 0.0, 1.0);
     TexCoord = texCoords;
     tintColor = tint;
     alphaValue = alpha;

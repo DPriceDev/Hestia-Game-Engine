@@ -49,6 +49,19 @@ namespace HGE {
         ComponentArray& operator= (const ComponentArray &other) = delete;
 
         std::vector<std::unique_ptr<C>>& getComponents() { return mComponents; }
+
+        C* getComponentWithOwner(UID ownerId) {
+            auto it = std::find_if(
+                mComponents.begin(), 
+                mComponents.end(),
+                [&] (const auto &pComponent) { return pComponent->getOwnerUID() == ownerId; });
+
+            if(it != mComponents.end()) {
+                return it->get();
+            } else {
+                return nullptr;
+            }
+        }
     };
 }
 
