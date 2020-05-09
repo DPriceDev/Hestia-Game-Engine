@@ -12,21 +12,21 @@ namespace HGE {
 
     void HGE::GameEnvironment::Init() {
         //TODO: Replace with some sort of game instance config, load from file?
-        Engine::getInstance()->getGraphicsModule()->setGameTitle("Hestia Game Engine v1.0-Alpha");
+        Engine::instance()->graphicsModule()->setGameTitle("Hestia Game Engine v1.0-Alpha");
 
-        auto start = Engine::getInstance()->getGraphicsModule()->getGameTime();
+        auto start = Engine::instance()->graphicsModule()->getGameTime();
         for(int i = 0; i < 1; ++i) {
-            Engine::getInstance()->getObjectManager()->CreateObject<SampleTriangleObject>();
+            Engine::instance()->objectManager()->CreateObject<SampleTriangleObject>();
         }
-        auto delta = Engine::getInstance()->getGraphicsModule()->getGameTime() - start;
+        auto delta = Engine::instance()->graphicsModule()->getGameTime() - start;
         //std::string time("Object Time: " + std::to_string(delta));
-        Logger::getInstance()->logDebug("Game Environment", "Object time:", delta);
+        Logger::instance()->logDebug("Game Environment", "Object time:", delta);
     }
 
     void HGE::GameEnvironment::GameLoop() { 
-        Engine::getInstance()->getObjectManager()->tick();
-        Engine::getInstance()->getGraphicsModule()->startFrame();
-        Engine::getInstance()->getSystemManager()->run();
-        Engine::getInstance()->getGraphicsModule()->renderFrame();
+        Engine::instance()->objectManager()->tick();
+        Engine::instance()->graphicsModule()->startFrame();
+        Engine::instance()->systemManager()->run();
+        Engine::instance()->graphicsModule()->renderFrame();
     }
 }

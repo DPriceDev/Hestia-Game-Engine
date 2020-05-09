@@ -8,8 +8,8 @@
 namespace HGE {
 
     System<SpriteComponent>::System(ComponentArray<SpriteComponent>* componentArray) : mSpritesArray(componentArray) { 
-        mGraphicsModule = Engine::getInstance()->getGraphicsModule();
-        mComponentManager = Engine::getInstance()->getComponentManager();
+        mGraphicsModule = Engine::instance()->graphicsModule();
+        mComponentManager = Engine::instance()->componentManager();
         mPositionsArray = mComponentManager->getComponentArray<WorldPositionComponent>();
 
         mOrthographic = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
@@ -21,6 +21,6 @@ namespace HGE {
             0.5, -0.5, 1.0f, 0.0f };
 
         mGraphicsModule->generateSpriteVAO(mSpriteVao, mSpriteVbo, vertices);
-        Logger::getInstance()->logDebug("Sprite System", "Created");
+        Logger::instance()->logDebug("Sprite System", "Created");
     }
 }

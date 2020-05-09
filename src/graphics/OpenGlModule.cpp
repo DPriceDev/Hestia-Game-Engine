@@ -87,7 +87,7 @@ namespace HGE {
         if(it != mShaders.end()) {
             return it->second.get();
         } else {
-            Logger::getInstance()->logDebug("OpenGl Module", "Shader created");
+            Logger::instance()->logDebug("OpenGl Module", "Shader created");
             ShaderProgram id = loadAndBuildShader(vertexShaderPath, fragmentShaderPath);
             mShaders.insert(std::make_pair(pair, std::make_unique<Shader>(id)));
             return mShaders.at(pair).get();
@@ -101,7 +101,7 @@ namespace HGE {
         if(it != mMaterials.end()) {
             return it->second.get();
         } else {
-            Logger::getInstance()->logDebug("OpenGl Module", "Shader created");
+            Logger::instance()->logDebug("OpenGl Module", "Shader created");
             TextureId id = loadAndBuildTexture(texturePath);
             mMaterials.insert(std::make_pair(texturePath, std::make_unique<Material>(id)));
             return mMaterials.at(texturePath).get();
@@ -206,17 +206,17 @@ namespace HGE {
         glfwMakeContextCurrent(window);
 
         if (window == NULL) {
-            Logger::getInstance()->logError("OpenGl Module", "Failed to create GLFW window");
+            Logger::instance()->logError("OpenGl Module", "Failed to create GLFW window");
             return nullptr;
         }
 
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-            Logger::getInstance()->logError("OpenGl Module", "Failed to initialize GLAD");
+            Logger::instance()->logError("OpenGl Module", "Failed to initialize GLAD");
             return nullptr;
         } 
 
         glViewport(0, 0, windowX, windowY);
-        Logger::getInstance()->logDebug("OpenGl Module", "Window Initialized Successfully.");
+        Logger::instance()->logDebug("OpenGl Module", "Window Initialized Successfully.");
 
         return window;
     }
@@ -316,7 +316,7 @@ namespace HGE {
             glGenerateMipmap(GL_TEXTURE_2D);
         }
         else {
-            Logger::getInstance()->logError("OpenGl Module", "Failed to load texture");
+            Logger::instance()->logError("OpenGl Module", "Failed to load texture");
         }
         stbi_image_free(data);
 

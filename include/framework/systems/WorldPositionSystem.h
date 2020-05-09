@@ -31,7 +31,7 @@ namespace HGE {
 
         public:
         System(ComponentArray<WorldPositionComponent>* componentArray) : mComponentsArray(componentArray) {
-            Logger::getInstance()->logDebug("World Position System", "Created!");
+            Logger::instance()->logDebug("World Position System", "Created!");
         }
         ~System() = default;
 

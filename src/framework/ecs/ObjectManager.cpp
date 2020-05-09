@@ -24,12 +24,12 @@ namespace HGE {
     }
 
     void ObjectManager::tick() {
-        auto deltaTime = Engine::getInstance()->getGraphicsModule()->getGameTime() - start;
+        auto deltaTime = Engine::instance()->graphicsModule()->getGameTime() - start;
 
         for(auto & object : mObjects) {
             object->tick(deltaTime);
         }
 
-        start = Engine::getInstance()->getGraphicsModule()->getGameTime();
+        start = Engine::instance()->graphicsModule()->getGameTime();
     }
 }

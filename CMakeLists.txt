@@ -41,7 +41,9 @@ set (
     )
 
 include_directories(${INCLUDE_DIRS})
-add_executable(engine.app ${all_SRCS})
-target_link_libraries(engine.app OpenGL::GL)
-target_link_libraries(engine.app glfw)
-target_link_libraries(engine.app glm)
+add_library(hestia STATIC ${all_SRCS})
+# add_executable(libhge.a ${all_SRCS})
+target_link_libraries(hestia OpenGL::GL)
+target_link_libraries(hestia glfw)
+target_link_libraries(hestia glm)
+target_include_directories(hestia PUBLIC ${INCLUDE_DIRS})

@@ -56,7 +56,7 @@ namespace HGE {
                 if(worldComponent != nullptr) {
                     mGraphicsModule->drawSprite(component->mShader, component->mMaterial, mSpriteVao, component->mTransform, worldComponent->mTransform, component->mTint, component->mAlpha, mOrthographic);
                 } else {
-                    Logger::getInstance()->logDebug("Sprite System", " No Position component available for object!");
+                    Logger::instance()->logDebug("Sprite System", " No Position component available for object!");
                 }
             }
         }

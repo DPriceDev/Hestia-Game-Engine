@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "exceptions.h"
+
 #include "ecs/SystemManager.h"
 #include "ecs/ComponentManager.h"
 #include "ecs/ObjectManager.h"
@@ -11,62 +13,61 @@
 #include "input/InputManager.h"
 
 namespace HGE {
-    class Engine {
-        
-        static Engine* mEngine;
-        std::unique_ptr<GraphicsModule> mGraphicsModule;
 
+    class Engine {
+        std::unique_ptr<GraphicsModule> mGraphicsModule;
         std::unique_ptr<SystemManager> mSystemManager;
         std::unique_ptr<ComponentManager> mComponentManager;
         std::unique_ptr<ObjectManager> mObjectManager;
         std::unique_ptr<InputManager> mInputManager;
-        
-        /* Private Constructor */
+
         Engine() {
             mSystemManager = std::make_unique<SystemManager>();
             mComponentManager = std::make_unique<ComponentManager>();
-            mComponentManager->setSystemManager(mSystemManager.get());
-
             mObjectManager = std::make_unique<ObjectManager>();
             mInputManager = std::make_unique<InputManager>();
+
+            mComponentManager->setSystemManager(mSystemManager.get());
         }
 
         public:
-        static Engine* getInstance() {
-            if(!mEngine) {
-                mEngine = new Engine();
+        static Engine* instance() {
+            static Engine* engine = new Engine();
+            return engine;
+        }
+
+        template <class G>
+        void useGraphicsModule() {
+            mGraphicsModule = std::make_unique<G>();
+            if(!mGraphicsModule->init()) {
+                throw GraphicModuleInitException();
             }
-            return mEngine;
         }
 
-        bool Init(std::unique_ptr<GraphicsModule> graphicsModule);
-
-        void terminate() {
-            mGraphicsModule->terminate();
+        static ObjectManager* objectManager() {
+            return instance()->mObjectManager.get();
         }
 
-        ObjectManager* getObjectManager() {
-            return mObjectManager.get();
+        static ComponentManager* componentManager() {
+            return instance()->mComponentManager.get();
         }
 
-        ComponentManager* getComponentManager() {
-            return mComponentManager.get();
+        static SystemManager* systemManager() {
+            return instance()->mSystemManager.get();
         }
 
-        SystemManager* getSystemManager() {
-            return mSystemManager.get();
+        static GraphicsModule* graphicsModule() {
+            return instance()->mGraphicsModule.get();
         }
 
-        GraphicsModule* getGraphicsModule() {
-            return mGraphicsModule.get();
+        static InputManager* inputManager() {
+            return instance()->mInputManager.get();
         }
 
-        InputManager* getInputManager() {
-            return mInputManager.get();
-        }
-
-        ~Engine() { 
-            delete mEngine;
+        ~Engine() {
+            if(mGraphicsModule.get() != nullptr) {
+                mGraphicsModule->terminate();
+            }
         }
     };
 }
