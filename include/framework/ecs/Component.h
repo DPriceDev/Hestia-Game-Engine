@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <algorithm>
 
 #include "util/Uid.h"
 #include "util/Logger.h"
