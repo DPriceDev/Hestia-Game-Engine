@@ -3,7 +3,8 @@
 
 #include <map>
 
-#include "framework/ecs/ecs.h"
+#include "framework/ecs/Component.h"
+#include "framework/ecs/System.h"
 
 #include "input/InputManager.h"
 #include "input/InputTypes.h"

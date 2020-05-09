@@ -8,7 +8,7 @@
 #include <memory>
 #include <iostream>
 
-#include "ecs.h"
+#include "Component.h"
 #include "SystemManager.h"
 
 #include "util/Logger.h"

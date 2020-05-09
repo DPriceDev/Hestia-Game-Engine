@@ -16,8 +16,13 @@ namespace HGE {
         std::thread mThread;
         bool mThreadRunning;
 
-        static const int maxMsgQueueSize = 1000;
-        static const int tagLength = 24;
+        const int maxMsgQueueSize = 1000;
+        const int tagLength = 24;
+
+        const std::string colourRed = "\033[31m";
+        const std::string colourWhite = "\033[37m";
+        const std::string colourGreen = "\033[32m";
+        const std::string colourYellow = "\033[33m";
 
         void loggingThreadLoop() {
           while (mThreadRunning) {
@@ -76,7 +81,15 @@ namespace HGE {
             if(mMsgQueue.size() > maxMsgQueueSize) {
                 mMsgQueue.pop();
             } 
-            mMsgQueue.push(buildString("DEBUG: ", structureTag(tag), " - ", args...));
+            mMsgQueue.push(buildString(colourGreen + "DEBUG: " + colourWhite, structureTag(tag), " - ", args...));
+        }
+
+        template<typename... Ts>
+        void logWarning(const std::string &tag, Ts&&... args) {
+            if(mMsgQueue.size() < maxMsgQueueSize) {
+                mMsgQueue.pop();
+            }
+            mMsgQueue.push(buildString(colourYellow + "WARNING: " + colourWhite, structureTag(tag), " - ", args...));
         }
 
         template<typename... Ts>
@@ -84,7 +97,7 @@ namespace HGE {
             if(mMsgQueue.size() < maxMsgQueueSize) {
                 mMsgQueue.pop();
             }
-            mMsgQueue.push(buildString("ERROR: ", structureTag(tag), " - ", args...));
+            mMsgQueue.push(buildString(colourRed + "ERROR: " + colourWhite, structureTag(tag), " - ", args...));
         }
     };
 }

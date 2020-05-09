@@ -147,11 +147,18 @@ namespace HGE {
     }
 
     /* */
-    void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
+    void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, Transform2f worldTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
 
-        glm::mat4 translation = glm::translate(glm::mat4(1.0), glm::vec3(localTransform.mLocalPosition.x, localTransform.mLocalPosition.y, 1.0));
-        glm::mat4 rotation = glm::rotate(translation, glm::radians(localTransform.mRotation), glm::vec3(0.0f, 0.0f, 1.0f));
-        glm::mat4 model = glm::scale(rotation, glm::vec3(localTransform.mScale.x, localTransform.mScale.y, 1.0f));
+        glm::mat4 local = glm::mat4(1.0f);
+        glm::mat4 world = glm::mat4(1.0f);
+
+        local = glm::translate(local, glm::vec3(localTransform.mLocalPosition.x, localTransform.mLocalPosition.y, 0.0f));
+        local = glm::rotate(local, glm::radians(localTransform.mRotation), glm::vec3(0.0f, 0.0f, 1.0f));
+        local = glm::scale(local, glm::vec3(localTransform.mScale.x, localTransform.mScale.y, 1.0f));
+
+        world = glm::translate(world, glm::vec3(worldTransform.mLocalPosition.x, worldTransform.mLocalPosition.y, 0.0f));
+        world = glm::rotate(world, glm::radians(worldTransform.mRotation), glm::vec3(0.0f, 0.0f, 1.0f));
+        world = glm::scale(world, glm::vec3(worldTransform.mScale.x, worldTransform.mScale.y, 1.0f));
 
         pMaterial->useTexture();
         glEnable(GL_BLEND);
@@ -161,7 +168,9 @@ namespace HGE {
 
         pShader->useShader();
         pShader->setFloat("alpha", alpha);
-        pShader->setMat4("model", model);
+        pShader->setMat4("local", local);
+        pShader->setMat4("world", world);
+
         pShader->setVec4("tint", tint4f);
         pShader->setMat4("screen", screenProjection);
 

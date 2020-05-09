@@ -6,7 +6,7 @@
 
 #include "framework/Engine.h"
 
-#include "framework/ecs/ecs.h"
+#include "framework/ecs/Object.h"
 #include "util/Logger.h"
 
 namespace HGE {
