@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <glm/glm/glm.hpp>
-
+#include <glm/glm/ext.hpp>
 
 #include "framework/ecs/ComponentManager.h"
 #include "framework/systems/WorldPositionSystem.h"
@@ -50,6 +50,9 @@ namespace HGE {
         ~System() { }
 
         void run() override {
+            auto screenSize = mGraphicsModule->getScreenSize();
+            mOrthographic = glm::ortho(0.0f, screenSize.widthf(), 0.0f, screenSize.heightf());
+
             for(auto const & component : mSpritesArray->getComponents()) {
                 auto worldComponent = mPositionsArray->getComponentWithOwner(component->getOwnerUID());
                 

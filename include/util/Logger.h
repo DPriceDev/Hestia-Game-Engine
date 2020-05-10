@@ -9,7 +9,12 @@
 
 #include "util/atomic_queue.h"
 
+#define LOG_DEBUG(...) HGE::Logger::instance()->logDebug(__VA_ARGS__);
+#define LOG_WARNING(...) HGE::Logger::instance()->logWarning(__VA_ARGS__);
+#define LOG_ERROR(...) HGE::Logger::instance()->logError(__VA_ARGS__);
+
 namespace HGE {
+
     class Logger {
         AtomicQueue<std::string> mMsgQueue;
         std::thread mThread;
@@ -86,7 +91,7 @@ namespace HGE {
 
         template<typename... Ts>
         void logWarning(const std::string &tag, Ts&&... args) {
-            if(mMsgQueue.size() < maxMsgQueueSize) {
+            if(mMsgQueue.size() > maxMsgQueueSize) {
                 mMsgQueue.pop();
             }
             mMsgQueue.push(buildString(colourYellow + "WARNING: " + colourWhite, structureTag(tag), " - ", args...));
@@ -94,7 +99,7 @@ namespace HGE {
 
         template<typename... Ts>
         void logError(const std::string &tag, Ts&&... args) {
-            if(mMsgQueue.size() < maxMsgQueueSize) {
+            if(mMsgQueue.size() > maxMsgQueueSize) {
                 mMsgQueue.pop();
             }
             mMsgQueue.push(buildString(colourRed + "ERROR: " + colourWhite, structureTag(tag), " - ", args...));

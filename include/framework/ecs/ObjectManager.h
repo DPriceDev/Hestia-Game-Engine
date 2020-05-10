@@ -9,7 +9,6 @@
 namespace HGE {
     class ObjectManager {
         std::vector<std::unique_ptr<Object>> mObjects{ };
-        double start;
 
         public:
         template<class T>
@@ -31,10 +30,9 @@ namespace HGE {
         }
 
         void DestroyObject(UID id);
-        void tick();
 
-        ObjectManager();
-        ~ObjectManager() { }
+        ObjectManager() : mObjects(std::vector<std::unique_ptr<Object>>()) { }
+        ~ObjectManager() = default;
     };
 }
 

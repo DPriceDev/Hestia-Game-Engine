@@ -23,7 +23,6 @@ namespace HGE {
         virtual ~IObject() = default;
         virtual UID getId() const = 0;
         virtual void onCreate() = 0;
-        virtual void tick(double deltaTime) = 0;
     };
 
     /**
@@ -53,12 +52,11 @@ namespace HGE {
 
         /* Setters and Getters */
         UID getId() const override {
-        return id;
+            return id;
         }
 
         /* Public Methods */
         virtual void onCreate() override = 0;
-        virtual void tick(double deltaTime) override = 0;
     };
 }
 
