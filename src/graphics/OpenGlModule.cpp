@@ -78,6 +78,12 @@ namespace HGE {
         return glfwGetKey(mWindow, key) == GLFW_PRESS;
     }
 
+    ScreenSize2f OpenGlModule::getScreenSize() {
+        ScreenSize2f screenSize;
+        glfwGetWindowSize(mWindow, &screenSize.width(), &screenSize.height());
+        return screenSize;
+    }
+
     /* */
     Shader* OpenGlModule::getShader(const char * vertexShaderPath, const char * fragmentShaderPath) {
 

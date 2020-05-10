@@ -43,10 +43,7 @@ namespace HGE {
         void setGameTitle(const char * title) override;
 
         bool getKeyValue(KeyType key) override;
-
-        void setKeyCallback(KeyType key) override {
-            
-        }
+        ScreenSize2f getScreenSize() override;
 
         void renderFrame() override;
         void startFrame() override;

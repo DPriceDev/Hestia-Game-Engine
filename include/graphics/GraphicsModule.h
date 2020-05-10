@@ -1,6 +1,8 @@
 #ifndef HESTIA_GRAPHICS_GRAPHICS_MODULE_H
 #define HESTIA_GRAPHICS_GRAPHICS_MODULE_H
 
+#include <variant>
+
 #include "glm/glm/glm.hpp"
 
 #include "input/InputTypes.h"
@@ -12,6 +14,15 @@ namespace HGE {
     using VAO = unsigned int;
     using VBO = unsigned int;
     using EBO = unsigned int;
+
+    struct ScreenSize2f {
+        int mWidth, mHeight;
+
+        int& width() { return mWidth; }
+        float widthf() { return static_cast<float>(mWidth);}
+        int& height() { return mHeight; }
+        float heightf() { return static_cast<float>(mHeight); }
+    };
 
     class GraphicsModule {
 
@@ -32,11 +43,11 @@ namespace HGE {
         virtual Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) = 0;
         virtual Material* getMaterial(const char * texturePath) = 0;
 
-        virtual double getGameTime() = 0;
         virtual void setGameTitle(const char * title) = 0;
 
-        virtual void setKeyCallback(KeyType key) = 0;
+        virtual double getGameTime() = 0;
         virtual bool getKeyValue(KeyType key) = 0;
+        virtual ScreenSize2f getScreenSize() = 0;
 
         virtual void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;
         virtual void generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;

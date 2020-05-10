@@ -12,7 +12,8 @@ namespace HGE {
         mComponentManager = Engine::instance()->componentManager();
         mPositionsArray = mComponentManager->getComponentArray<WorldPositionComponent>();
 
-        mOrthographic = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+        auto screenSize = mGraphicsModule->getScreenSize();
+        mOrthographic = glm::ortho(0.0f, screenSize.widthf(), 0.0f, screenSize.heightf());
 
         float vertices[16] = { 
             0.5, 0.5, 1.0f, 1.0f,  
