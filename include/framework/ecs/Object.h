@@ -53,7 +53,7 @@ namespace HGE {
 
         /* Setters and Getters */
         UID getId() const override {
-        return id;
+            return id;
         }
 
         /* Public Methods */

@@ -6,14 +6,12 @@ namespace HGE {
     class GameEnvironment
     {
         public:
-        GameEnvironment() { }
-        ~GameEnvironment() { }
+        virtual ~GameEnvironment() = default;
 
         /* Public Methods */
-        void Init();
-        void BeginGame();
-        void GameLoop();
-        void EndGame();
+        virtual void beginGame() = 0;
+        virtual void gameLoop() = 0;
+        virtual void endGame() = 0;
     };
 }
 

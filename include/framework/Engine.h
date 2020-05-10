@@ -9,6 +9,8 @@
 #include "ecs/ComponentManager.h"
 #include "ecs/ObjectManager.h"
 
+#include "GameEnvironment.h"
+
 #include "graphics/GraphicsModule.h"
 #include "input/InputManager.h"
 
@@ -20,6 +22,7 @@ namespace HGE {
         std::unique_ptr<ComponentManager> mComponentManager;
         std::unique_ptr<ObjectManager> mObjectManager;
         std::unique_ptr<InputManager> mInputManager;
+        std::unique_ptr<GameEnvironment> mCurrentGameEnvironment;
 
         Engine() {
             mSystemManager = std::make_unique<SystemManager>();
@@ -36,12 +39,29 @@ namespace HGE {
             return engine;
         }
 
-        template <class G>
+        template <class GM>
         void useGraphicsModule() {
-            mGraphicsModule = std::make_unique<G>();
+            mGraphicsModule = std::make_unique<GM>();
             if(!mGraphicsModule->init()) {
                 throw GraphicModuleInitException();
             }
+        }
+
+        template <class GE>
+        void loadGameEnvironment() {
+            mCurrentGameEnvironment = std::make_unique<GE>();
+
+            mCurrentGameEnvironment->beginGame();
+
+            while(mGraphicsModule->isWindowOpen()) {
+                mCurrentGameEnvironment->gameLoop();
+                mObjectManager->tick();
+                mGraphicsModule->startFrame();
+                mSystemManager->run();
+                mGraphicsModule->renderFrame();
+            }
+
+            mCurrentGameEnvironment->endGame();
         }
 
         static ObjectManager* objectManager() {
