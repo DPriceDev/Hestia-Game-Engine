@@ -23,7 +23,6 @@ namespace HGE {
         virtual ~IObject() = default;
         virtual UID getId() const = 0;
         virtual void onCreate() = 0;
-        virtual void tick(double deltaTime) = 0;
     };
 
     /**
@@ -58,7 +57,6 @@ namespace HGE {
 
         /* Public Methods */
         virtual void onCreate() override = 0;
-        virtual void tick(double deltaTime) override = 0;
     };
 }
 

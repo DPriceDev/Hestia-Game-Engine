@@ -24,7 +24,9 @@ namespace HGE {
         std::unique_ptr<InputManager> mInputManager;
         std::unique_ptr<GameEnvironment> mCurrentGameEnvironment;
 
-        Engine() {
+        double mCurrentTickTime;
+
+        Engine() : mCurrentTickTime(0.0) {
             mSystemManager = std::make_unique<SystemManager>();
             mComponentManager = std::make_unique<ComponentManager>();
             mObjectManager = std::make_unique<ObjectManager>();
@@ -52,10 +54,12 @@ namespace HGE {
             mCurrentGameEnvironment = std::make_unique<GE>();
 
             mCurrentGameEnvironment->beginGame();
+            auto lastTime = graphicsModule()->getGameTime();
 
             while(mGraphicsModule->isWindowOpen()) {
+                mCurrentTickTime = graphicsModule()->getGameTime() - lastTime;
+                lastTime = graphicsModule()->getGameTime();
                 mCurrentGameEnvironment->gameLoop();
-                mObjectManager->tick();
                 mGraphicsModule->startFrame();
                 mSystemManager->run();
                 mGraphicsModule->renderFrame();
@@ -82,6 +86,10 @@ namespace HGE {
 
         static InputManager* inputManager() {
             return instance()->mInputManager.get();
+        }
+
+        static double& tickTime() {
+            return instance()->mCurrentTickTime;
         }
 
         ~Engine() {
