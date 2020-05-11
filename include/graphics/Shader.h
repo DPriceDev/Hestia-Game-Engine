@@ -12,11 +12,11 @@ namespace HGE {
         ShaderProgram mId;
 
         public:
-        Shader(ShaderProgram id) : mId(id) { }
+        explicit Shader(ShaderProgram id) : mId(id) { }
         ~Shader() = default;
-        void useShader();
+        void useShader() const;
 
-        ShaderProgram getShaderId() {
+        ShaderProgram getShaderId() const {
             return mId;
         }
 

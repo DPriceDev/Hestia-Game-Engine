@@ -24,8 +24,8 @@ namespace HGE {
         void removeKey(KeyType key);
         bool getKeyValue(KeyType key);
 
-        ControlComponent(UID ownerId) : Component(ownerId), mKeys(std::map<KeyType, bool>()) { }
-        ~ControlComponent() { }
+        explicit ControlComponent(UID ownerId) : Component(ownerId), mKeys(std::map<KeyType, bool>()) { }
+        ~ControlComponent() override = default;
     };
 
     /**
@@ -38,8 +38,8 @@ namespace HGE {
         InputManager* mInputManager;
 
         public:
-        System(ComponentArray<ControlComponent>* componentArray);
-        ~System() = default;
+        explicit System(ComponentArray<ControlComponent>* componentArray);
+        ~System() override = default;
 
         void run() override;
     };

@@ -48,7 +48,7 @@ namespace HGE {
 
         public:
         Object() = default;
-        ~Object() = default;
+        ~Object() override = default;
 
         /* Setters and Getters */
         UID getId() const override {
@@ -56,7 +56,7 @@ namespace HGE {
         }
 
         /* Public Methods */
-        virtual void onCreate() override = 0;
+        void onCreate() override = 0;
     };
 }
 

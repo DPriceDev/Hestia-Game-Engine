@@ -1,13 +1,8 @@
 #include "framework/ecs/ObjectManager.h"
 
-#include <chrono>
-#include <iostream>
 #include <algorithm>
 
-#include "framework/Engine.h"
-
 #include "framework/ecs/Object.h"
-#include "util/Logger.h"
 
 namespace HGE {
 

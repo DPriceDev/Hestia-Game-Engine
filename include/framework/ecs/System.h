@@ -24,8 +24,8 @@ namespace HGE {
 
         System() = default;
         public:
-        ~System() = default;
-        void run() = 0;
+        ~System() override = default;
+        void run() override = 0;
     };
 }
 

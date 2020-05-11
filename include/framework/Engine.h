@@ -37,8 +37,8 @@ namespace HGE {
 
         public:
         static Engine* instance() {
-            static Engine* engine = new Engine();
-            return engine;
+            static auto* sEngine = new Engine();
+            return sEngine;
         }
 
         template <class GM>
@@ -93,7 +93,7 @@ namespace HGE {
         }
 
         ~Engine() {
-            if(mGraphicsModule.get() != nullptr) {
+            if(mGraphicsModule != nullptr) {
                 mGraphicsModule->terminate();
             }
         }

@@ -23,7 +23,7 @@ namespace HGE {
         Component(UID ownerId) : mOwnerUID(ownerId) { }
         virtual ~Component() = default;
         
-        UID getOwnerUID() const { 
+        UID getOwnerUID() const {
             return mOwnerUID; 
         }
     };
@@ -46,7 +46,7 @@ namespace HGE {
 
         public:
         ComponentArray() : mComponents(std::vector<std::unique_ptr<C>>()) { }
-        ~ComponentArray() = default;
+        ~ComponentArray() override = default;
         ComponentArray& operator= (const ComponentArray &other) = delete;
 
         std::vector<std::unique_ptr<C>>& getComponents() { return mComponents; }

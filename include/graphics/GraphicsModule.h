@@ -18,10 +18,13 @@ namespace HGE {
     struct ScreenSize2f {
         int mWidth, mHeight;
 
+        ScreenSize2f() : mWidth(0), mHeight(0) { }
+        ScreenSize2f(int width, int height) : mWidth(width), mHeight(height) { }
+
         int& width() { return mWidth; }
-        float widthf() { return static_cast<float>(mWidth);}
+        float widthf() const { return static_cast<float>(mWidth);}
         int& height() { return mHeight; }
-        float heightf() { return static_cast<float>(mHeight); }
+        float heightf() const { return static_cast<float>(mHeight); }
     };
 
     class GraphicsModule {

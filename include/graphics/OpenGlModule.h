@@ -31,7 +31,7 @@ namespace HGE {
             mGameTitle(""), 
             mWindow(nullptr) { }
              
-        ~OpenGlModule() = default;
+        ~OpenGlModule() override = default;
 
 
         bool init() override;

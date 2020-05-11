@@ -13,10 +13,10 @@ namespace HGE {
     struct Material {
         TextureId mId;
 
-        Material(TextureId id) : mId(id) { }
-        ~Material() { }
+        explicit Material(TextureId id) : mId(id) { }
+        ~Material() = default;
 
-        void useTexture() {
+        void useTexture() const {
             glBindTexture(GL_TEXTURE_2D, mId);
         }
     };

@@ -17,8 +17,8 @@ namespace HGE {
     struct WorldPositionComponent : public Component {
         Transform2f mTransform;
 
-        WorldPositionComponent(UID ownerId) : Component(ownerId), mTransform(Transform2f()) { }
-        ~WorldPositionComponent() = default;
+        explicit WorldPositionComponent(UID ownerId) : Component(ownerId), mTransform(Transform2f()) { }
+        ~WorldPositionComponent() override = default;
     };
 
     /**
@@ -30,10 +30,10 @@ namespace HGE {
         ComponentArray<WorldPositionComponent>* mComponentsArray;
 
         public:
-        System(ComponentArray<WorldPositionComponent>* componentArray) : mComponentsArray(componentArray) {
+        explicit System(ComponentArray<WorldPositionComponent>* componentArray) : mComponentsArray(componentArray) {
             Logger::instance()->logDebug("World Position System", "Created!");
         }
-        ~System() = default;
+        ~System() override = default;
 
         void run() override { }
     };

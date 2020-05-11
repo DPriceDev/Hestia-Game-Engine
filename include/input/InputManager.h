@@ -10,7 +10,7 @@ namespace HGE {
         InputManager() = default;
         ~InputManager() = default;
 
-        bool getKeyValue(KeyType key);
+        static bool getKeyValue(KeyType key);
     };
 }
 #endif

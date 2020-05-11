@@ -1,6 +1,5 @@
 #include "framework/systems/SpriteSystem.h"
 
-#include <iostream>
 #include <glm/glm/ext.hpp>
 
 #include "framework/Engine.h"

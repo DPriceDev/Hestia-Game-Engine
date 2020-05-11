@@ -22,7 +22,7 @@ namespace HGE {
 
         public:
         ComponentManager() : mTypedComponentArrays(std::map<std::string, std::unique_ptr<IComponentArray>>()) { }
-        ~ComponentManager() { }
+        ~ComponentManager() = default;
         ComponentManager& operator= (const ComponentManager &other) = delete;
 
         /* Assign the System manager. */

@@ -23,9 +23,9 @@ namespace HGE {
 
         Vector2f(Pointf x, Pointf y) : x(x), y(y) { }
 
-        Vector2f(Pointf xy) : x(xy), y(xy) { }
+        explicit Vector2f(Pointf xy) : x(xy), y(xy) { }
 
-        void setXY(Pointf x, Pointf y) {
+        static void setXY(Pointf x, Pointf y) {
             x = x;
             y = y;
         }

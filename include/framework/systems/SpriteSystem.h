@@ -22,13 +22,13 @@ namespace HGE {
     struct SpriteComponent : public Component {
         
         Transform2f mTransform; 
-        Shader* mShader;
-        Material* mMaterial;
+        Shader* mShader{};
+        Material* mMaterial{};
         ColourRGBA mTint;
         Pointf mAlpha;
 
-        SpriteComponent(UID ownerId) : Component(ownerId), mTransform(Transform2f()), mTint(ColourRGBA()), mAlpha(1.0f) { }
-        ~SpriteComponent() = default;
+        explicit SpriteComponent(UID ownerId) : Component(ownerId), mTransform(Transform2f()), mTint(ColourRGBA()), mAlpha(1.0f) { }
+        ~SpriteComponent() override = default;
     };
 
     /**
@@ -45,9 +45,9 @@ namespace HGE {
         glm::mat4 mOrthographic;
 
         public:
-        System(ComponentArray<SpriteComponent>* componentArray);
+        explicit System(ComponentArray<SpriteComponent>* componentArray);
 
-        ~System() { }
+        ~System() override = default;
 
         void run() override {
             auto screenSize = mGraphicsModule->getScreenSize();

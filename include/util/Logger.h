@@ -60,7 +60,7 @@ namespace HGE {
             return ss.str();
         }
 
-        std::string structureTag(const std::string &tag) {
+        std::string structureTag(const std::string &tag) const {
             if(tag.size() > tagLength) {
                 std::string s = tag.substr(0, tagLength - 3) + "..."; 
                 return s;
@@ -72,8 +72,8 @@ namespace HGE {
         
         public:
         static Logger* instance() {
-            static Logger* logger = new Logger();
-            return logger;
+            static auto* sLogger = new Logger();
+            return sLogger;
         }
 
         ~Logger() {
