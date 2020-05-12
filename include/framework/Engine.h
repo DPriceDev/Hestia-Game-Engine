@@ -8,6 +8,7 @@
 #include "ecs/SystemManager.h"
 #include "ecs/ComponentManager.h"
 #include "ecs/ObjectManager.h"
+#include "camera/CameraManager.h"
 
 #include "GameEnvironment.h"
 
@@ -22,6 +23,7 @@ namespace HGE {
         std::unique_ptr<ComponentManager> mComponentManager;
         std::unique_ptr<ObjectManager> mObjectManager;
         std::unique_ptr<InputManager> mInputManager;
+        std::unique_ptr<CameraManager> mCameraManager;
         std::unique_ptr<GameEnvironment> mCurrentGameEnvironment;
 
         double mCurrentTickTime;
@@ -42,11 +44,12 @@ namespace HGE {
         }
 
         template <class GM>
-        void useGraphicsModule() {
-            mGraphicsModule = std::make_unique<GM>();
-            if(!mGraphicsModule->init()) {
+        static void useGraphicsModule() {
+            instance()->mGraphicsModule = std::make_unique<GM>();
+            if(!instance()->mGraphicsModule->init()) {
                 throw GraphicModuleInitException();
             }
+            instance()->mCameraManager = std::make_unique<CameraManager>(graphicsModule());
         }
 
         template <class GE>
@@ -70,6 +73,14 @@ namespace HGE {
 
         static ObjectManager* objectManager() {
             return instance()->mObjectManager.get();
+        }
+
+        static GameEnvironment* gameEnvironment() {
+            return instance()->mCurrentGameEnvironment.get();
+        }
+
+        static CameraManager* cameraManager() {
+            return instance()->mCameraManager.get();
         }
 
         static ComponentManager* componentManager() {

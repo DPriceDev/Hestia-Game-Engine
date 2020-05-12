@@ -1,7 +1,7 @@
 #ifndef HESTIA_FRAMEWORK_WORLD_POSITION_H
 #define HESTIA_FRAMEWORK_WORLD_POSITION_H
 
-#include "framework/ecs/Component.h"
+#include "framework/ecs/IComponent.h"
 #include "framework/ecs/System.h"
 #include "framework/ecs/ComponentManager.h"
 
@@ -12,12 +12,17 @@
 namespace HGE {
 
     /**
-     * World Position Component
+     * World Position IComponent
      */
-    struct WorldPositionComponent : public Component {
+    struct WorldPositionComponent : public IComponent {
         Transform2f mTransform;
 
-        explicit WorldPositionComponent(UID ownerId) : Component(ownerId), mTransform(Transform2f()) { }
+        const float& getX() { return mTransform.mLocalPosition.x; }
+        const float& getY() { return mTransform.mLocalPosition.y; }
+        const void setX(const float& value) { mTransform.mLocalPosition.x = value; }
+        const void setY(const float& value) { mTransform.mLocalPosition.y = value; }
+
+        explicit WorldPositionComponent(UID ownerId) : IComponent(ownerId), mTransform(Transform2f()) { }
         ~WorldPositionComponent() override = default;
     };
 

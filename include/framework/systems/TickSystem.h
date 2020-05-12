@@ -4,18 +4,18 @@
 #include <functional>
 #include <utility>
 
-#include "framework/ecs/Component.h"
+#include "framework/ecs/IComponent.h"
 #include "framework/ecs/System.h"
 
 namespace HGE {
 
     /**
-     * Tick Component
+     * Tick IComponent
      */
-    struct TickComponent : Component {
+    struct TickComponent : IComponent {
         std::function<void(double)> mTickFunction;
 
-        TickComponent(UID ownerId, std::function<void(double)> tickFunction) : Component(ownerId), mTickFunction(std::move(tickFunction)) { }
+        TickComponent(UID ownerId, std::function<void(double)> tickFunction) : IComponent(ownerId), mTickFunction(std::move(tickFunction)) { }
         ~TickComponent() override = default;
     };
 

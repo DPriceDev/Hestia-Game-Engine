@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "framework/ecs/ComponentManager.h"
-#include "framework/ecs/Component.h"
+#include "framework/ecs/IComponent.h"
 #include "util/Uid.h"
 #include "util/Logger.h"
 

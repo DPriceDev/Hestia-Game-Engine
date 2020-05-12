@@ -13,15 +13,15 @@ namespace HGE {
     using UID = int;
 
     /**
-     * Component Interface
+     * IComponent Interface
      */
-    class Component {
+    class IComponent {
 
         UID mOwnerUID;
 
         public:
-        Component(UID ownerId) : mOwnerUID(ownerId) { }
-        virtual ~Component() = default;
+        IComponent(UID ownerId) : mOwnerUID(ownerId) { }
+        virtual ~IComponent() = default;
         
         UID getOwnerUID() const {
             return mOwnerUID; 
@@ -29,7 +29,7 @@ namespace HGE {
     };
 
     /**
-     * Component Array Interface
+     * IComponent Array Interface
      */
     class IComponentArray {
         public:
@@ -37,7 +37,7 @@ namespace HGE {
     };
 
     /**
-     * Component Array
+     * IComponent Array
      */
     template <class C>
     class ComponentArray : public IComponentArray {

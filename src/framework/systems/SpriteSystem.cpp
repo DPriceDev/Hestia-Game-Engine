@@ -7,12 +7,15 @@
 namespace HGE {
 
     System<SpriteComponent>::System(ComponentArray<SpriteComponent>* componentArray) : mSpritesArray(componentArray) { 
-        mGraphicsModule = Engine::instance()->graphicsModule();
-        mComponentManager = Engine::instance()->componentManager();
+        mGraphicsModule = Engine::graphicsModule();
+        mCameraManager = Engine::cameraManager();
+        mComponentManager = Engine::componentManager();
         mPositionsArray = mComponentManager->getComponentArray<WorldPositionComponent>();
 
-        auto screenSize = mGraphicsModule->getScreenSize();
-        mOrthographic = glm::ortho(0.0f, screenSize.widthf(), 0.0f, screenSize.heightf());
+        mOrthographic = glm::ortho(mCameraManager->getViewportLeft(),
+                                   mCameraManager->getViewportRight(),
+                                   mCameraManager->getViewportBottom(),
+                                   mCameraManager->getViewportTop());
 
         float vertices[16] = { 
             0.5, 0.5, 1.0f, 1.0f,  

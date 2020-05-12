@@ -4,7 +4,7 @@
 namespace HGE {
 
     /**
-     * Control Component Methods
+     * Control IComponent Methods
      */    
     void ControlComponent::addKey(KeyType key) {
         mKeys[key] = false;
