@@ -1,5 +1,5 @@
-#ifndef HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H
-#define HESTIA_FRAMEWORK_ECS_COMPONENTMANAGER_H
+#ifndef HESTIA_FRAMEWORK_ECS_COMPONENT_MANAGER_H
+#define HESTIA_FRAMEWORK_ECS_COMPONENT_MANAGER_H
 
 #include <map>
 #include <typeinfo>
@@ -20,53 +20,49 @@ namespace HGE {
         std::map<std::string, std::unique_ptr<IComponentArray>> mTypedComponentArrays;
         SystemManager* mSystemManager;
 
-        public:
-        ComponentManager() : mTypedComponentArrays(std::map<std::string, std::unique_ptr<IComponentArray>>()) { }
+    public:
+        explicit ComponentManager(SystemManager* pSystemManager)
+                                : mTypedComponentArrays(std::map<std::string, std::unique_ptr<IComponentArray>>()),
+                                  mSystemManager(pSystemManager) { }
+
         ~ComponentManager() = default;
         ComponentManager& operator= (const ComponentManager &other) = delete;
 
-        /* Assign the System manager. */
-        void setSystemManager(SystemManager* pSystemManager) { 
-            mSystemManager = pSystemManager; 
-        }
-
         /* Create a component vector within the typed component map. returns the vector. */
-        template <class C>
-        ComponentArray<C>* createComponentArray() {
-            auto type = typeid(C).name();
-            mTypedComponentArrays[type] = std::make_unique<ComponentArray<C>>();
-            auto componentArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
-            mSystemManager->createSystem<C>(componentArray);
-            Logger::instance()->logDebug("IComponent Manager", "IComponent Array created:", type, "ptr:", componentArray);
+        template <class Comp>
+        ComponentArray<Comp>* createComponentArray() {
+            auto type = typeid(Comp).name();
+            mTypedComponentArrays[type] = std::make_unique<ComponentArray<Comp>>();
+            auto componentArray = dynamic_cast<ComponentArray<Comp>*>(mTypedComponentArrays[type].get());
+            mSystemManager->createSystem<Comp>(componentArray);
+            LOG_DEBUG("IComponent Manager", "IComponent Array created:", type);
             return componentArray;
         }
 
         /* Creates a component and adds it to the corresponding typed vector. returns the component. */
-        /* TODO: Check if need to delete pointer?? */
-        template <class C, typename ... Args>
-        C* createComponent(Args&& ... args) {
-            auto type = typeid(C).name();
+        template <class Comp, typename ... Args>
+        Comp* createComponent(Args&& ... args) {
+            auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
-            ComponentArray<C>* pArray;
+            ComponentArray<Comp>* pArray;
 
             if(it == mTypedComponentArrays.end()) {
-                pArray = createComponentArray<C>();
+                pArray = createComponentArray<Comp>();
             } else {
-                pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+                pArray = dynamic_cast<ComponentArray<Comp>*>(mTypedComponentArrays[type].get());
             }
-            pArray->mComponents.push_back(std::make_unique<C>(std::forward<Args>(args)...));
-            Logger::instance()->logDebug("IComponent Manager", "IComponent Created:", type, "ptr:", pArray->mComponents.back().get());
-            return pArray->mComponents.back().get();
+            LOG_DEBUG("IComponent Manager", "IComponent Created:", type);
+            return pArray->mComponents.emplace_back(std::make_unique<Comp>(std::forward<Args>(args)...)).get();
         }
 
         /* Takes the pointer for a component and removes it from the selected component array, if it exists. */
-        template <class C>
-        void deleteComponent(C* component) {
-            auto type = typeid(C).name();
+        template <class Comp>
+        void deleteComponent(Comp* component) {
+            auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
 
             if(it != mTypedComponentArrays.end()) {
-                auto pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+                auto pArray = dynamic_cast<ComponentArray<Comp>*>(mTypedComponentArrays[type].get());
                 auto deleteIt = pArray.mComponents.find_if(pArray.mComponents.begin(), pArray.mComponents.end(), [&] (auto & arrayComponent) { 
                     return component->getOwnerUID() == arrayComponent.getOwnerUID();
                 });
@@ -75,13 +71,13 @@ namespace HGE {
         }
 
         /* deletes a component by its owning id, if it exists. */
-        template <class C>
+        template <class Comp>
         void deleteComponent(UID ownerId) {
-            auto type = typeid(C).name();
+            auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
 
             if(it != mTypedComponentArrays.end()) {
-                auto pArray = dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+                auto pArray = dynamic_cast<ComponentArray<Comp>*>(mTypedComponentArrays[type].get());
                 auto deleteIt = pArray.mComponents.find_if(pArray.mComponents.begin(), pArray.mComponents.end(), [&] (auto & arrayComponent) { 
                     return ownerId == arrayComponent.getOwnerUID();
                 });
@@ -90,15 +86,15 @@ namespace HGE {
         }
 
         /* Get the component vector for the given type. creates and returns the vector if it doesn't exist. */
-        template <class C>
-        ComponentArray<C>* getComponentArray() {
-            auto type = typeid(C).name();
+        template <class Comp>
+        ComponentArray<Comp>* getComponentArray() {
+            auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
 
             if(it == mTypedComponentArrays.end()) {
-                return createComponentArray<C>();
+                return createComponentArray<Comp>();
             } else {
-                return dynamic_cast<ComponentArray<C>*>(mTypedComponentArrays[type].get());
+                return dynamic_cast<ComponentArray<Comp>*>(mTypedComponentArrays[type].get());
             }
         }
     };

@@ -36,7 +36,7 @@ namespace HGE {
         explicit System(ComponentArray<CameraComponent>* cameraArray) : mCameraArray(cameraArray) { }
         ~System() override = default;
 
-        void run() override {
+        void run(const double& deltaTime) override {
 
             auto requestIt = find_if(mCameraArray->getComponents().begin(), mCameraArray->getComponents().end(),
                     [] (auto const & pComponent) { return pComponent->mIsRequestingActive == true; });

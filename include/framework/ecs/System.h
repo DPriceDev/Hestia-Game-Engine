@@ -12,7 +12,7 @@ namespace HGE {
      */
     class ISystem {
         public:
-        virtual void run() = 0;
+        virtual void run(const double& deltaTime) = 0;
         virtual ~ISystem() = default;
     };
 
@@ -25,7 +25,7 @@ namespace HGE {
         System() = default;
         public:
         ~System() override = default;
-        void run() override = 0;
+        void run(const double& deltaTime) override = 0;
     };
 }
 

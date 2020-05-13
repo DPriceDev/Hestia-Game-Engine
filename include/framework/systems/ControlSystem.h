@@ -41,7 +41,7 @@ namespace HGE {
         explicit System(ComponentArray<ControlComponent>* componentArray);
         ~System() override = default;
 
-        void run() override;
+        void run(const double& deltaTime) override;
     };
 }
 

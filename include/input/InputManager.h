@@ -2,15 +2,19 @@
 #define HESTIA_INPUT_INPUT_MANAGER_H
 
 #include "input/InputTypes.h"
+#include "graphics/GraphicsModule.h"
 
 namespace HGE {
     class InputManager {
+        GraphicsModule* mGraphicsModule;
 
-        public:
-        InputManager() = default;
+    public:
+        explicit InputManager(GraphicsModule* graphicsModule) : mGraphicsModule(graphicsModule) { }
         ~InputManager() = default;
 
-        static bool getKeyValue(KeyType key);
+        [[nodiscard]] bool getKeyValue(const KeyType key) const {
+            return mGraphicsModule->getKeyValue(key);
+        }
     };
 }
 #endif

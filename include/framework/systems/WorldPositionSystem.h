@@ -40,7 +40,7 @@ namespace HGE {
         }
         ~System() override = default;
 
-        void run() override { }
+        void run(const double& deltaTime) override { }
     };
 }
 

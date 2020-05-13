@@ -32,7 +32,7 @@ namespace HGE {
         Logger::instance()->logDebug("Control System", "Created");
     }
 
-    void System<ControlComponent>::run() {
+    void System<ControlComponent>::run(const double& deltaTime) {
         for(auto & component : mComponentsArray->getComponents()) {
             for( auto & [key, val] : component->mKeys ) {
                 val = mInputManager->getKeyValue(key);

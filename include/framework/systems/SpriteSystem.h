@@ -51,7 +51,7 @@ namespace HGE {
 
         ~System() override = default;
 
-        void run() override {
+        void run(const double& deltaTime) override {
             mOrthographic = glm::ortho(mCameraManager->getViewportLeft(),
                     mCameraManager->getViewportRight(),
                     mCameraManager->getViewportBottom(),
