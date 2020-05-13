@@ -21,6 +21,7 @@ namespace HGE {
 
         GLFWwindow* mWindow;
         std::string mGameTitle;
+        ScreenSize2f mResolution;
         std::map<std::pair<const char*, const char*>, std::unique_ptr<Shader>> mShaders;
         std::map<const char*, std::unique_ptr<Material>> mMaterials;
 
@@ -29,7 +30,8 @@ namespace HGE {
             mShaders(std::map<std::pair<const char*, const char*>, std::unique_ptr<Shader>>()),
             mMaterials(std::map<const char*, std::unique_ptr<Material>>()), 
             mGameTitle(""), 
-            mWindow(nullptr) { }
+            mWindow(nullptr),
+            mResolution(ScreenSize2f(800, 600)) { }
              
         ~OpenGlModule() override = default;
 
@@ -44,6 +46,9 @@ namespace HGE {
 
         bool getKeyValue(KeyType key) override;
         ScreenSize2f getScreenSize() override;
+
+        [[nodiscard]] const ScreenSize2f& getScreenResolution() const override;
+        void setScreenResolution(const ScreenSize2f& resolution) override;
 
         void renderFrame() override;
         void startFrame() override;

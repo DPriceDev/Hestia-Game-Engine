@@ -24,7 +24,7 @@ namespace HGE {
 
     /* */
     bool OpenGlModule::init() {
-        mWindow = OpenGlInit("2D Game Engine", 800, 600);
+        mWindow = OpenGlInit("2D Game Engine", mResolution.mWidth, mResolution.mHeight);
 
         if(mWindow == nullptr) {
             return false;
@@ -79,6 +79,14 @@ namespace HGE {
         auto screenSize = ScreenSize2f();
         glfwGetWindowSize(mWindow, &screenSize.width(), &screenSize.height());
         return screenSize;
+    }
+
+    const ScreenSize2f& OpenGlModule::getScreenResolution() const {
+        return mResolution;
+    }
+
+    void OpenGlModule::setScreenResolution(const ScreenSize2f& resolution) {
+        mResolution = resolution;
     }
 
     /* */

@@ -19,7 +19,7 @@ namespace HGE {
                         mViewportPosition(Vector2f(x, y)),
                         mRotation(rotation) { }
 
-        CameraView(Vector2f viewportSize, Vector2f viewportPosition = Vector2f()) : mViewportSize(viewportSize),
+        explicit CameraView(Vector2f viewportSize, Vector2f viewportPosition = Vector2f()) : mViewportSize(viewportSize),
                         mViewportPosition(viewportPosition),
                         mRotation(0.0f) { }
 
@@ -37,11 +37,11 @@ namespace HGE {
         CameraView mCurrentCameraView;
         GraphicsModule* mGraphicsModule;
 
-        public:
+    public:
         explicit CameraManager(GraphicsModule* graphicsModule) : mGraphicsModule(graphicsModule) {
             mCurrentCameraView = CameraView(
-                    mGraphicsModule->getScreenSize().widthf(),
-                    mGraphicsModule->getScreenSize().heightf());
+                    mGraphicsModule->getScreenResolution().widthf(),
+                    mGraphicsModule->getScreenResolution().heightf());
         }
         ~CameraManager() = default;
 
@@ -49,25 +49,25 @@ namespace HGE {
             mCurrentCameraView = cameraView;
         }
 
-        const Vector2f& getViewportSize() const {
+        [[nodiscard]] const Vector2f& getViewportSize() const {
             return mCurrentCameraView.mViewportSize;
         }
-        const Vector2f& getViewportPosition() const {
+        [[nodiscard]] const Vector2f& getViewportPosition() const {
             return mCurrentCameraView.mViewportPosition;
         }
-        const Pointf& getViewportRotation() const {
+        [[nodiscard]] const Pointf& getViewportRotation() const {
             return mCurrentCameraView.mRotation;
         }
-        const Pointf getViewportTop() const {
+        [[nodiscard]] Pointf getViewportTop() const {
             return mCurrentCameraView.mViewportSize.y + mCurrentCameraView.mViewportPosition.y;
         }
-        const Pointf& getViewportBottom() const {
+        [[nodiscard]] const Pointf& getViewportBottom() const {
             return mCurrentCameraView.mViewportPosition.y;
         }
-        const Pointf& getViewportLeft() const {
+        [[nodiscard]] const Pointf& getViewportLeft() const {
             return mCurrentCameraView.mViewportPosition.x;
         }
-        const Pointf getViewportRight() const {
+        [[nodiscard]] Pointf getViewportRight() const {
             return mCurrentCameraView.mViewportSize.x + mCurrentCameraView.mViewportPosition.x;
         }
     };

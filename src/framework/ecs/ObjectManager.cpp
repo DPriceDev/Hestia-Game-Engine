@@ -6,10 +6,12 @@
 
 namespace HGE {
 
-    void ObjectManager::DestroyObject(UID id) {
-            auto it = std::find_if(mObjects.begin(), mObjects.end(), [&] (const std::unique_ptr<Object> & pObject) { 
+    void ObjectManager::DestroyObject(const UID id) {
+        auto func = [id] (const std::unique_ptr<Object> & pObject) {
             return pObject->getId() == id;
-            });
-            mObjects.erase(it);
+        };
+
+        const auto it = std::find_if(mObjects.begin(), mObjects.end(), func);
+        mObjects.erase(it);
     }
 }

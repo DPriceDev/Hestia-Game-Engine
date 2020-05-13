@@ -22,9 +22,10 @@ namespace HGE {
         ScreenSize2f(int width, int height) : mWidth(width), mHeight(height) { }
 
         int& width() { return mWidth; }
-        float widthf() const { return static_cast<float>(mWidth);}
         int& height() { return mHeight; }
-        float heightf() const { return static_cast<float>(mHeight); }
+
+        [[nodiscard]] float widthf() const { return static_cast<float>(mWidth);}
+        [[nodiscard]] float heightf() const { return static_cast<float>(mHeight); }
     };
 
     class GraphicsModule {
@@ -50,6 +51,9 @@ namespace HGE {
 
         virtual double getGameTime() = 0;
         virtual bool getKeyValue(KeyType key) = 0;
+
+        [[nodiscard]] virtual const ScreenSize2f& getScreenResolution() const = 0;
+        virtual void setScreenResolution(const ScreenSize2f& resolution) = 0;
         virtual ScreenSize2f getScreenSize() = 0;
 
         virtual void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;
