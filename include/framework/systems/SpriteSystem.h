@@ -6,8 +6,9 @@
 #include <glm/glm/ext.hpp>
 
 #include "framework/ecs/ComponentManager.h"
+#include "camera/CameraManager.h"
 #include "framework/systems/WorldPositionSystem.h"
-#include "framework/ecs/Component.h"
+#include "framework/ecs/IComponent.h"
 #include "framework/ecs/System.h"
 
 #include "graphics/GraphicsModule.h"
@@ -17,18 +18,18 @@
 namespace HGE {
 
     /**
-     * Sprite Component
+     * Sprite IComponent
      */
-    struct SpriteComponent : public Component {
+    struct SpriteComponent : public IComponent {
         
         Transform2f mTransform; 
-        Shader* mShader;
-        Material* mMaterial;
+        Shader* mShader{};
+        Material* mMaterial{};
         ColourRGBA mTint;
         Pointf mAlpha;
 
-        SpriteComponent(UID ownerId) : Component(ownerId), mTransform(Transform2f()), mTint(ColourRGBA()), mAlpha(1.0f) { }
-        ~SpriteComponent() = default;
+        explicit SpriteComponent(UID ownerId) : IComponent(ownerId), mTransform(Transform2f()), mTint(ColourRGBA()), mAlpha(1.0f) { }
+        ~SpriteComponent() override = default;
     };
 
     /**
@@ -41,17 +42,20 @@ namespace HGE {
         ComponentArray<SpriteComponent>* mSpritesArray;
         ComponentArray<WorldPositionComponent>* mPositionsArray;
         GraphicsModule* mGraphicsModule;
+        CameraManager* mCameraManager;
         unsigned int mSpriteVao, mSpriteVbo;
         glm::mat4 mOrthographic;
 
         public:
-        System(ComponentArray<SpriteComponent>* componentArray);
+        explicit System(ComponentArray<SpriteComponent>* componentArray);
 
-        ~System() { }
+        ~System() override = default;
 
-        void run() override {
-            auto screenSize = mGraphicsModule->getScreenSize();
-            mOrthographic = glm::ortho(0.0f, screenSize.widthf(), 0.0f, screenSize.heightf());
+        void run(const double& deltaTime) override {
+            mOrthographic = glm::ortho(mCameraManager->getViewportLeft(),
+                    mCameraManager->getViewportRight(),
+                    mCameraManager->getViewportBottom(),
+                    mCameraManager->getViewportTop());
 
             for(auto const & component : mSpritesArray->getComponents()) {
                 auto worldComponent = mPositionsArray->getComponentWithOwner(component->getOwnerUID());

@@ -3,7 +3,7 @@
 
 #include <map>
 
-#include "framework/ecs/Component.h"
+#include "framework/ecs/IComponent.h"
 #include "framework/ecs/System.h"
 
 #include "input/InputManager.h"
@@ -14,9 +14,9 @@
 namespace HGE {
 
     /**
-     * Control Component
+     * Control IComponent
      */
-    struct ControlComponent : public Component {
+    struct ControlComponent : public IComponent {
 
         std::map<KeyType, bool> mKeys;
 
@@ -24,8 +24,8 @@ namespace HGE {
         void removeKey(KeyType key);
         bool getKeyValue(KeyType key);
 
-        ControlComponent(UID ownerId) : Component(ownerId), mKeys(std::map<KeyType, bool>()) { }
-        ~ControlComponent() { }
+        explicit ControlComponent(UID ownerId) : IComponent(ownerId), mKeys(std::map<KeyType, bool>()) { }
+        ~ControlComponent() override = default;
     };
 
     /**
@@ -38,10 +38,10 @@ namespace HGE {
         InputManager* mInputManager;
 
         public:
-        System(ComponentArray<ControlComponent>* componentArray);
-        ~System() = default;
+        explicit System(ComponentArray<ControlComponent>* componentArray);
+        ~System() override = default;
 
-        void run() override;
+        void run(const double& deltaTime) override;
     };
 }
 

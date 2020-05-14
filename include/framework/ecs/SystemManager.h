@@ -18,11 +18,11 @@ namespace HGE {
         public:
         SystemManager() : mTypedSystems(std::map<std::string, std::unique_ptr<ISystem>>()){ }
         ~SystemManager() = default;
-        SystemManager& operator=(const SystemManager &sm) = delete;
+        SystemManager& operator=(const SystemManager &other) = delete;
 
         /* create a system for a given component. return the system if it already exists. */
         template <class C, typename ... Args>
-        System<C>* createSystem(Args&& ... args) {
+        const System<C>* createSystem(Args&& ... args)  {
             auto type = typeid(System<C>).name();
             auto it = mTypedSystems.find(type);
 
@@ -45,9 +45,9 @@ namespace HGE {
         }
 
         /* */
-        void run() {
+        void run(const double& deltaTime) const {
             for(auto const & system : mTypedSystems) {
-                system.second->run();
+                system.second->run(deltaTime);
             }
         }
     };

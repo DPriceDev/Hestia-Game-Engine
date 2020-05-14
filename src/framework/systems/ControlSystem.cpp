@@ -4,7 +4,7 @@
 namespace HGE {
 
     /**
-     * Control Component Methods
+     * Control IComponent Methods
      */    
     void ControlComponent::addKey(KeyType key) {
         mKeys[key] = false;
@@ -32,7 +32,7 @@ namespace HGE {
         Logger::instance()->logDebug("Control System", "Created");
     }
 
-    void System<ControlComponent>::run() {
+    void System<ControlComponent>::run(const double& deltaTime) {
         for(auto & component : mComponentsArray->getComponents()) {
             for( auto & [key, val] : component->mKeys ) {
                 val = mInputManager->getKeyValue(key);

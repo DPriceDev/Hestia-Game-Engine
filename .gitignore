@@ -46,3 +46,9 @@ install_manifest.txt
 # clangd
 .clangd
 compile_commands.json
+
+# clion
+*.cbp
+/depends/glfw/GLFW.cbp
+.idea
+.idea/*

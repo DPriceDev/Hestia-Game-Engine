@@ -2,20 +2,22 @@
 #define HESTIA_FRAMEWORK_TICK_SYSTEM_H
 
 #include <functional>
+#include <utility>
 
-#include "framework/ecs/Component.h"
+#include "framework/ecs/IComponent.h"
 #include "framework/ecs/System.h"
 
 namespace HGE {
 
     /**
-     * Tick Component
+     * Tick IComponent
      */
-    struct TickComponent : Component {
+    struct TickComponent : IComponent {
         std::function<void(double)> mTickFunction;
 
-        TickComponent(UID ownerId, std::function<void(double)> tickFunction) : Component(ownerId), mTickFunction(tickFunction) { }
-        ~TickComponent() = default;
+        explicit TickComponent(UID ownerId) : IComponent(ownerId) { }
+
+        ~TickComponent() override = default;
     };
 
     /**
@@ -26,10 +28,10 @@ namespace HGE {
         ComponentArray<TickComponent>* mTickArray;
 
         public:
-        System(ComponentArray<TickComponent>* componentArray);
-        ~System() = default;
+        explicit System(ComponentArray<TickComponent>* componentArray);
+        ~System() override = default;
 
-        void run() override;
+        void run(const double& deltaTime) override;
     };
 }
 

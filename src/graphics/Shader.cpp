@@ -4,7 +4,7 @@
 
 namespace HGE {
 
-    void Shader::useShader() {
+    void Shader::useShader() const {
         glUseProgram(mId);
     }
 

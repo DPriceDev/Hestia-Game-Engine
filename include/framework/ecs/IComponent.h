@@ -6,38 +6,40 @@
 #include <memory>
 #include <algorithm>
 
-#include "util/Uid.h"
-#include "util/Logger.h"
-
 namespace HGE {
     using UID = int;
 
     /**
-     * Component Interface
+     * IComponent Interface
      */
-    class Component {
+    class IComponent {
 
         UID mOwnerUID;
 
         public:
-        Component(UID ownerId) : mOwnerUID(ownerId) { }
-        virtual ~Component() = default;
+        explicit IComponent(UID ownerId) : mOwnerUID(ownerId) { }
+        virtual ~IComponent() = default;
         
-        UID getOwnerUID() const { 
+        [[nodiscard]] UID getOwnerUID() const {
             return mOwnerUID; 
         }
     };
 
+//    /* Component concept requirement */
+//    template<typename C>
+//    concept component = std::is_base_of<IComponent, C>::value;
+
     /**
-     * Component Array Interface
+     * IComponent Array Interface
      */
     class IComponentArray {
         public:
         virtual ~IComponentArray() = default;
+        virtual void deleteComponentWithOwner(UID id) = 0;
     };
 
     /**
-     * Component Array
+     * IComponent Array
      */
     template <class C>
     class ComponentArray : public IComponentArray {
@@ -46,12 +48,12 @@ namespace HGE {
 
         public:
         ComponentArray() : mComponents(std::vector<std::unique_ptr<C>>()) { }
-        ~ComponentArray() = default;
+        ~ComponentArray() override = default;
         ComponentArray& operator= (const ComponentArray &other) = delete;
 
         std::vector<std::unique_ptr<C>>& getComponents() { return mComponents; }
 
-        C* getComponentWithOwner(UID ownerId) {
+        C* getComponentWithOwner(const UID ownerId) const {
             auto it = std::find_if(
                 mComponents.begin(), 
                 mComponents.end(),
@@ -61,6 +63,17 @@ namespace HGE {
                 return it->get();
             } else {
                 return nullptr;
+            }
+        }
+
+        void deleteComponentWithOwner(const UID ownerId) override {
+            auto it = std::find_if(
+                    mComponents.begin(),
+                    mComponents.end(),
+                    [&] (const auto &pComponent) { return pComponent->getOwnerUID() == ownerId; });
+
+            if(it != mComponents.end()) {
+                mComponents.erase(it);
             }
         }
     };

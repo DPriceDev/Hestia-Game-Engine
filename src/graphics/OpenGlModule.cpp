@@ -1,11 +1,8 @@
 #include "graphics/OpenGlModule.h"
 
 #include <iostream>
-#include <sstream>
 
 #include "glm/glm/ext.hpp"
-#include "glm/glm/gtc/matrix_transform.hpp"
-#include <glm/glm/gtx/transform.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -27,7 +24,7 @@ namespace HGE {
 
     /* */
     bool OpenGlModule::init() {
-        mWindow = OpenGlInit("2D Game Engine", 800, 600);
+        mWindow = OpenGlInit("2D Game Engine", mResolution.mWidth, mResolution.mHeight);
 
         if(mWindow == nullptr) {
             return false;
@@ -79,9 +76,17 @@ namespace HGE {
     }
 
     ScreenSize2f OpenGlModule::getScreenSize() {
-        ScreenSize2f screenSize;
+        auto screenSize = ScreenSize2f();
         glfwGetWindowSize(mWindow, &screenSize.width(), &screenSize.height());
         return screenSize;
+    }
+
+    const ScreenSize2f& OpenGlModule::getScreenResolution() const {
+        return mResolution;
+    }
+
+    void OpenGlModule::setScreenResolution(const ScreenSize2f& resolution) {
+        mResolution = resolution;
     }
 
     /* */
@@ -278,13 +283,13 @@ namespace HGE {
         
         // vertex Shader
         vertex = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertex, 1, &vShaderCode, NULL);
+        glShaderSource(vertex, 1, &vShaderCode, nullptr);
         glCompileShader(vertex);
         checkShaderLoadedCorrectly(vertex);
 
         // fragment Shader
         fragment = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragment, 1, &fShaderCode, NULL);
+        glShaderSource(fragment, 1, &fShaderCode, nullptr);
         glCompileShader(fragment);
         checkShaderLoadedCorrectly(fragment);
         
@@ -337,7 +342,7 @@ namespace HGE {
         glGetShaderiv(id, GL_COMPILE_STATUS, &success);
         if(!success)
         {
-            glGetShaderInfoLog(id, 512, NULL, infoLog);
+            glGetShaderInfoLog(id, 512, nullptr, infoLog);
             std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
         };
         return success;
@@ -350,7 +355,7 @@ namespace HGE {
         glGetProgramiv(id, GL_LINK_STATUS, &success);
         if(!success)
         {
-            glGetProgramInfoLog(id, 512, NULL, infoLog);
+            glGetProgramInfoLog(id, 512, nullptr, infoLog);
             std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
         }
         return success;

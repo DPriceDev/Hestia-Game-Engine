@@ -8,9 +8,9 @@ namespace HGE {
      */   
     System<TickComponent>::System(ComponentArray<TickComponent>* componentArray) : mTickArray(componentArray) { }
 
-    void System<TickComponent>::run() {
+    void System<TickComponent>::run(const double& deltaTime) {
         for(auto & component : mTickArray->getComponents()) { 
-            component->mTickFunction(Engine::tickTime());
+            component->mTickFunction(deltaTime);
         }
     }
 }

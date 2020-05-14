@@ -8,6 +8,7 @@
 #include "ecs/SystemManager.h"
 #include "ecs/ComponentManager.h"
 #include "ecs/ObjectManager.h"
+#include "camera/CameraManager.h"
 
 #include "GameEnvironment.h"
 
@@ -18,40 +19,52 @@ namespace HGE {
 
     class Engine {
         std::unique_ptr<GraphicsModule> mGraphicsModule;
+
         std::unique_ptr<SystemManager> mSystemManager;
         std::unique_ptr<ComponentManager> mComponentManager;
         std::unique_ptr<ObjectManager> mObjectManager;
         std::unique_ptr<InputManager> mInputManager;
+        std::unique_ptr<CameraManager> mCameraManager;
+
         std::unique_ptr<GameEnvironment> mCurrentGameEnvironment;
 
         double mCurrentTickTime;
 
-        Engine() : mCurrentTickTime(0.0) {
-            mSystemManager = std::make_unique<SystemManager>();
-            mComponentManager = std::make_unique<ComponentManager>();
-            mObjectManager = std::make_unique<ObjectManager>();
-            mInputManager = std::make_unique<InputManager>();
-
-            mComponentManager->setSystemManager(mSystemManager.get());
+        template<typename T>
+        void initialiseEcsFacade(T* ecsFacade) {
+            ecsFacade->mObjectManager = mObjectManager.get();
+            ecsFacade->mComponentManager = mComponentManager.get();
         }
 
-        public:
+        Engine() : mCurrentTickTime(0.0),
+                   mSystemManager(std::make_unique<SystemManager>()),
+                   mComponentManager(std::make_unique<ComponentManager>(mSystemManager.get())),
+                   mObjectManager(std::make_unique<ObjectManager>(mComponentManager.get())),
+                   mGraphicsModule(nullptr),
+                   mInputManager(nullptr),
+                   mCurrentGameEnvironment(nullptr) { }
+
+    public:
         static Engine* instance() {
-            static Engine* engine = new Engine();
-            return engine;
+            static auto* sEngine = new Engine();
+            return sEngine;
         }
 
-        template <class GM>
-        void useGraphicsModule() {
-            mGraphicsModule = std::make_unique<GM>();
-            if(!mGraphicsModule->init()) {
+        template <typename GM>
+        static void useGraphicsModule() {
+            instance()->mGraphicsModule = std::make_unique<GM>();
+            if(!instance()->mGraphicsModule->init()) {
                 throw GraphicModuleInitException();
             }
+            instance()->mCameraManager = std::make_unique<CameraManager>(graphicsModule());
+            instance()->mInputManager = std::make_unique<InputManager>(graphicsModule());
         }
 
-        template <class GE>
+        template <typename GE>
         void loadGameEnvironment() {
-            mCurrentGameEnvironment = std::make_unique<GE>();
+            auto gameEnvironment = std::make_unique<GE>();
+            initialiseEcsFacade<GE>(gameEnvironment.get());
+            mCurrentGameEnvironment = std::move(gameEnvironment);
 
             mCurrentGameEnvironment->beginGame();
             auto lastTime = graphicsModule()->getGameTime();
@@ -59,25 +72,22 @@ namespace HGE {
             while(mGraphicsModule->isWindowOpen()) {
                 mCurrentTickTime = graphicsModule()->getGameTime() - lastTime;
                 lastTime = graphicsModule()->getGameTime();
-                mCurrentGameEnvironment->gameLoop();
+
+                mCurrentGameEnvironment->gameLoop(mCurrentTickTime);
                 mGraphicsModule->startFrame();
-                mSystemManager->run();
+                mSystemManager->run(mCurrentTickTime);
                 mGraphicsModule->renderFrame();
             }
 
             mCurrentGameEnvironment->endGame();
         }
 
-        static ObjectManager* objectManager() {
-            return instance()->mObjectManager.get();
+        static CameraManager* cameraManager() {
+            return instance()->mCameraManager.get();
         }
 
         static ComponentManager* componentManager() {
             return instance()->mComponentManager.get();
-        }
-
-        static SystemManager* systemManager() {
-            return instance()->mSystemManager.get();
         }
 
         static GraphicsModule* graphicsModule() {
@@ -88,12 +98,8 @@ namespace HGE {
             return instance()->mInputManager.get();
         }
 
-        static double& tickTime() {
-            return instance()->mCurrentTickTime;
-        }
-
         ~Engine() {
-            if(mGraphicsModule.get() != nullptr) {
+            if(mGraphicsModule != nullptr) {
                 mGraphicsModule->terminate();
             }
         }
