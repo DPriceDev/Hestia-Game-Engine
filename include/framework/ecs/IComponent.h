@@ -6,9 +6,6 @@
 #include <memory>
 #include <algorithm>
 
-#include "util/Uid.h"
-#include "util/Logger.h"
-
 namespace HGE {
     using UID = int;
 
@@ -38,6 +35,7 @@ namespace HGE {
     class IComponentArray {
         public:
         virtual ~IComponentArray() = default;
+        virtual void deleteComponentWithOwner(UID id) = 0;
     };
 
     /**
@@ -55,7 +53,7 @@ namespace HGE {
 
         std::vector<std::unique_ptr<C>>& getComponents() { return mComponents; }
 
-        C* getComponentWithOwner(UID ownerId) {
+        C* getComponentWithOwner(const UID ownerId) const {
             auto it = std::find_if(
                 mComponents.begin(), 
                 mComponents.end(),
@@ -65,6 +63,17 @@ namespace HGE {
                 return it->get();
             } else {
                 return nullptr;
+            }
+        }
+
+        void deleteComponentWithOwner(const UID ownerId) override {
+            auto it = std::find_if(
+                    mComponents.begin(),
+                    mComponents.end(),
+                    [&] (const auto &pComponent) { return pComponent->getOwnerUID() == ownerId; });
+
+            if(it != mComponents.end()) {
+                mComponents.erase(it);
             }
         }
     };

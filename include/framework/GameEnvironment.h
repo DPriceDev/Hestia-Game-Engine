@@ -3,26 +3,25 @@
 
 #include <memory>
 
+#include "framework/ecs/ECSFacade.h"
 #include "framework/ecs/ObjectManager.h"
 
 namespace HGE {
 
-    class GameEnvironment {
-        friend class Engine;
-        ObjectManager* mObjectManager = nullptr;
+    class GameEnvironment : public EcsFacade {
 
     public:
-        GameEnvironment() = default;
+        GameEnvironment() : EcsFacade() { }
         virtual ~GameEnvironment() = default;
 
         /* Public Methods */
         virtual void beginGame() = 0;
         virtual void gameLoop(const double & deltaTime) = 0;
         virtual void endGame() = 0;
-
-        template<class Obj>
-        const Obj* createObject() const { return mObjectManager->CreateObject<Obj>(); }
     };
+
+    template<typename G>
+    concept game_environment = std::is_base_of<GameEnvironment, G>::value;
 }
 
 #endif

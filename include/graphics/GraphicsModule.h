@@ -59,6 +59,9 @@ namespace HGE {
         virtual void generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;
         virtual void generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) = 0;
     };
+
+    template<typename GM>
+    concept graphics_module = std::is_base_of<GraphicsModule, GM>::value;
 }
 
 

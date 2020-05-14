@@ -6,8 +6,7 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include <iostream>
-#include <type_traits>
+#include <algorithm>
 
 #include "IComponent.h"
 #include "SystemManager.h"
@@ -58,31 +57,23 @@ namespace HGE {
 
         /* Takes the pointer for a component and removes it from the selected component array, if it exists. */
         template <component Comp>
-        void deleteComponent(Comp* component) {
+        void deleteComponentByPtr(Comp* component) {
             auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
 
             if(it != mTypedComponentArrays.end()) {
-                auto pArray = dynamic_cast<ComponentArray<Comp>*>(mTypedComponentArrays[type].get());
-                auto deleteIt = pArray.mComponents.find_if(pArray.mComponents.begin(), pArray.mComponents.end(), [&] (auto & arrayComponent) { 
-                    return component->getOwnerUID() == arrayComponent.getOwnerUID();
-                });
-                pArray.mComponents.erase(deleteIt);
+                it->second->deleteComponentWithOwner(component->getOwnerUID());
             }
         }
 
         /* deletes a component by its owning id, if it exists. */
         template <component Comp>
-        void deleteComponent(UID ownerId) {
+        void deleteComponentById(UID ownerId) {
             auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
 
             if(it != mTypedComponentArrays.end()) {
-                auto pArray = dynamic_cast<ComponentArray<Comp>*>(mTypedComponentArrays[type].get());
-                auto deleteIt = pArray.mComponents.find_if(pArray.mComponents.begin(), pArray.mComponents.end(), [&] (auto & arrayComponent) { 
-                    return ownerId == arrayComponent.getOwnerUID();
-                });
-                pArray.mComponents.erase(deleteIt);
+                it->second->deleteComponentWithOwner(ownerId);
             }
         }
 

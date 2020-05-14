@@ -30,6 +30,12 @@ namespace HGE {
 
         double mCurrentTickTime;
 
+        template<typename T>
+        void initialiseEcsFacade(T* ecsFacade) {
+            ecsFacade->mObjectManager = mObjectManager.get();
+            ecsFacade->mComponentManager = mComponentManager.get();
+        }
+
         Engine() : mCurrentTickTime(0.0),
                    mSystemManager(std::make_unique<SystemManager>()),
                    mComponentManager(std::make_unique<ComponentManager>(mSystemManager.get())),
@@ -44,7 +50,7 @@ namespace HGE {
             return sEngine;
         }
 
-        template <class GM>
+        template <graphics_module GM>
         static void useGraphicsModule() {
             instance()->mGraphicsModule = std::make_unique<GM>();
             if(!instance()->mGraphicsModule->init()) {
@@ -54,10 +60,11 @@ namespace HGE {
             instance()->mInputManager = std::make_unique<InputManager>(graphicsModule());
         }
 
-        template <class GE>
+        template <game_environment GE>
         void loadGameEnvironment() {
-            mCurrentGameEnvironment = std::make_unique<GE>();
-            mCurrentGameEnvironment->mObjectManager = mObjectManager.get();
+            auto gameEnvironment = std::make_unique<GE>();
+            initialiseEcsFacade<GE>(gameEnvironment.get());
+            mCurrentGameEnvironment = std::move(gameEnvironment);
 
             mCurrentGameEnvironment->beginGame();
             auto lastTime = graphicsModule()->getGameTime();

@@ -4,42 +4,48 @@
 #include <vector>
 #include <memory>
 
-#include "Object.h"
+#include "object.h"
 #include "ComponentManager.h"
 
 namespace HGE {
 
+    /**
+     * Object Manager
+     */
     class ObjectManager {
         ComponentManager* mComponentManager;
-        std::vector<std::unique_ptr<IObject>> mObjects;
+        std::vector<std::unique_ptr<IObject>> mObjects{ };
 
     public:
-        template<class T>
-        T* CreateObject() {
-            auto objectPointer = std::make_unique<T>();
+        template<object Object>
+        Object* createObject() {
+            auto objectPointer = std::make_unique<Object>();
             auto ptr = objectPointer.get();
+            ptr->mObjectManager = this;
+            ptr->mComponentManager = mComponentManager;
+
             mObjects.push_back(std::move(objectPointer));
             mObjects.back()->onCreate();
             return ptr;
         }
 
-        template<class Obj>
+        template<object Object>
         [[maybe_unused]]
-        std::optional<Obj*> getObjectById(const UID id) const {
+        std::optional<Object*> getObjectById(const UID id) const {
             constexpr auto func = [id] (const std::unique_ptr<IObject> & pObject) {
                 return pObject->getId() == id;
             };
             auto it = std::find_if(mObjects.begin(), mObjects.end(), func);
 
             if(it != mObjects.end()) {
-                return dynamic_cast<Obj*>(*it);
+                return dynamic_cast<Object*>(*it);
             } else {
                 return std::nullopt;
             }
         }
 
         [[maybe_unused]]
-        void DestroyObject(const UID id) {
+        void destroyObject(const UID id) {
             auto func = [id] (const std::unique_ptr<IObject> & pObject) {
                 return pObject->getId() == id;
             };
@@ -48,8 +54,7 @@ namespace HGE {
             mObjects.erase(it);
         }
 
-        explicit ObjectManager(ComponentManager* componentManager)
-                             : mObjects(std::vector<std::unique_ptr<IObject>>()),
+        explicit ObjectManager(ComponentManager* componentManager) :
                                mComponentManager(componentManager) { }
         ~ObjectManager() = default;
     };
