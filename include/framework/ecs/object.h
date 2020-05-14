@@ -23,8 +23,8 @@ namespace HGE {
         virtual void onCreate() = 0;
     };
 
-    template<typename O>
-    concept object = std::is_base_of<IObject, O>::value;
+//    template<typename O>
+//    concept object = std::is_base_of<IObject, O>::value;
 }
 
 #endif

@@ -25,9 +25,9 @@ namespace HGE {
         }
     };
 
-    /* Component concept requirement */
-    template<typename C>
-    concept component = std::is_base_of<IComponent, C>::value;
+//    /* Component concept requirement */
+//    template<typename C>
+//    concept component = std::is_base_of<IComponent, C>::value;
 
     /**
      * IComponent Array Interface

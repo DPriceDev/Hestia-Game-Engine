@@ -20,8 +20,8 @@ namespace HGE {
         virtual void endGame() = 0;
     };
 
-    template<typename G>
-    concept game_environment = std::is_base_of<GameEnvironment, G>::value;
+//    template<typename G>
+//    concept game_environment = std::is_base_of<GameEnvironment, G>::value;
 }
 
 #endif

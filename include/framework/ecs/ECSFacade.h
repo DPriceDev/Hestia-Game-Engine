@@ -18,12 +18,12 @@ namespace HGE {
         ComponentManager *mComponentManager;
 
     public:
-        template<object obj>
+        template<typename obj>
         obj* createObject() {
             return mObjectManager->createObject<obj>();
         }
 
-        template<object obj>
+        template<typename obj>
         std::optional<obj*> getObjectById(const UID &id) const {
             return mObjectManager->getObjectById<obj>(id);
         }
@@ -32,17 +32,17 @@ namespace HGE {
             mObjectManager->destroyObject(id);
         }
 
-        template<component Comp, typename ... Args>
+        template<typename Comp, typename ... Args>
         Comp* createComponent(Args... args) {
             return mComponentManager->createComponent<Comp>(std::forward<Args>(args)...);
         }
 
-        template<component Comp>
+        template<typename Comp>
         void destroyComponent(UID objectId) {
             mComponentManager->deleteComponentById<Comp>(objectId);
         }
 
-        template<component Comp>
+        template<typename Comp>
         void destroyComponent(Comp* component) {
             mComponentManager->deleteComponentByPtr<Comp>(component);
         }

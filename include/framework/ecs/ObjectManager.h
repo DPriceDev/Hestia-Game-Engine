@@ -17,7 +17,7 @@ namespace HGE {
         std::vector<std::unique_ptr<IObject>> mObjects{ };
 
     public:
-        template<object Object>
+        template<typename Object>
         Object* createObject() {
             auto objectPointer = std::make_unique<Object>();
             auto ptr = objectPointer.get();
@@ -29,7 +29,7 @@ namespace HGE {
             return ptr;
         }
 
-        template<object Object>
+        template<typename Object>
         [[maybe_unused]]
         std::optional<Object*> getObjectById(const UID id) const {
             constexpr auto func = [id] (const std::unique_ptr<IObject> & pObject) {

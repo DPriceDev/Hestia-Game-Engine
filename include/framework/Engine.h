@@ -50,7 +50,7 @@ namespace HGE {
             return sEngine;
         }
 
-        template <graphics_module GM>
+        template <typename GM>
         static void useGraphicsModule() {
             instance()->mGraphicsModule = std::make_unique<GM>();
             if(!instance()->mGraphicsModule->init()) {
@@ -60,7 +60,7 @@ namespace HGE {
             instance()->mInputManager = std::make_unique<InputManager>(graphicsModule());
         }
 
-        template <game_environment GE>
+        template <typename GE>
         void loadGameEnvironment() {
             auto gameEnvironment = std::make_unique<GE>();
             initialiseEcsFacade<GE>(gameEnvironment.get());
