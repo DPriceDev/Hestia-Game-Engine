@@ -20,13 +20,17 @@ namespace HGE {
         UID mOwnerUID;
 
         public:
-        IComponent(UID ownerId) : mOwnerUID(ownerId) { }
+        explicit IComponent(UID ownerId) : mOwnerUID(ownerId) { }
         virtual ~IComponent() = default;
         
-        UID getOwnerUID() const {
+        [[nodiscard]] UID getOwnerUID() const {
             return mOwnerUID; 
         }
     };
+
+    /* Component concept requirement */
+    template<typename C>
+    concept component = std::is_base_of<IComponent, C>::value;
 
     /**
      * IComponent Array Interface

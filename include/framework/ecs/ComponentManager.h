@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include <type_traits>
 
 #include "IComponent.h"
 #include "SystemManager.h"
@@ -29,7 +30,7 @@ namespace HGE {
         ComponentManager& operator= (const ComponentManager &other) = delete;
 
         /* Create a component vector within the typed component map. returns the vector. */
-        template <class Comp>
+        template <component Comp>
         ComponentArray<Comp>* createComponentArray() {
             auto type = typeid(Comp).name();
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<Comp>>();
@@ -40,7 +41,7 @@ namespace HGE {
         }
 
         /* Creates a component and adds it to the corresponding typed vector. returns the component. */
-        template <class Comp, typename ... Args>
+        template <component Comp, typename ... Args>
         Comp* createComponent(Args&& ... args) {
             auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
@@ -56,7 +57,7 @@ namespace HGE {
         }
 
         /* Takes the pointer for a component and removes it from the selected component array, if it exists. */
-        template <class Comp>
+        template <component Comp>
         void deleteComponent(Comp* component) {
             auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
@@ -71,7 +72,7 @@ namespace HGE {
         }
 
         /* deletes a component by its owning id, if it exists. */
-        template <class Comp>
+        template <component Comp>
         void deleteComponent(UID ownerId) {
             auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
@@ -86,7 +87,7 @@ namespace HGE {
         }
 
         /* Get the component vector for the given type. creates and returns the vector if it doesn't exist. */
-        template <class Comp>
+        template <component Comp>
         ComponentArray<Comp>* getComponentArray() {
             auto type = typeid(Comp).name();
             auto it = mTypedComponentArrays.find(type);
