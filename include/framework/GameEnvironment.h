@@ -3,11 +3,12 @@
 
 #include <memory>
 
-#include <framework/ecs/ObjectManager.h>
+#include "framework/ecs/ObjectManager.h"
 
 namespace HGE {
-    
+
     class GameEnvironment {
+        friend class Engine;
         ObjectManager* mObjectManager = nullptr;
 
     public:
@@ -21,20 +22,6 @@ namespace HGE {
 
         template<class Obj>
         const Obj* createObject() const { return mObjectManager->CreateObject<Obj>(); }
-
-        template<class GM>
-        static GM build(ObjectManager* objectManager) {
-            auto gm = GM();
-            gm.mObjectManager = objectManager;
-            return gm;
-        }
-
-        template<class GM>
-        static std::unique_ptr<GM> buildUnique(ObjectManager* objectManager) {
-            auto gm = std::make_unique<GM>();
-            gm->mObjectManager = objectManager;
-            return std::move(gm);
-        }
     };
 }
 

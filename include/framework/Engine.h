@@ -33,7 +33,7 @@ namespace HGE {
         Engine() : mCurrentTickTime(0.0),
                    mSystemManager(std::make_unique<SystemManager>()),
                    mComponentManager(std::make_unique<ComponentManager>(mSystemManager.get())),
-                   mObjectManager(std::make_unique<ObjectManager>()),
+                   mObjectManager(std::make_unique<ObjectManager>(mComponentManager.get())),
                    mGraphicsModule(nullptr),
                    mInputManager(nullptr),
                    mCurrentGameEnvironment(nullptr) { }
@@ -56,7 +56,8 @@ namespace HGE {
 
         template <class GE>
         void loadGameEnvironment() {
-            mCurrentGameEnvironment = GameEnvironment::buildUnique<GE>(mObjectManager.get());
+            mCurrentGameEnvironment = std::make_unique<GE>();
+            mCurrentGameEnvironment->mObjectManager = mObjectManager.get();
 
             mCurrentGameEnvironment->beginGame();
             auto lastTime = graphicsModule()->getGameTime();
