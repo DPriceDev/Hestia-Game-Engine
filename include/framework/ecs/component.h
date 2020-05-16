@@ -18,6 +18,7 @@ namespace HGE {
 
         public:
         explicit IComponent(UID ownerId) : mOwnerUID(ownerId) { }
+
         virtual ~IComponent() = default;
         
         [[nodiscard]] UID getOwnerUID() const {

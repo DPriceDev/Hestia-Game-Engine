@@ -119,7 +119,7 @@ namespace HGE {
         }
     }
 
-    /* */
+    /* todo: switch to returning a struct of vao vbo ebo */
     void OpenglModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
 
         unsigned int indices[] = {
@@ -141,7 +141,7 @@ namespace HGE {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) nullptr);
         glEnableVertexAttribArray(0);
 
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
@@ -158,7 +158,8 @@ namespace HGE {
     }
 
     /* */
-    void OpenglModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, Transform2f worldTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
+    void OpenglModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform,
+            Transform2f worldTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
 
         glm::mat4 local = glm::mat4(1.0f);
         glm::mat4 world = glm::mat4(1.0f);
@@ -186,21 +187,49 @@ namespace HGE {
         pShader->setMat4("screen", screenProjection);
 
         glBindVertexArray(vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
         glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        glDisable(GL_BLEND);
     }
 
-    /* */
+    /* TODO: Finish */
     void OpenglModule::drawInstancedSprites(VAO vao, Shader* pShader, Material* pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
-
-
-
         pMaterial->useTexture();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
         pShader->useShader();
 
+    }
+
+    /** todo: refactor lines! save vao? edit vbo? pass whole array of lines? */
+    void OpenglModule::drawLine(const Shader* pShader, const Vector2f& start, const Vector2f& finish, Pointf width,
+                                const ColourRGB& colour, glm::mat4& screenProjection) {
+
+        pShader->useShader();
+        glm::vec4 glmColour = glm::vec4(colour.x, colour.y, colour.z, 1.0f);
+        pShader->setVec4("aColor", glmColour);
+        pShader->setMat4("screen", screenProjection);
+
+        GLuint vao, vbo;
+        float array[] = {start.x, start.y, finish.x, finish.y};
+
+        glGenVertexArrays(1, &vao);
+        glGenBuffers(1, &vbo);
+
+        glBindVertexArray(vao);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+        glBufferData(GL_ARRAY_BUFFER, sizeof(array), &array[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
+        glEnableVertexAttribArray(0);
+
+        glDrawArrays(GL_LINES, 0, 2);
+        glBindVertexArray(0);
+
+        /* delete vao and vbo */
+        glDeleteVertexArrays(1, &vao);
+        glDeleteBuffers(1, &vbo);
     }
 
     /** Helper functions */
@@ -213,10 +242,10 @@ namespace HGE {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-        GLFWwindow* window = glfwCreateWindow(windowX, windowY, title, NULL, NULL);
+        GLFWwindow* window = glfwCreateWindow(windowX, windowY, title, nullptr, nullptr);
         glfwMakeContextCurrent(window);
 
-        if (window == NULL) {
+        if (window == nullptr) {
             Logger::instance()->logError("OpenGl Module", "Failed to create GLFW window");
             return nullptr;
         }
@@ -278,8 +307,6 @@ namespace HGE {
         const char* fShaderCode = fragmentCode.c_str();
 
         unsigned int vertex, fragment;
-        int success;
-        char infoLog[512];
         
         // vertex Shader
         vertex = glCreateShader(GL_VERTEX_SHADER);
@@ -344,7 +371,7 @@ namespace HGE {
         {
             glGetShaderInfoLog(id, 512, nullptr, infoLog);
             std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-        };
+        }
         return success;
     }
 

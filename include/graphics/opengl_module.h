@@ -61,6 +61,9 @@ namespace HGE {
         
         void generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) override;
         void drawInstancedSprites(VAO vao, Shader* pShader, Material* pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) override;
+
+        void drawLine(const Shader* shader, const Vector2f& start, const Vector2f& finish, Pointf width,
+                      const ColourRGB& colour, glm::mat4& screenProjection) override;
     };
 }
 
