@@ -65,16 +65,12 @@ namespace HGE {
             return *this;
         }
 
-        inline const Vector2& operator*(const float value) {
-            this->x *= value;
-            this->y *= value;
-            return *this;
+        inline const Vector2 operator*(const float value) const {
+            return { this->x * value, this->y * value };
         }
 
-        inline Vector2& operator/(const float value) {
-            this->x /= value;
-            this->y /= value;
-            return *this;
+        inline const Vector2 operator/(const float value) const {
+            return Vector2<T>(this->x / value, this->y / value);
         }
 
         inline const Vector2& operator-=(const Vector2& other) {

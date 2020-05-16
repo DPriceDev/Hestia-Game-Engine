@@ -19,6 +19,11 @@ namespace HGE {
     static T roundValueToMultipleOf(T value, T multiple) {
         return floor(((value + multiple - 1)/multiple)) * multiple;
     }
+
+    template<typename V, typename T>
+    static T ceilToType(V value) {
+        return static_cast<T>(ceil(value));
+    }
 }
 
 

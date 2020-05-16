@@ -53,7 +53,11 @@ namespace HGE {
         [[maybe_unused]]
         [[nodiscard]]
         V midpoint() const {
-            return {mPosition.x + (mSize.x/2.0f), mPosition.y + (mSize.y/2.0f) };
+            return {mPosition.x + (mSize.x/2), mPosition.y + (mSize.y/2) };
+        }
+
+        float area() const {
+            return mSize.x * mSize.y;
         }
     };
 }

@@ -21,6 +21,7 @@ namespace HGE {
     using Transform2f = Transform<Vector2f, Pointf>;
 
     using Rectf = Rect<Vector2f>;
+    using Recti = Rect<Vector2i>;
 
     using ColourRGB = Vector3<Pointf>;
     using ColourRGBA = Vector4<Pointf>;
