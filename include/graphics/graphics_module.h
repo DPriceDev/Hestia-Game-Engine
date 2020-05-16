@@ -47,6 +47,9 @@ namespace HGE {
         virtual void drawLine(const Shader* shader, const Vector2f& start, const Vector2f& finish, Pointf width,
                 const ColourRGB& colour, glm::mat4 &screenProjection) = 0;
 
+        virtual void drawCircle(const Shader* shader, const Vector2f& center, const Pointf& radius, Pointf width,
+                              const ColourRGB& colour, glm::mat4 &screenProjection) = 0;
+
         virtual Shader* getShader(const char * vertexShaderPath, const char * fragmentShaderPath) = 0;
         virtual Material* getMaterial(const char * texturePath) = 0;
 

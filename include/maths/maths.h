@@ -24,6 +24,15 @@ namespace HGE {
     static T ceilToType(V value) {
         return static_cast<T>(ceil(value));
     }
+
+    static bool isPointInACircle(const Vector2f &point, const Vector2f &center, const Pointf &radius) {
+        return sqrt(((point.x - center.x) * (point.x - center.x))
+                        + ((point.y - center.y) * (point.y - center.y))) <= radius;
+    }
+
+    static Vector2f midpointBetween(const Vector2f &a, const Vector2f &b) {
+        return { (a.x + b.x) * 0.5f, (a.y + b.y) * 0.5f };
+    }
 }
 
 

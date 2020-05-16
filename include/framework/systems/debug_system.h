@@ -25,8 +25,19 @@ namespace HGE {
         ColourRGB mColour{ 255, 255, 255 };
 
         Line() = default;
-        Line(Vector2f start, Vector2f finish, Pointf width, Pointf persistence = 1.0f, ColourRGB colour = { 255, 255, 255 })
+        Line(Vector2f start, Vector2f finish, Pointf width, Pointf persistence = 20.0f, ColourRGB colour = { 255,255, 255 })
             : mStart(start), mFinish(finish), mWidth(width), mPersistence(persistence), mColour(colour)  { }
+    };
+
+    struct Circle {
+        Vector2f mCenter;
+        Pointf mRadius{ };
+        Pointf mPersistence{ };
+        ColourRGB mColour{ 255, 255, 255 };
+
+        Circle() = default;
+        Circle(Vector2f center, Pointf radius, Pointf persistence = 20.0f, ColourRGB colour = { 255, 255, 255 })
+                : mCenter(center), mRadius(radius), mPersistence(persistence), mColour(colour)  { }
     };
 
     /**
@@ -34,12 +45,17 @@ namespace HGE {
      */
     struct DebugComponent : public IComponent {
         std::vector<Line> mLines;
+        std::vector<Circle> mCircles;
 
         explicit DebugComponent(UID ownerId) : IComponent(ownerId) { }
         ~DebugComponent() override = default;
 
         void drawLine(Vector2f&& start, Vector2f&& finish, Pointf&& width) {
             mLines.emplace_back(start, finish, width);
+        }
+
+        void drawCircle(Vector2f&& center, Pointf&& radius, Pointf&& width) {
+            mCircles.emplace_back(center, radius, width);
         }
     };
 
@@ -51,6 +67,7 @@ namespace HGE {
     class System<DebugComponent> : public ISystem {
         ComponentArray<DebugComponent>* mDebugArray;
         std::vector<Line> mLines;
+        std::vector<Circle> mCircles;
         Shader* mShader;
 
     public:
@@ -67,21 +84,48 @@ namespace HGE {
                                        mCameraManager->getViewportBottom(),
                                        mCameraManager->getViewportTop());
 
+            /* add new lines to draw from debug component */
             for(auto & component : mDebugArray->getComponents()) {
                 mLines.insert(mLines.end(), component->mLines.begin(), component->mLines.end());
+                mCircles.insert(mCircles.end(), component->mCircles.begin(), component->mCircles.end());
                 component->mLines.clear();
+                component->mCircles.clear();
             }
 
+            /* draw lines and check if expired */
             int index = 0;
+            auto toRemove = -1;
             for(auto & line : mLines) {
                 Engine::graphicsModule()->drawLine(mShader, line.mStart, line.mFinish, line.mWidth, line.mColour,
                         mOrthographic);
                 line.mPersistence -= deltaTime;
 
                 if(line.mPersistence <= 0.0) {
-                    mLines.erase(mLines.begin() + index);
+                    toRemove = index;
                 }
                 ++index;
+            }
+
+            if(toRemove != -1) {
+                mLines.erase(mLines.begin() + toRemove);
+            }
+
+            /* draw lines and check if expired */
+            index = 0;
+            toRemove = -1;
+            for(auto & circle : mCircles) {
+                Engine::graphicsModule()->drawCircle(mShader, circle.mCenter, circle.mRadius, 1.0f, circle.mColour,
+                                                   mOrthographic);
+                circle.mPersistence -= deltaTime;
+
+                if(circle.mPersistence <= 0.0) {
+                    toRemove = index;
+                }
+                ++index;
+            }
+
+            if(toRemove != -1) {
+                mCircles.erase(mCircles.begin() + toRemove);
             }
         }
     };

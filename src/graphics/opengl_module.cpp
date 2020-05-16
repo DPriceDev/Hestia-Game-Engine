@@ -232,6 +232,44 @@ namespace HGE {
         glDeleteBuffers(1, &vbo);
     }
 
+    void OpenglModule::drawCircle(const Shader* shader, const Vector2f& center, const Pointf& radius, Pointf width,
+                    const ColourRGB& colour, glm::mat4 &screenProjection) {
+
+        float points[360];
+
+        for(int i = 0; i < 360; i += 4) {
+            points[i] = (radius * cos(i * M_PI / 180)) + center.x;
+            points[i + 1] = (radius * sin(i * M_PI / 180)) + center.y;
+            points[i + 2] = (radius * cos((i + 4) * M_PI / 180)) + center.x;
+            points[i + 3] = (radius * sin((i + 4) * M_PI / 180)) + center.y;
+        }
+
+        shader->useShader();
+        glm::vec4 glmColour = glm::vec4(colour.x, colour.y, colour.z, 1.0f);
+        shader->setVec4("aColor", glmColour);
+        shader->setMat4("screen", screenProjection);
+
+        GLuint vao, vbo;
+
+        glGenVertexArrays(1, &vao);
+        glGenBuffers(1, &vbo);
+
+        glBindVertexArray(vao);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+        glBufferData(GL_ARRAY_BUFFER, sizeof(points), &points[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
+        glEnableVertexAttribArray(0);
+
+        glDrawArrays(GL_LINES, 0, 180);
+        glBindVertexArray(0);
+
+        /* delete vao and vbo */
+        glDeleteVertexArrays(1, &vao);
+        glDeleteBuffers(1, &vbo);
+
+    }
+
     /** Helper functions */
 
     GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY) {
