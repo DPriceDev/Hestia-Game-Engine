@@ -18,10 +18,10 @@ namespace HGE {
                                    mCameraManager->getViewportTop());
 
         float vertices[16] = { 
-            0.5, 0.5, 1.0f, 1.0f,  
-            -0.5, 0.5, 0.0f, 1.0f, 
-            -0.5, -0.5, 0.0f, 0.0f,
-            0.5, -0.5, 1.0f, 0.0f };
+            1.0f, 1.0f, 1.0f, 1.0f,
+            0.0f, 1.0f, 0.0f, 1.0f,
+            0.0f, 0.0f, 0.0f, 0.0f,
+            1.0f, 0.0f, 1.0f, 0.0f };
 
         mGraphicsModule->generateSpriteVAO(mSpriteVao, mSpriteVbo, vertices);
         Logger::instance()->logDebug("Sprite System", "Created");
