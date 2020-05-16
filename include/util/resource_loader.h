@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "Logger.h"
+#include "logger.h"
 
 namespace HGE {
 

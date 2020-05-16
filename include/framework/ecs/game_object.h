@@ -6,7 +6,7 @@
 #define HESTIA_FRAMEWORK_GAME_OBJECT_H
 
 #include "object.h"
-#include "ECSFacade.h"
+#include "ecs_facade.h"
 
 namespace HGE {
 

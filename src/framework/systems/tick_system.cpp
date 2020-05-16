@@ -1,5 +1,5 @@
-#include "framework/systems/TickSystem.h"
-#include "framework/Engine.h"
+#include "framework/systems/tick_system.h"
+#include "engine.h"
 
 namespace HGE {
 

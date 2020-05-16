@@ -6,8 +6,8 @@
 #include <functional>
 #include <typeinfo>
 
-#include "System.h"
-#include "util/Logger.h"
+#include "system.h"
+#include "util/logger.h"
 
 namespace HGE {
     class ComponentManager;

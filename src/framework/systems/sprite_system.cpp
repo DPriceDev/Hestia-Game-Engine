@@ -1,8 +1,8 @@
-#include "framework/systems/SpriteSystem.h"
+#include "framework/systems/sprite_system.h"
 
 #include <glm/glm/ext.hpp>
 
-#include "framework/Engine.h"
+#include "engine.h"
 
 namespace HGE {
 
@@ -10,7 +10,7 @@ namespace HGE {
         mGraphicsModule = Engine::graphicsModule();
         mCameraManager = Engine::cameraManager();
         mComponentManager = Engine::componentManager();
-        mPositionsArray = mComponentManager->getComponentArray<WorldPositionComponent>();
+        mPositionsArray = mComponentManager->getComponentArray<PositionComponent>();
 
         mOrthographic = glm::ortho(mCameraManager->getViewportLeft(),
                                    mCameraManager->getViewportRight(),

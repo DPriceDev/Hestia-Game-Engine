@@ -5,10 +5,10 @@
 
 #include "glm/glm/glm.hpp"
 
-#include "input/InputTypes.h"
-#include "maths/MathsTypes.h"
-#include "graphics/Shader.h"
-#include "graphics/Material.h"
+#include "input/input_types.h"
+#include "maths/maths_types.h"
+#include "graphics/shader.h"
+#include "graphics/material.h"
 
 namespace HGE {
     using VAO = unsigned int;

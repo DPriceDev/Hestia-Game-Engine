@@ -11,13 +11,13 @@
 #include <utility>
 #include <memory>
 
-#include "GraphicsModule.h"
-#include "Shader.h"
-#include "Material.h"
-#include "maths/MathsTypes.h"
+#include "graphics_module.h"
+#include "shader.h"
+#include "material.h"
+#include "maths/maths_types.h"
 
 namespace HGE {
-    class OpenGlModule : public GraphicsModule {
+    class OpenglModule : public GraphicsModule {
 
         GLFWwindow* mWindow;
         std::string mGameTitle;
@@ -26,14 +26,14 @@ namespace HGE {
         std::map<const char*, std::unique_ptr<Material>> mMaterials;
 
         public:
-        OpenGlModule() : 
+        OpenglModule() :
             mShaders(std::map<std::pair<const char*, const char*>, std::unique_ptr<Shader>>()),
             mMaterials(std::map<const char*, std::unique_ptr<Material>>()), 
             mGameTitle(""), 
             mWindow(nullptr),
             mResolution(ScreenSize2f(800, 600)) { }
              
-        ~OpenGlModule() override = default;
+        ~OpenglModule() override = default;
 
 
         bool init() override;

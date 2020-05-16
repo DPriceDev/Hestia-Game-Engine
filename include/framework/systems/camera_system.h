@@ -1,12 +1,12 @@
 #ifndef HESTIA_FRAMEWORK_CAMERA_SYSTEM_H
 #define HESTIA_FRAMEWORK_CAMERA_SYSTEM_H
 
-#include "framework/Engine.h"
-#include "framework/ecs/IComponent.h"
-#include "framework/ecs/System.h"
-#include "camera/CameraManager.h"
+#include "engine.h"
+#include "framework/ecs/component.h"
+#include "framework/ecs/system.h"
+#include "camera/camera_manager.h"
 
-#include "util/Logger.h"
+#include "util/logger.h"
 
 namespace HGE {
 

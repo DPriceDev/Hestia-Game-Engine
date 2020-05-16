@@ -1,8 +1,8 @@
 #ifndef HESTIA_FRAMEWORK_ECS_SYSTEM_H
 #define HESTIA_FRAMEWORK_ECS_SYSTEM_H
 
-#include "util/Uid.h"
-#include "util/Logger.h"
+#include "util/uid.h"
+#include "util/logger.h"
 
 
 namespace HGE {

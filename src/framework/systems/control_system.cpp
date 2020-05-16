@@ -1,5 +1,5 @@
-#include "framework/systems/ControlSystem.h"
-#include "framework/Engine.h"
+#include "framework/systems/control_system.h"
+#include "engine.h"
 
 namespace HGE {
 

@@ -16,6 +16,7 @@ namespace HGE {
         ~Shader() = default;
         void useShader() const;
 
+        [[nodiscard]]
         ShaderProgram getShaderId() const {
             return mId;
         }

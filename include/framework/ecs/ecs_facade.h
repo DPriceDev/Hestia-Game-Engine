@@ -5,8 +5,8 @@
 #ifndef HESTIA_ROGUELIKE_ECS_FACADE_H
 #define HESTIA_ROGUELIKE_ECS_FACADE_H
 
-#include "ObjectManager.h"
-#include "ComponentManager.h"
+#include "object_manager.h"
+#include "component_manager.h"
 
 namespace HGE {
 

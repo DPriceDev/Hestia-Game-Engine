@@ -8,10 +8,10 @@
 #include <memory>
 #include <algorithm>
 
-#include "IComponent.h"
-#include "SystemManager.h"
+#include "component.h"
+#include "system_manager.h"
 
-#include "util/Logger.h"
+#include "util/logger.h"
 
 namespace HGE {
     using UID = int;

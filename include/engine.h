@@ -3,17 +3,17 @@
 
 #include <memory>
 
-#include "exceptions.h"
+#include "framework/exceptions.h"
 
-#include "ecs/SystemManager.h"
-#include "ecs/ComponentManager.h"
-#include "ecs/ObjectManager.h"
-#include "camera/CameraManager.h"
+#include "framework/ecs/system_manager.h"
+#include "framework/ecs/component_manager.h"
+#include "framework/ecs/object_manager.h"
+#include "camera/camera_manager.h"
 
-#include "GameEnvironment.h"
+#include "framework/game_envrionment.h"
 
-#include "graphics/GraphicsModule.h"
-#include "input/InputManager.h"
+#include "graphics/graphics_module.h"
+#include "input/input_manager.h"
 
 namespace HGE {
 

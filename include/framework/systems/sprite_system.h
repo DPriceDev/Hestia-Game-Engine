@@ -5,15 +5,15 @@
 #include <glm/glm/glm.hpp>
 #include <glm/glm/ext.hpp>
 
-#include "framework/ecs/ComponentManager.h"
-#include "camera/CameraManager.h"
-#include "framework/systems/WorldPositionSystem.h"
-#include "framework/ecs/IComponent.h"
-#include "framework/ecs/System.h"
+#include "framework/ecs/component_manager.h"
+#include "camera/camera_manager.h"
+#include "framework/systems/position_system.h"
+#include "framework/ecs/component.h"
+#include "framework/ecs/system.h"
 
-#include "graphics/GraphicsModule.h"
+#include "graphics/graphics_module.h"
 
-#include "util/Logger.h"
+#include "util/logger.h"
 
 namespace HGE {
 
@@ -40,7 +40,7 @@ namespace HGE {
 
         ComponentManager* mComponentManager;
         ComponentArray<SpriteComponent>* mSpritesArray;
-        ComponentArray<WorldPositionComponent>* mPositionsArray;
+        ComponentArray<PositionComponent>* mPositionsArray;
         GraphicsModule* mGraphicsModule;
         CameraManager* mCameraManager;
         unsigned int mSpriteVao, mSpriteVbo;

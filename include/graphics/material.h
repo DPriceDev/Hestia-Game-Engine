@@ -4,7 +4,7 @@
 #include "glad/glad.h"
 #include "glm/glm/glm.hpp"
 
-#include "maths/MathsTypes.h"
+#include "maths/maths_types.h"
 
 namespace HGE {
 

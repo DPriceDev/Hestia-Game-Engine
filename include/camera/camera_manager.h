@@ -1,8 +1,8 @@
 #ifndef HESTIA_CAMERA_CAMERA_MANAGER_H
 #define HESTIA_CAMERA_CAMERA_MANAGER_H
 
-#include "graphics/GraphicsModule.h"
-#include "maths/MathsTypes.h"
+#include "graphics/graphics_module.h"
+#include "maths/maths_types.h"
 
 namespace HGE {
 

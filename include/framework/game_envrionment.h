@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include "framework/ecs/ECSFacade.h"
-#include "framework/ecs/ObjectManager.h"
+#include "framework/ecs/ecs_facade.h"
+#include "framework/ecs/object_manager.h"
 
 namespace HGE {
 

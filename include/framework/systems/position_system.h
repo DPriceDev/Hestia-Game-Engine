@@ -1,20 +1,20 @@
 #ifndef HESTIA_FRAMEWORK_WORLD_POSITION_H
 #define HESTIA_FRAMEWORK_WORLD_POSITION_H
 
-#include "framework/ecs/IComponent.h"
-#include "framework/ecs/System.h"
-#include "framework/ecs/ComponentManager.h"
+#include "framework/ecs/component.h"
+#include "framework/ecs/system.h"
+#include "framework/ecs/component_manager.h"
 
-#include "maths/MathsTypes.h"
+#include "maths/maths_types.h"
 
-#include "util/Logger.h"
+#include "util/logger.h"
 
 namespace HGE {
 
     /**
      * World Position IComponent
      */
-    struct WorldPositionComponent : public IComponent {
+    struct PositionComponent : public IComponent {
         Transform2f mTransform;
 
         const float& getX() { return mTransform.mLocalPosition.x; }
@@ -22,20 +22,20 @@ namespace HGE {
         const void setX(const float& value) { mTransform.mLocalPosition.x = value; }
         const void setY(const float& value) { mTransform.mLocalPosition.y = value; }
 
-        explicit WorldPositionComponent(UID ownerId) : IComponent(ownerId), mTransform(Transform2f()) { }
-        ~WorldPositionComponent() override = default;
+        explicit PositionComponent(UID ownerId) : IComponent(ownerId), mTransform(Transform2f()) { }
+        ~PositionComponent() override = default;
     };
 
     /**
      * World Position System
      */
     template <>
-    class System<WorldPositionComponent> : public ISystem {
+    class System<PositionComponent> : public ISystem {
 
-        ComponentArray<WorldPositionComponent>* mComponentsArray;
+        ComponentArray<PositionComponent>* mComponentsArray;
 
         public:
-        explicit System(ComponentArray<WorldPositionComponent>* componentArray) : mComponentsArray(componentArray) {
+        explicit System(ComponentArray<PositionComponent>* componentArray) : mComponentsArray(componentArray) {
             Logger::instance()->logDebug("World Position System", "Created!");
         }
         ~System() override = default;

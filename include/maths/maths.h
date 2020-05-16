@@ -4,7 +4,7 @@
 #include <random>
 #include <cmath>
 
-#include "MathsTypes.h"
+#include "maths_types.h"
 
 namespace HGE {
 

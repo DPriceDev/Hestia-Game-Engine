@@ -4,8 +4,8 @@
 #include <functional>
 #include <utility>
 
-#include "framework/ecs/IComponent.h"
-#include "framework/ecs/System.h"
+#include "framework/ecs/component.h"
+#include "framework/ecs/system.h"
 
 namespace HGE {
 

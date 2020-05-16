@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "object.h"
-#include "ComponentManager.h"
+#include "component_manager.h"
 
 namespace HGE {
 

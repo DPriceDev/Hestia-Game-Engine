@@ -1,8 +1,8 @@
 #ifndef HESTIA_INPUT_INPUT_MANAGER_H
 #define HESTIA_INPUT_INPUT_MANAGER_H
 
-#include "input/InputTypes.h"
-#include "graphics/GraphicsModule.h"
+#include "input/input_types.h"
+#include "graphics/graphics_module.h"
 
 namespace HGE {
     class InputManager {

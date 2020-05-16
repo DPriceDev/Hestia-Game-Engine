@@ -1,4 +1,4 @@
-#include "graphics/OpenGlModule.h"
+#include "graphics/opengl_module.h"
 
 #include <iostream>
 
@@ -7,8 +7,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 
-#include "util/ResourceLoader.h"
-#include "util/Logger.h"
+#include "util/resource_loader.h"
+#include "util/logger.h"
 
 namespace HGE {
 
@@ -23,7 +23,7 @@ namespace HGE {
     bool checkProgramLoadedCorrectly(unsigned int id);
 
     /* */
-    bool OpenGlModule::init() {
+    bool OpenglModule::init() {
         mWindow = OpenGlInit("2D Game Engine", mResolution.mWidth, mResolution.mHeight);
 
         if(mWindow == nullptr) {
@@ -38,59 +38,59 @@ namespace HGE {
     /**
      * Terminate Open Gl Module
      */
-    void OpenGlModule::terminate() {
+    void OpenglModule::terminate() {
         glfwTerminate();
     }
 
     /** Is Window Open */
-    bool OpenGlModule::isWindowOpen() {
+    bool OpenglModule::isWindowOpen() {
         return !glfwWindowShouldClose(mWindow);
     }
 
     /** Start Frame */
-    void OpenGlModule::startFrame() {
+    void OpenglModule::startFrame() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
     /** Render Frame */
-    void OpenGlModule::renderFrame() {
+    void OpenglModule::renderFrame() {
         showFPS(mWindow, mGameTitle);
         glfwSwapBuffers(mWindow);
         glfwPollEvents();  
     }
 
     /* */
-    double OpenGlModule::getGameTime() {
+    double OpenglModule::getGameTime() {
         return glfwGetTime();
     }
 
     /* */
-    void OpenGlModule::setGameTitle(const char * title) {
+    void OpenglModule::setGameTitle(const char * title) {
         mGameTitle = title;
     }
 
     /* */
-    bool OpenGlModule::getKeyValue(KeyType key) {
+    bool OpenglModule::getKeyValue(KeyType key) {
         return glfwGetKey(mWindow, key) == GLFW_PRESS;
     }
 
-    ScreenSize2f OpenGlModule::getScreenSize() {
+    ScreenSize2f OpenglModule::getScreenSize() {
         auto screenSize = ScreenSize2f();
         glfwGetWindowSize(mWindow, &screenSize.width(), &screenSize.height());
         return screenSize;
     }
 
-    const ScreenSize2f& OpenGlModule::getScreenResolution() const {
+    const ScreenSize2f& OpenglModule::getScreenResolution() const {
         return mResolution;
     }
 
-    void OpenGlModule::setScreenResolution(const ScreenSize2f& resolution) {
+    void OpenglModule::setScreenResolution(const ScreenSize2f& resolution) {
         mResolution = resolution;
     }
 
     /* */
-    Shader* OpenGlModule::getShader(const char * vertexShaderPath, const char * fragmentShaderPath) {
+    Shader* OpenglModule::getShader(const char * vertexShaderPath, const char * fragmentShaderPath) {
 
         auto pair = std::make_pair(vertexShaderPath, fragmentShaderPath);
         auto it = mShaders.find(pair);
@@ -106,7 +106,7 @@ namespace HGE {
     }
 
     /* */
-    Material* OpenGlModule::getMaterial(const char * texturePath) {
+    Material* OpenglModule::getMaterial(const char * texturePath) {
         auto it = mMaterials.find(texturePath);
 
         if(it != mMaterials.end()) {
@@ -120,7 +120,7 @@ namespace HGE {
     }
 
     /* */
-    void OpenGlModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
+    void OpenglModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
 
         unsigned int indices[] = {
             1, 0, 3,   // first triangle
@@ -153,12 +153,12 @@ namespace HGE {
     }
 
     /* To Update! */ 
-    void OpenGlModule::generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
+    void OpenglModule::generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
 
     }
 
     /* */
-    void OpenGlModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, Transform2f worldTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
+    void OpenglModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform, Transform2f worldTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
 
         glm::mat4 local = glm::mat4(1.0f);
         glm::mat4 world = glm::mat4(1.0f);
@@ -191,7 +191,7 @@ namespace HGE {
     }
 
     /* */
-    void OpenGlModule::drawInstancedSprites(VAO vao, Shader* pShader, Material* pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
+    void OpenglModule::drawInstancedSprites(VAO vao, Shader* pShader, Material* pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
 
 
 
@@ -293,7 +293,7 @@ namespace HGE {
         glCompileShader(fragment);
         checkShaderLoadedCorrectly(fragment);
         
-        // shader Program
+        // Shader Program
         id = glCreateProgram();
         glAttachShader(id, vertex);
         glAttachShader(id, fragment);
