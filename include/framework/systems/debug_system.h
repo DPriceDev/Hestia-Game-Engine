@@ -25,7 +25,8 @@ namespace HGE {
         ColourRGB mColour{ 255, 255, 255 };
 
         Line() = default;
-        Line(Vector2f start, Vector2f finish, Pointf width, Pointf persistence = 20.0f, ColourRGB colour = { 255,255, 255 })
+        Line(Vector2f start, Vector2f finish, Pointf width, Pointf persistence = 50.0f, ColourRGB colour = { 255,255,
+                                                                                                            255 })
             : mStart(start), mFinish(finish), mWidth(width), mPersistence(persistence), mColour(colour)  { }
     };
 
@@ -50,12 +51,12 @@ namespace HGE {
         explicit DebugComponent(UID ownerId) : IComponent(ownerId) { }
         ~DebugComponent() override = default;
 
-        void drawLine(Vector2f&& start, Vector2f&& finish, Pointf&& width) {
-            mLines.emplace_back(start, finish, width);
+        void drawLine(Vector2f&& start, Vector2f&& finish, Pointf&& width, ColourRGB&& colour) {
+            mLines.emplace_back(start, finish, width, 20.0f, colour);
         }
 
-        void drawCircle(Vector2f&& center, Pointf&& radius, Pointf&& width) {
-            mCircles.emplace_back(center, radius, width);
+        void drawCircle(Vector2f&& center, Pointf&& radius, Pointf&& width, ColourRGB&& colour) {
+            mCircles.emplace_back(center, radius, width, colour);
         }
     };
 
