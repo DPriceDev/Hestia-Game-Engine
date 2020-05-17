@@ -15,6 +15,7 @@ namespace HGE {
     using Scalef = float;
 
     using Vector2f = Vector2<Pointf>;
+    using Vector3f = Vector3<Pointf>;
     using Vector2i = Vector2<Pointi>;
     using Vector2d = Vector2<Pointd>;
 

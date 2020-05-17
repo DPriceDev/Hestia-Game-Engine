@@ -291,9 +291,12 @@ namespace HGE {
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
             Logger::instance()->logError("OpenGl Module", "Failed to initialize GLAD");
             return nullptr;
-        } 
+        }
 
-        glViewport(0, 0, windowX, windowY);
+        int frameBufferWidth, frameBufferHeight;
+        glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);
+        glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+
         Logger::instance()->logDebug("OpenGl Module", "Window Initialized Successfully.");
 
         return window;
