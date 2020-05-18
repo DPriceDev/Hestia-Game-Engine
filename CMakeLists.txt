@@ -41,7 +41,7 @@ set (
       include/glad)
 
 include_directories(${INCLUDE_DIRS})
-add_library(hestia STATIC ${all_SRCS})
+add_library(hestia STATIC ${all_SRCS} include/util/pointer_helper.h)
 target_link_libraries(hestia OpenGL::GL)
 target_link_libraries(hestia glfw)
 target_include_directories(hestia PUBLIC ${INCLUDE_DIRS})
