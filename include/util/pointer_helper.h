@@ -2,8 +2,8 @@
 // Created by David Price on 18/05/2020.
 //
 
-#ifndef HESTIA_ROGUELIKE_DEPENDS_HGE_UTIL_POINTER_HELPER_H
-#define HESTIA_ROGUELIKE_DEPENDS_HGE_UTIL_POINTER_HELPER_H
+#ifndef HESTIA_ROGUELIKE_HGE_UTIL_POINTER_HELPER_H
+#define HESTIA_ROGUELIKE_HGE_UTIL_POINTER_HELPER_H
 
 #include <vector>
 #include <memory>
@@ -17,6 +17,8 @@ namespace HGE {
             return vPointer.get() == pointer;
         });
     }
+
+
 }
 
-#endif //HESTIA_ROGUELIKE_DEPENDS_HGE_UTIL_POINTER_HELPER_H
+#endif //HESTIA_ROGUELIKE_HGE_UTIL_POINTER_HELPER_H

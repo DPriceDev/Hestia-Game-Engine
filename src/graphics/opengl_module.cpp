@@ -98,7 +98,6 @@ namespace HGE {
         if(it != mShaders.end()) {
             return it->second.get();
         } else {
-            Logger::instance()->logDebug("OpenGl Module", "Shader created");
             ShaderProgram id = loadAndBuildShader(vertexShaderPath, fragmentShaderPath);
             mShaders.insert(std::make_pair(pair, std::make_unique<Shader>(id)));
             return mShaders.at(pair).get();
@@ -112,7 +111,6 @@ namespace HGE {
         if(it != mMaterials.end()) {
             return it->second.get();
         } else {
-            Logger::instance()->logDebug("OpenGl Module", "Shader created");
             TextureId id = loadAndBuildTexture(texturePath);
             mMaterials.insert(std::make_pair(texturePath, std::make_unique<Material>(id)));
             return mMaterials.at(texturePath).get();
