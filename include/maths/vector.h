@@ -47,39 +47,39 @@ namespace HGE {
         /**
          * operators
          */
-        inline Vector2 operator-(const Vector2& other) {
+        Vector2 operator-(const Vector2& other) {
             return { this->x - other.x, this->y - other.y };
         }
 
-        inline Vector2 operator+(const Vector2& other) {
+        Vector2 operator+(const Vector2& other) {
             return { this->x + other.x, this->y + other.y };
         }
 
-        inline Vector2& operator+=(const Vector2& other) {
+        Vector2& operator+=(const Vector2& other) {
             this->x += other.x;
             this->y += other.y;
             return *this;
         }
 
-        inline Vector2 operator*(const float value) const {
+        Vector2 operator*(const float value) const {
             return { this->x * value, this->y * value };
         }
 
-        inline Vector2 operator/(const float value) const {
+        Vector2 operator/(const float value) const {
             return Vector2<T>(this->x / value, this->y / value);
         }
 
-        inline const Vector2& operator-=(const Vector2& other) {
+        const Vector2& operator-=(const Vector2& other) {
             this->x -= other.x;
             this->y -= other.y;
             return *this;
         }
 
-        inline bool operator==(const Vector2& other) const {
+        bool operator==(const Vector2& other) const {
             return this->x == other.x && this->y == other.y;
         }
 
-        inline bool operator!=(const Vector2& other) const {
+        bool operator!=(const Vector2& other) const {
             return this->x != other.x || this->y != other.y;
         }
     };
