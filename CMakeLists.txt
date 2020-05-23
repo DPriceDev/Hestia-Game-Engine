@@ -18,6 +18,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(depends/glfw)
 add_subdirectory(depends/glm INTERFACE)
+add_subdirectory(depends/athena)
 
 file(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/*/*/*/*/*.cpp"
@@ -30,18 +31,18 @@ file(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/*.c"
         )
 
-set (
-      INCLUDE_DIRS
-      include
-      include/glfw/include
-      include/glfw/include/GLFW
-      depends
-      depends/stb
-      depends/stb/
-      include/glad)
+set (INCLUDE_DIRS
+        include
+        include/athena/include
+        include/glfw/include
+        include/glfw/include/GLFW
+        depends
+        depends/stb
+        depends/stb/
+        include/glad)
 
 include_directories(${INCLUDE_DIRS})
-add_library(hestia STATIC ${all_SRCS} include/util/pointer_helper.h)
+add_library(hestia STATIC ${all_SRCS} include/util/pointer_helper.h depends/athena/include/athena_functions.h depends/athena/include/athena_functions.h)
 target_link_libraries(hestia OpenGL::GL)
 target_link_libraries(hestia glfw)
 target_include_directories(hestia PUBLIC ${INCLUDE_DIRS})
