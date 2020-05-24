@@ -3,9 +3,13 @@
 
 #include <array>
 #include <iostream>
-#include "vector.h"
+
+#include <athena/include/vector.h>
+#include <athena/include/rect.h>
+#include <athena/include/grid.h>
+
 #include "transform.h"
-#include "rect.h"
+
 
 namespace HGE {
     using Pointf = float;
@@ -14,18 +18,18 @@ namespace HGE {
     using Rotf = float;
     using Scalef = float;
 
-    using Vector2f = Vector2<Pointf>;
-    using Vector3f = Vector3<Pointf>;
-    using Vector2i = Vector2<Pointi>;
-    using Vector2d = Vector2<Pointd>;
+    using Vector2f = ATA::Vector2<Pointf>;
+    using Vector3f = ATA::Vector3<Pointf>;
+    using Vector2i = ATA::Vector2<Pointi>;
+    using Vector2d = ATA::Vector2<Pointd>;
 
     using Transform2f = Transform<Vector2f, Pointf>;
 
-    using Rectf = Rect<Vector2f>;
-    using Recti = Rect<Vector2i>;
+    using Rectf = ATA::Rect<Vector2f>;
+    using Recti = ATA::Rect<Vector2i>;
 
-    using ColourRGB = Vector3<Pointf>;
-    using ColourRGBA = Vector4<Pointf>;
+    using ColourRGB = ATA::Vector3<Pointf>;
+    using ColourRGBA = ATA::Vector4<Pointf>;
 }
 
 #endif
