@@ -47,11 +47,18 @@ namespace HGE {
         /**
          * operators
          */
+         template<class U>
+        Vector2& operator=(const Vector2<U>& other) {
+            this->x = other.x;
+            this->y = other.y;
+            return *this;
+        }
+
         Vector2 operator-(const Vector2& other) {
             return { this->x - other.x, this->y - other.y };
         }
 
-        Vector2 operator+(const Vector2& other) {
+        Vector2 operator+(const Vector2& other) const {
             return { this->x + other.x, this->y + other.y };
         }
 
