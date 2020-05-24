@@ -18,7 +18,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(depends/glfw)
 add_subdirectory(depends/glm INTERFACE)
-add_subdirectory(depends/athena)
+#add_subdirectory(depends/athena)
 
 file(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/*/*/*/*/*.cpp"
@@ -33,7 +33,7 @@ file(GLOB all_SRCS
 
 set (INCLUDE_DIRS
         include
-        include/athena/include
+#        include/athena/include
         include/glfw/include
         include/glfw/include/GLFW
         depends
