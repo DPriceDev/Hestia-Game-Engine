@@ -33,7 +33,7 @@ file(GLOB all_SRCS
 
 set (INCLUDE_DIRS
         include
-#        include/athena/include
+        include/athena/include
         include/glfw/include
         include/glfw/include/GLFW
         depends
@@ -42,7 +42,7 @@ set (INCLUDE_DIRS
         include/glad)
 
 include_directories(${INCLUDE_DIRS})
-add_library(hestia STATIC ${all_SRCS} include/util/pointer_helper.h depends/athena/include/athena_functions.h depends/athena/include/athena_functions.h)
+add_library(hestia STATIC ${all_SRCS})
 target_link_libraries(hestia OpenGL::GL)
 target_link_libraries(hestia glfw)
 target_include_directories(hestia PUBLIC ${INCLUDE_DIRS})
