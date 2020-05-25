@@ -23,6 +23,9 @@ namespace HGE {
     using Vector2i = ATA::Vector2<Pointi>;
     using Vector2d = ATA::Vector2<Pointd>;
 
+    template<class T>
+    using Grid = ATA::Grid2D<T>;
+
     using Transform2f = Transform<Vector2f, Pointf>;
 
     using Rectf = ATA::Rect<Vector2f>;

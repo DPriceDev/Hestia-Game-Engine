@@ -4,6 +4,7 @@
 #include <random>
 #include <cmath>
 
+#include <athena/include/athena_functions.h>
 #include "maths_types.h"
 
 namespace HGE {
