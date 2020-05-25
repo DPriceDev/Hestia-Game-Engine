@@ -28,8 +28,8 @@ namespace HGE {
 
     using Transform2f = Transform<Vector2f, Pointf>;
 
-    using Rectf = ATA::Rect<Vector2f>;
-    using Recti = ATA::Rect<Vector2i>;
+    using Rectf = ATA::Rect<float>;
+    using Recti = ATA::Rect<int>;
 
     using ColourRGB = ATA::Vector3<Pointf>;
     using ColourRGBA = ATA::Vector4<Pointf>;
