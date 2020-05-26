@@ -10,7 +10,6 @@
 
 #include "transform.h"
 
-
 namespace HGE {
     using Pointf = float;
     using Pointi = int;
