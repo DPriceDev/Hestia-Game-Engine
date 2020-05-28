@@ -9,26 +9,26 @@ TEST_CASE("Test random number generator") {
     using namespace HGE;
 
     auto randomInt = randomNumberBetween(0, 10);
-    auto randomfloat = randomNumberBetween(0.0f, 10.0f);
-    auto randomDouble = randomNumberBetween(0.0, 10.0);
+//    auto randomfloat = randomNumberBetween(0.0f, 10.0f);
+//    auto randomDouble = randomNumberBetween(0.0, 10.0);
 
     CHECK(randomInt >= 0);
     CHECK(randomInt <= 10);
-    CHECK(randomfloat >= 0.0f);
-    CHECK(randomfloat <= 10.0f);
-    CHECK(randomDouble >= 0.0);
-    CHECK(randomDouble <= 10.0);
+//    CHECK(randomfloat >= 0.0f);
+//    CHECK(randomfloat <= 10.0f);
+//    CHECK(randomDouble >= 0.0);
+//    CHECK(randomDouble <= 10.0);
 
     auto randomNegativeInt = randomNumberBetween(-10, -4);
-    auto randomNegativefloat = randomNumberBetween(-12.5f, -3.2f);
-    auto randomNegativeDouble = randomNumberBetween(-1000.0, -9.0);
+//    auto randomNegativefloat = randomNumberBetween(-12.5f, -3.2f);
+//    auto randomNegativeDouble = randomNumberBetween(-1000.0, -9.0);
 
     CHECK(randomNegativeInt <= -4);
     CHECK(randomNegativeInt >= -10);
-    CHECK(randomNegativefloat <= -3.2f);
-    CHECK(randomNegativefloat >= -12.5f);
-    CHECK(randomNegativeDouble <= -9.0);
-    CHECK(randomNegativeDouble >= -1000.0);
+//    CHECK(randomNegativefloat <= -3.2f);
+//    CHECK(randomNegativefloat >= -12.5f);
+//    CHECK(randomNegativeDouble <= -9.0);
+//    CHECK(randomNegativeDouble >= -1000.0);
 
     // TODO: Add check for maximum and minimum swapped
 }
