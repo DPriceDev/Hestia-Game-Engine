@@ -46,3 +46,6 @@ add_library(hestia STATIC ${all_SRCS})
 target_link_libraries(hestia OpenGL::GL)
 target_link_libraries(hestia glfw)
 target_include_directories(hestia PUBLIC ${INCLUDE_DIRS})
+
+enable_testing()
+add_subdirectory(unit_tests)
