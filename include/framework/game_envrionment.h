@@ -11,17 +11,17 @@ namespace HGE {
     class GameEnvironment : public EcsFacade {
 
     public:
-        GameEnvironment() : EcsFacade() { }
+        GameEnvironment() : EcsFacade() {}
         virtual ~GameEnvironment() = default;
 
         /* Public Methods */
         virtual void beginGame() = 0;
-        virtual void gameLoop(const double & deltaTime) = 0;
+        virtual void gameLoop(const double &deltaTime) = 0;
         virtual void endGame() = 0;
     };
 
-//    template<typename G>
-//    concept game_environment = std::is_base_of<GameEnvironment, G>::value;
-}
+    //    template<typename G>
+    //    concept game_environment = std::is_base_of<GameEnvironment, G>::value;
+}// namespace HGE
 
 #endif

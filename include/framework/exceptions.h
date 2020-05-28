@@ -5,11 +5,11 @@
 
 namespace HGE {
 
-    class GraphicModuleInitException: public std::exception {
-        virtual const char* errorMsg() const noexcept {
+    class GraphicModuleInitException : public std::exception {
+        virtual const char *errorMsg() const noexcept {
             return "The Graphics Module Failed to Initialise.";
         }
     };
-}
+}// namespace HGE
 
 #endif

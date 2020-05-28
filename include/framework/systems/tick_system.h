@@ -15,7 +15,7 @@ namespace HGE {
     struct TickComponent : IComponent {
         std::function<void(double)> mTickFunction;
 
-        explicit TickComponent(UID ownerId) : IComponent(ownerId) { }
+        explicit TickComponent(UID ownerId) : IComponent(ownerId) {}
 
         ~TickComponent() override = default;
     };
@@ -25,14 +25,14 @@ namespace HGE {
      */
     template<>
     class System<TickComponent> : public ISystem {
-        ComponentArray<TickComponent>* mTickArray;
+        ComponentArray<TickComponent> *mTickArray;
 
-        public:
-        explicit System(ComponentArray<TickComponent>* componentArray);
+    public:
+        explicit System(ComponentArray<TickComponent> *componentArray);
         ~System() override = default;
 
-        void run(const double& deltaTime) override;
+        void run(const double &deltaTime) override;
     };
-}
+}// namespace HGE
 
 #endif

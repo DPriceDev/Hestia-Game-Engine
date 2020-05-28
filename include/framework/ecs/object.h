@@ -2,8 +2,8 @@
 #define HESTIA_FRAMEWORK_ECS_OBJECT_H
 
 
-#include "util/uid.h"
 #include "util/logger.h"
+#include "util/uid.h"
 
 
 namespace HGE {
@@ -15,7 +15,7 @@ namespace HGE {
     class IObject {
         UID id = GenerateUniqueId();
 
-        public:
+    public:
         virtual ~IObject() = default;
         [[nodiscard]] virtual UID getId() const {
             return id;
@@ -23,8 +23,8 @@ namespace HGE {
         virtual void onCreate() = 0;
     };
 
-//    template<typename O>
-//    concept object = std::is_base_of<IObject, O>::value;
-}
+    //    template<typename O>
+    //    concept object = std::is_base_of<IObject, O>::value;
+}// namespace HGE
 
 #endif

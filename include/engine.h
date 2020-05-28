@@ -5,10 +5,10 @@
 
 #include "framework/exceptions.h"
 
-#include "framework/ecs/system_manager.h"
+#include "camera/camera_manager.h"
 #include "framework/ecs/component_manager.h"
 #include "framework/ecs/object_manager.h"
-#include "camera/camera_manager.h"
+#include "framework/ecs/system_manager.h"
 
 #include "framework/game_envrionment.h"
 
@@ -31,7 +31,7 @@ namespace HGE {
         double mCurrentTickTime;
 
         template<typename T>
-        void initialiseEcsFacade(T* ecsFacade) {
+        void initialiseEcsFacade(T *ecsFacade) {
             ecsFacade->mObjectManager = mObjectManager.get();
             ecsFacade->mComponentManager = mComponentManager.get();
         }
@@ -42,25 +42,25 @@ namespace HGE {
                    mObjectManager(std::make_unique<ObjectManager>(mComponentManager.get())),
                    mGraphicsModule(nullptr),
                    mInputManager(nullptr),
-                   mCurrentGameEnvironment(nullptr) { }
+                   mCurrentGameEnvironment(nullptr) {}
 
     public:
-        static Engine* instance() {
-            static auto* sEngine = new Engine();
+        static Engine *instance() {
+            static auto *sEngine = new Engine();
             return sEngine;
         }
 
-        template <typename GM>
+        template<typename GM>
         static void useGraphicsModule() {
             instance()->mGraphicsModule = std::make_unique<GM>();
-            if(!instance()->mGraphicsModule->init()) {
+            if (!instance()->mGraphicsModule->init()) {
                 throw GraphicModuleInitException();
             }
             instance()->mCameraManager = std::make_unique<CameraManager>(graphicsModule());
             instance()->mInputManager = std::make_unique<InputManager>(graphicsModule());
         }
 
-        template <typename GE>
+        template<typename GE>
         void loadGameEnvironment() {
             auto gameEnvironment = std::make_unique<GE>();
             initialiseEcsFacade<GE>(gameEnvironment.get());
@@ -69,7 +69,7 @@ namespace HGE {
             mCurrentGameEnvironment->beginGame();
             auto lastTime = graphicsModule()->getGameTime();
 
-            while(mGraphicsModule->isWindowOpen()) {
+            while (mGraphicsModule->isWindowOpen()) {
                 mCurrentTickTime = graphicsModule()->getGameTime() - lastTime;
                 lastTime = graphicsModule()->getGameTime();
 
@@ -82,28 +82,28 @@ namespace HGE {
             mCurrentGameEnvironment->endGame();
         }
 
-        static CameraManager* cameraManager() {
+        static CameraManager *cameraManager() {
             return instance()->mCameraManager.get();
         }
 
-        static ComponentManager* componentManager() {
+        static ComponentManager *componentManager() {
             return instance()->mComponentManager.get();
         }
 
-        static GraphicsModule* graphicsModule() {
+        static GraphicsModule *graphicsModule() {
             return instance()->mGraphicsModule.get();
         }
 
-        static InputManager* inputManager() {
+        static InputManager *inputManager() {
             return instance()->mInputManager.get();
         }
 
         ~Engine() {
-            if(mGraphicsModule != nullptr) {
+            if (mGraphicsModule != nullptr) {
                 mGraphicsModule->terminate();
             }
         }
     };
-}
+}// namespace HGE
 
 #endif

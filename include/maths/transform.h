@@ -14,19 +14,19 @@ namespace HGE {
         T mRotation;
 
         Transform() : mLocalPosition(V()),
-                        mRotation(0.0f),
-                        mScale(1.0f) { }
+                      mRotation(0.0f),
+                      mScale(1.0f) {}
 
         Transform(V localPosition, T rotation, T scale)
-                : mLocalPosition(localPosition),
-                  mRotation(rotation),
-                  mScale(scale) { }
+            : mLocalPosition(localPosition),
+              mRotation(rotation),
+              mScale(scale) {}
 
         Transform(V localPosition, T rotation, T scaleX, T scaleY)
-                : mLocalPosition(localPosition),
-                  mRotation(rotation),
-                  mScale(scaleX, scaleY) { }
+            : mLocalPosition(localPosition),
+              mRotation(rotation),
+              mScale(scaleX, scaleY) {}
     };
-}
+}// namespace HGE
 
-#endif //HESTIA_ROGUELIKE_DEPENDS_HGE_MATHS_TRANSFORM_H
+#endif//HESTIA_ROGUELIKE_DEPENDS_HGE_MATHS_TRANSFORM_H

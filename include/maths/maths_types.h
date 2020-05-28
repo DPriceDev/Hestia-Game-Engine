@@ -4,9 +4,9 @@
 #include <array>
 #include <iostream>
 
-#include <athena/include/vector.h>
-#include <athena/include/rect.h>
 #include <athena/include/grid.h>
+#include <athena/include/rect.h>
+#include <athena/include/vector.h>
 
 #include "transform.h"
 
@@ -32,6 +32,6 @@ namespace HGE {
 
     using ColourRGB = ATA::Vector3<Pointf>;
     using ColourRGBA = ATA::Vector4<Pointf>;
-}
+}// namespace HGE
 
 #endif

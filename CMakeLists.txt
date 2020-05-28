@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
 
 # set the project name
-project(hestia-game-engine VERSION 1.0)
+project(hestia-game-engine LANGUAGES CXX C VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -18,7 +18,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(depends/glfw)
 add_subdirectory(depends/glm INTERFACE)
-#add_subdirectory(depends/athena)
+add_subdirectory(depends/athena)
 
 file(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/*/*/*/*/*.cpp"

@@ -5,8 +5,8 @@
 #ifndef HESTIA_ROGUELIKE_ECS_FACADE_H
 #define HESTIA_ROGUELIKE_ECS_FACADE_H
 
-#include "object_manager.h"
 #include "component_manager.h"
+#include "object_manager.h"
 
 namespace HGE {
 
@@ -19,12 +19,12 @@ namespace HGE {
 
     public:
         template<typename obj>
-        obj* createObject() {
+        obj *createObject() {
             return mObjectManager->createObject<obj>();
         }
 
         template<typename obj>
-        std::optional<obj*> getObjectById(const UID &id) const {
+        std::optional<obj *> getObjectById(const UID &id) const {
             return mObjectManager->getObjectById<obj>(id);
         }
 
@@ -32,8 +32,8 @@ namespace HGE {
             mObjectManager->destroyObject(id);
         }
 
-        template<typename Comp, typename ... Args>
-        Comp* createComponent(Args... args) {
+        template<typename Comp, typename... Args>
+        Comp *createComponent(Args... args) {
             return mComponentManager->createComponent<Comp>(std::forward<Args>(args)...);
         }
 
@@ -43,9 +43,9 @@ namespace HGE {
         }
 
         template<typename Comp>
-        void destroyComponent(Comp* component) {
+        void destroyComponent(Comp *component) {
             mComponentManager->deleteComponentByPtr<Comp>(component);
         }
     };
-}
-#endif //HESTIA_ROGUELIKE_ECS_FACADE_H
+}// namespace HGE
+#endif//HESTIA_ROGUELIKE_ECS_FACADE_H

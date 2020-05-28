@@ -1,15 +1,15 @@
 #ifndef HESTIA_FRAMEWORK_SPRITE_SYSTEM_H
 #define HESTIA_FRAMEWORK_SPRITE_SYSTEM_H
 
-#include <vector>
-#include <glm/glm/glm.hpp>
 #include <glm/glm/ext.hpp>
+#include <glm/glm/glm.hpp>
+#include <vector>
 
-#include "framework/ecs/component_manager.h"
 #include "camera/camera_manager.h"
-#include "framework/systems/position_system.h"
 #include "framework/ecs/component.h"
+#include "framework/ecs/component_manager.h"
 #include "framework/ecs/system.h"
+#include "framework/systems/position_system.h"
 
 #include "graphics/graphics_module.h"
 
@@ -21,46 +21,46 @@ namespace HGE {
      * Sprite IComponent
      */
     struct SpriteComponent : public IComponent {
-        
-        Transform2f mTransform; 
-        Shader* mShader{};
-        Material* mMaterial{};
+
+        Transform2f mTransform;
+        Shader *mShader{};
+        Material *mMaterial{};
         ColourRGBA mTint;
         Pointf mAlpha;
 
-        explicit SpriteComponent(UID ownerId) : IComponent(ownerId), mTransform(Transform2f()), mTint(ColourRGBA()), mAlpha(1.0f) { }
+        explicit SpriteComponent(UID ownerId) : IComponent(ownerId), mTransform(Transform2f()), mTint(ColourRGBA()), mAlpha(1.0f) {}
         ~SpriteComponent() override = default;
     };
 
     /**
      * Sprite System
      */
-    template <> 
+    template<>
     class System<SpriteComponent> : public ISystem {
 
-        ComponentManager* mComponentManager;
-        ComponentArray<SpriteComponent>* mSpritesArray;
-        ComponentArray<PositionComponent>* mPositionsArray;
-        GraphicsModule* mGraphicsModule;
-        CameraManager* mCameraManager;
+        ComponentManager *mComponentManager;
+        ComponentArray<SpriteComponent> *mSpritesArray;
+        ComponentArray<PositionComponent> *mPositionsArray;
+        GraphicsModule *mGraphicsModule;
+        CameraManager *mCameraManager;
         unsigned int mSpriteVao, mSpriteVbo;
         glm::mat4 mOrthographic;
 
-        public:
-        explicit System(ComponentArray<SpriteComponent>* componentArray);
+    public:
+        explicit System(ComponentArray<SpriteComponent> *componentArray);
 
         ~System() override = default;
 
-        void run(const double& deltaTime) override {
+        void run(const double &deltaTime) override {
             mOrthographic = glm::ortho(mCameraManager->getViewportLeft(),
-                    mCameraManager->getViewportRight(),
-                    mCameraManager->getViewportBottom(),
-                    mCameraManager->getViewportTop());
+                                       mCameraManager->getViewportRight(),
+                                       mCameraManager->getViewportBottom(),
+                                       mCameraManager->getViewportTop());
 
-            for(auto const & component : mSpritesArray->getComponents()) {
+            for (auto const &component : mSpritesArray->getComponents()) {
                 auto worldComponent = mPositionsArray->getComponentWithOwner(component->getOwnerUID());
-                
-                if(worldComponent != nullptr) {
+
+                if (worldComponent != nullptr) {
                     mGraphicsModule->drawSprite(component->mShader, component->mMaterial, mSpriteVao, component->mTransform, worldComponent->mTransform, component->mTint, component->mAlpha, mOrthographic);
                 } else {
                     Logger::instance()->logDebug("Sprite System", " No Position component available for object!");
@@ -68,6 +68,6 @@ namespace HGE {
             }
         }
     };
-}
+}// namespace HGE
 
 #endif

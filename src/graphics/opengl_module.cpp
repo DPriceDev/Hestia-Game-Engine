@@ -7,18 +7,18 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 
-#include "util/resource_loader.h"
 #include "util/logger.h"
+#include "util/resource_loader.h"
 
 namespace HGE {
 
     /* Function Declarations */
-    GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY);
-    void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
-    void showFPS(GLFWwindow* pWindow, std::string &gameTitle);
+    GLFWwindow *OpenGlInit(const char *title, int windowX, int windowY);
+    void FramebufferSizeCallback(GLFWwindow *window, int width, int height);
+    void showFPS(GLFWwindow *pWindow, std::string &gameTitle);
 
-    ShaderProgram loadAndBuildShader(const char * vertexShaderPath, const char * fragmentShaderPath);
-    TextureId loadAndBuildTexture(const char * filename);
+    ShaderProgram loadAndBuildShader(const char *vertexShaderPath, const char *fragmentShaderPath);
+    TextureId loadAndBuildTexture(const char *filename);
     bool checkShaderLoadedCorrectly(unsigned int id);
     bool checkProgramLoadedCorrectly(unsigned int id);
 
@@ -26,11 +26,11 @@ namespace HGE {
     bool OpenglModule::init() {
         mWindow = OpenGlInit("2D Game Engine", mResolution.mWidth, mResolution.mHeight);
 
-        if(mWindow == nullptr) {
+        if (mWindow == nullptr) {
             return false;
         }
 
-        glfwSwapInterval(true); // vsync
+        glfwSwapInterval(true);// vsync
         glfwSetFramebufferSizeCallback(mWindow, FramebufferSizeCallback);
         return true;
     }
@@ -57,7 +57,7 @@ namespace HGE {
     void OpenglModule::renderFrame() {
         showFPS(mWindow, mGameTitle);
         glfwSwapBuffers(mWindow);
-        glfwPollEvents();  
+        glfwPollEvents();
     }
 
     /* */
@@ -66,7 +66,7 @@ namespace HGE {
     }
 
     /* */
-    void OpenglModule::setGameTitle(const char * title) {
+    void OpenglModule::setGameTitle(const char *title) {
         mGameTitle = title;
     }
 
@@ -81,21 +81,21 @@ namespace HGE {
         return screenSize;
     }
 
-    const ScreenSize2f& OpenglModule::getScreenResolution() const {
+    const ScreenSize2f &OpenglModule::getScreenResolution() const {
         return mResolution;
     }
 
-    void OpenglModule::setScreenResolution(const ScreenSize2f& resolution) {
+    void OpenglModule::setScreenResolution(const ScreenSize2f &resolution) {
         mResolution = resolution;
     }
 
     /* */
-    Shader* OpenglModule::getShader(const char * vertexShaderPath, const char * fragmentShaderPath) {
+    Shader *OpenglModule::getShader(const char *vertexShaderPath, const char *fragmentShaderPath) {
 
         auto pair = std::make_pair(vertexShaderPath, fragmentShaderPath);
         auto it = mShaders.find(pair);
 
-        if(it != mShaders.end()) {
+        if (it != mShaders.end()) {
             return it->second.get();
         } else {
             ShaderProgram id = loadAndBuildShader(vertexShaderPath, fragmentShaderPath);
@@ -105,10 +105,10 @@ namespace HGE {
     }
 
     /* */
-    Material* OpenglModule::getMaterial(const char * texturePath) {
+    Material *OpenglModule::getMaterial(const char *texturePath) {
         auto it = mMaterials.find(texturePath);
 
-        if(it != mMaterials.end()) {
+        if (it != mMaterials.end()) {
             return it->second.get();
         } else {
             TextureId id = loadAndBuildTexture(texturePath);
@@ -118,12 +118,12 @@ namespace HGE {
     }
 
     /* todo: switch to returning a struct of vao vbo ebo */
-    void OpenglModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
+    void OpenglModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float *pVertices) {
 
         unsigned int indices[] = {
-            1, 0, 3,   // first triangle
-            3, 1, 2    // second triangle
-        };  
+                1, 0, 3,// first triangle
+                3, 1, 2 // second triangle
+        };
 
         unsigned int ebo;
         glGenBuffers(1, &ebo);
@@ -139,25 +139,24 @@ namespace HGE {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) nullptr);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *) nullptr);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *) (2 * sizeof(float)));
         glEnableVertexAttribArray(1);
 
-        glBindBuffer(GL_ARRAY_BUFFER, 0); 
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         glBindVertexArray(0);
     }
 
-    /* To Update! */ 
-    void OpenglModule::generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float* pVertices) {
-
+    /* To Update! */
+    void OpenglModule::generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float *pVertices) {
     }
 
     /* */
-    void OpenglModule::drawSprite(Shader* pShader, Material* pMaterial, unsigned int vao, Transform2f localTransform,
-            Transform2f worldTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
+    void OpenglModule::drawSprite(Shader *pShader, Material *pMaterial, unsigned int vao, Transform2f localTransform,
+                                  Transform2f worldTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
 
         glm::mat4 local = glm::mat4(1.0f);
         glm::mat4 world = glm::mat4(1.0f);
@@ -192,17 +191,16 @@ namespace HGE {
     }
 
     /* TODO: Finish */
-    void OpenglModule::drawInstancedSprites(VAO vao, Shader* pShader, Material* pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
+    void OpenglModule::drawInstancedSprites(VAO vao, Shader *pShader, Material *pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
         pMaterial->useTexture();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         pShader->useShader();
-
     }
 
     /** todo: refactor lines! save vao? edit vbo? pass whole array of lines? */
-    void OpenglModule::drawLine(const Shader* pShader, const Vector2f& start, const Vector2f& finish, Pointf width,
-                                const ColourRGB& colour, glm::mat4& screenProjection) {
+    void OpenglModule::drawLine(const Shader *pShader, const Vector2f &start, const Vector2f &finish, Pointf width,
+                                const ColourRGB &colour, glm::mat4 &screenProjection) {
 
         pShader->useShader();
         glm::vec4 glmColour = glm::vec4(colour.x, colour.y, colour.z, 1.0f);
@@ -230,12 +228,12 @@ namespace HGE {
         glDeleteBuffers(1, &vbo);
     }
 
-    void OpenglModule::drawCircle(const Shader* shader, const Vector2f& center, const Pointf& radius, Pointf width,
-                    const ColourRGB& colour, glm::mat4 &screenProjection) {
+    void OpenglModule::drawCircle(const Shader *shader, const Vector2f &center, const Pointf &radius, Pointf width,
+                                  const ColourRGB &colour, glm::mat4 &screenProjection) {
 
         float points[360];
 
-        for(int i = 0; i < 360; i += 4) {
+        for (int i = 0; i < 360; i += 4) {
             points[i] = (radius * cos(i * M_PI / 180)) + center.x;
             points[i + 1] = (radius * sin(i * M_PI / 180)) + center.y;
             points[i + 2] = (radius * cos((i + 4) * M_PI / 180)) + center.x;
@@ -265,12 +263,11 @@ namespace HGE {
         /* delete vao and vbo */
         glDeleteVertexArrays(1, &vao);
         glDeleteBuffers(1, &vbo);
-
     }
 
     /** Helper functions */
 
-    GLFWwindow* OpenGlInit(const char * title, int windowX, int windowY) {
+    GLFWwindow *OpenGlInit(const char *title, int windowX, int windowY) {
 
         glfwInit();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -278,7 +275,7 @@ namespace HGE {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-        GLFWwindow* window = glfwCreateWindow(windowX, windowY, title, nullptr, nullptr);
+        GLFWwindow *window = glfwCreateWindow(windowX, windowY, title, nullptr, nullptr);
         glfwMakeContextCurrent(window);
 
         if (window == nullptr) {
@@ -286,7 +283,7 @@ namespace HGE {
             return nullptr;
         }
 
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
             Logger::instance()->logError("OpenGl Module", "Failed to initialize GLAD");
             return nullptr;
         }
@@ -301,8 +298,7 @@ namespace HGE {
     }
 
     /* Frame Buffer callback */
-    void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
-    {
+    void FramebufferSizeCallback(GLFWwindow *window, int width, int height) {
         glViewport(0, 0, width, height);
     }
 
@@ -312,13 +308,12 @@ namespace HGE {
     double lastTime;
     int numberOfFrames;
 
-    void showFPS(GLFWwindow* pWindow, std::string &gameTitle)
-    {
+    void showFPS(GLFWwindow *pWindow, std::string &gameTitle) {
         // Measure speed
         double currentTime = glfwGetTime();
         double delta = currentTime - lastTime;
         numberOfFrames++;
-        if ( delta >= 1.0 ) {
+        if (delta >= 1.0) {
 
             double fps = double(numberOfFrames) / delta;
 
@@ -333,7 +328,7 @@ namespace HGE {
     }
 
     /* */
-    ShaderProgram loadAndBuildShader(const char * vertexShaderPath, const char * fragmentShaderPath) {
+    ShaderProgram loadAndBuildShader(const char *vertexShaderPath, const char *fragmentShaderPath) {
 
         ShaderProgram id;
         std::string vertexCode;
@@ -342,11 +337,11 @@ namespace HGE {
         loadFileIntoString(vertexCode, vertexShaderPath);
         loadFileIntoString(fragmentCode, fragmentShaderPath);
 
-        const char* vShaderCode = vertexCode.c_str();
-        const char* fShaderCode = fragmentCode.c_str();
+        const char *vShaderCode = vertexCode.c_str();
+        const char *fShaderCode = fragmentCode.c_str();
 
         unsigned int vertex, fragment;
-        
+
         // vertex Shader
         vertex = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertex, 1, &vShaderCode, nullptr);
@@ -358,27 +353,27 @@ namespace HGE {
         glShaderSource(fragment, 1, &fShaderCode, nullptr);
         glCompileShader(fragment);
         checkShaderLoadedCorrectly(fragment);
-        
+
         // Shader Program
         id = glCreateProgram();
         glAttachShader(id, vertex);
         glAttachShader(id, fragment);
         glLinkProgram(id);
         checkProgramLoadedCorrectly(id);
-        
+
         glDeleteShader(vertex);
         glDeleteShader(fragment);
 
         return id;
     }
 
-    TextureId loadAndBuildTexture(const char * filename) {
+    TextureId loadAndBuildTexture(const char *filename) {
 
         unsigned int id;
         glGenTextures(1, &id);
         glBindTexture(GL_TEXTURE_2D, id);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -391,8 +386,7 @@ namespace HGE {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
             glGenerateMipmap(GL_TEXTURE_2D);
-        }
-        else {
+        } else {
             Logger::instance()->logError("OpenGl Module", "Failed to load texture");
         }
         stbi_image_free(data);
@@ -406,10 +400,10 @@ namespace HGE {
         char infoLog[512];
 
         glGetShaderiv(id, GL_COMPILE_STATUS, &success);
-        if(!success)
-        {
+        if (!success) {
             glGetShaderInfoLog(id, 512, nullptr, infoLog);
-            std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+            std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+                      << infoLog << std::endl;
         }
         return success;
     }
@@ -419,11 +413,11 @@ namespace HGE {
         char infoLog[512];
 
         glGetProgramiv(id, GL_LINK_STATUS, &success);
-        if(!success)
-        {
+        if (!success) {
             glGetProgramInfoLog(id, 512, nullptr, infoLog);
-            std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+            std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
+                      << infoLog << std::endl;
         }
         return success;
     }
-}
+}// namespace HGE

@@ -24,25 +24,25 @@ namespace HGE {
         void removeKey(KeyType key);
         bool getKeyValue(KeyType key);
 
-        explicit ControlComponent(UID ownerId) : IComponent(ownerId), mKeys(std::map<KeyType, bool>()) { }
+        explicit ControlComponent(UID ownerId) : IComponent(ownerId), mKeys(std::map<KeyType, bool>()) {}
         ~ControlComponent() override = default;
     };
 
     /**
      * Control System
      */
-    template <>
+    template<>
     class System<ControlComponent> : public ISystem {
 
-        ComponentArray<ControlComponent>* mComponentsArray;
-        InputManager* mInputManager;
+        ComponentArray<ControlComponent> *mComponentsArray;
+        InputManager *mInputManager;
 
-        public:
-        explicit System(ComponentArray<ControlComponent>* componentArray);
+    public:
+        explicit System(ComponentArray<ControlComponent> *componentArray);
         ~System() override = default;
 
-        void run(const double& deltaTime) override;
+        void run(const double &deltaTime) override;
     };
-}
+}// namespace HGE
 
 #endif

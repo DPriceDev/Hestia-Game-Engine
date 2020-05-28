@@ -5,9 +5,9 @@
 #ifndef HESTIA_ROGUELIKE_HGE_UTIL_POINTER_HELPER_H
 #define HESTIA_ROGUELIKE_HGE_UTIL_POINTER_HELPER_H
 
-#include <vector>
-#include <memory>
 #include <algorithm>
+#include <memory>
+#include <vector>
 
 namespace HGE {
 
@@ -19,6 +19,6 @@ namespace HGE {
     }
 
 
-}
+}// namespace HGE
 
-#endif //HESTIA_ROGUELIKE_HGE_UTIL_POINTER_HELPER_H
+#endif//HESTIA_ROGUELIKE_HGE_UTIL_POINTER_HELPER_H

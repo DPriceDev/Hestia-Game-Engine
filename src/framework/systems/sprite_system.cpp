@@ -6,7 +6,7 @@
 
 namespace HGE {
 
-    System<SpriteComponent>::System(ComponentArray<SpriteComponent>* componentArray) : mSpritesArray(componentArray) { 
+    System<SpriteComponent>::System(ComponentArray<SpriteComponent> *componentArray) : mSpritesArray(componentArray) {
         mGraphicsModule = Engine::graphicsModule();
         mCameraManager = Engine::cameraManager();
         mComponentManager = Engine::componentManager();
@@ -17,13 +17,13 @@ namespace HGE {
                                    mCameraManager->getViewportBottom(),
                                    mCameraManager->getViewportTop());
 
-        float vertices[16] = { 
-            1.0f, 1.0f, 1.0f, 1.0f,
-            0.0f, 1.0f, 0.0f, 1.0f,
-            0.0f, 0.0f, 0.0f, 0.0f,
-            1.0f, 0.0f, 1.0f, 0.0f };
+        float vertices[16] = {
+                1.0f, 1.0f, 1.0f, 1.0f,
+                0.0f, 1.0f, 0.0f, 1.0f,
+                0.0f, 0.0f, 0.0f, 0.0f,
+                1.0f, 0.0f, 1.0f, 0.0f};
 
         mGraphicsModule->generateSpriteVAO(mSpriteVao, mSpriteVbo, vertices);
         Logger::instance()->logDebug("Sprite System", "Created");
     }
-}
+}// namespace HGE
