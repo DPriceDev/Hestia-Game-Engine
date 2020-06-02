@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <athena/include/grid.h>
+#include <athena/include/grid_view.h>
 #include <athena/include/rect.h>
 #include <athena/include/vector.h>
 
@@ -22,8 +23,10 @@ namespace HGE {
     using Vector2i = ATA::Vector2<Pointi>;
     using Vector2d = ATA::Vector2<Pointd>;
 
-    template<class T>
-    using Grid = ATA::Grid2D<T>;
+    template<class Type>
+    using Grid = ATA::Grid2D<Type>;
+    template<class Type>
+    using GridView = ATA::GridView<Type>;
 
     using Transform2f = Transform<Vector2f, Pointf>;
 
