@@ -5,7 +5,7 @@
 #include <random>
 
 #include "maths_types.h"
-#include <athena/include/athena_functions.h>
+#include <athena_functions.h>
 
 namespace HGE {
 

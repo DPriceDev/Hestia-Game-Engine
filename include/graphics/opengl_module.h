@@ -1,9 +1,9 @@
 #ifndef HESTIA_GRAPHICS_OPENGL_MODULE_H
 #define HESTIA_GRAPHICS_OPENGL_MODULE_H
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-#include "glm/glm/glm.hpp"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #include <map>
 #include <memory>
@@ -19,7 +19,7 @@
 namespace HGE {
     class OpenglModule : public GraphicsModule {
 
-        GLFWwindow *mWindow;
+        GLFWwindow *mWindow{nullptr};
         std::string mGameTitle;
         ScreenSize2f mResolution;
         std::map<std::pair<const char *, const char *>, std::unique_ptr<Shader>> mShaders;
@@ -29,7 +29,6 @@ namespace HGE {
         OpenglModule() : mShaders(std::map<std::pair<const char *, const char *>, std::unique_ptr<Shader>>()),
                          mMaterials(std::map<const char *, std::unique_ptr<Material>>()),
                          mGameTitle(""),
-                         mWindow(nullptr),
                          mResolution(ScreenSize2f(800, 600)) {}
 
         ~OpenglModule() override = default;

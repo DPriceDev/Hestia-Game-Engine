@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-#include "glm/glm/ext.hpp"
+#include "glm/ext.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb/stb_image.h"
+#include "stb_image.h"
 
 #include "util/logger.h"
 #include "util/resource_loader.h"

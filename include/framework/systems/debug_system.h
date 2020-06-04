@@ -6,8 +6,8 @@
 #define HESTIA_ROGUELIKE_DEPENDS_HGE_FRAMEWORK_SYSTEMS_DEBUG_SYSTEM_H
 
 #include <algorithm>
-#include <glm/glm/ext.hpp>
-#include <glm/glm/glm.hpp>
+#include <glm/ext.hpp>
+#include <glm/glm.hpp>
 #include <vector>
 
 #include "framework/ecs/component.h"

@@ -1,51 +1,67 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.15)
 
 # set the project name
-project(hestia-game-engine LANGUAGES CXX C VERSION 1.0)
+project(Hestia-Game-Engine LANGUAGES CXX C VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # may fix the issue of amigious templates?
 #-frelaxed-template-template-args
 
+include(cmake/StandardProjectSettings.cmake)
+
+add_library(project_options INTERFACE)
+target_compile_features(project_options INTERFACE cxx_std_17)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
+    option(ENABLE_BUILD_WITH_TIME_TRACE "Enable -ftime-trace to generate time tracing .json files on clang" OFF)
+    if (ENABLE_BUILD_WITH_TIME_TRACE)
+        add_compile_definitions(project_options INTERFACE -ftime-trace)
+    endif()
+endif()
+
+add_library(project_warnings INTERFACE)
+
+# enable cache system
+#include(cmake/Cache.cmake)
+
+# enable doxygen
+include(cmake/Doxygen.cmake)
+enable_doxygen()
+
+# standard compiler warnings
+include(cmake/CompilerWarnings.cmake)
+set_project_warnings(project_warnings)
+
+# sanitizer options if supported by compiler
+include(cmake/Sanitizers.cmake)
+enable_sanitizers(project_options)
+
+# allow for static analysis options
+include(cmake/StaticAnalyzers.cmake)
+
+option(BUILD_SHARED_LIBS "Enable compilation of shared libraries" OFF)
+option(ENABLE_TESTING "Enable Test Builds" ON)
+
+option(ENABLE_PCH "Enable Precompiled Headers" OFF)
+if (ENABLE_PCH)
+    target_precompile_headers(project_options INTERFACE <vector> <utility> <algorithm> <array> <glm/glm.h> <glm/ext.h>)
+endif()
+
+# Library
 find_package(OpenGL REQUIRED)
 
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+add_subdirectory(depends)
+add_subdirectory(src)
 
-add_subdirectory(depends/glfw)
-add_subdirectory(depends/glm INTERFACE)
-add_subdirectory(depends/athena)
+add_library(hestia::hestia ALIAS hestia)
 
-file(GLOB all_SRCS
-        "${PROJECT_SOURCE_DIR}/src/*/*/*/*/*.cpp"
-        "${PROJECT_SOURCE_DIR}/src/*/*/*/*.cpp"
-        "${PROJECT_SOURCE_DIR}/src/**/*/*.cpp"
-        "${PROJECT_SOURCE_DIR}/src/*/*.cpp"
-        "${PROJECT_SOURCE_DIR}/src/*.cpp"
-        "${PROJECT_SOURCE_DIR}/src/*/*/*.c"
-        "${PROJECT_SOURCE_DIR}/src/*/*.c"
-        "${PROJECT_SOURCE_DIR}/src/*.c"
-        )
+# Enable catch2 Testing
+if(ENABLE_TESTING)
+    enable_testing()
+    message("Building Hestia Unit Tests.")
+    add_subdirectory(unit_tests PRIVATE)
+endif()
 
-set (INCLUDE_DIRS
-        include
-        include/athena/include
-        include/glfw/include
-        include/glfw/include/GLFW
-        depends
-        depends/stb
-        depends/stb/
-        include/glad)
-
-include_directories(${INCLUDE_DIRS})
-add_library(hestia STATIC ${all_SRCS})
-target_link_libraries(hestia OpenGL::GL)
-target_link_libraries(hestia glfw)
-target_include_directories(hestia PUBLIC ${INCLUDE_DIRS})
-
-enable_testing()
-add_subdirectory(unit_tests)
+#todo: Add fuzz testing~

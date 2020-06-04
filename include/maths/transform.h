@@ -14,18 +14,18 @@ namespace HGE {
         T mRotation;
 
         Transform() : mLocalPosition(V()),
-                      mRotation(0.0f),
-                      mScale(1.0f) {}
+                      mScale(1.0f),
+                      mRotation(0.0f) {}
 
         Transform(V localPosition, T rotation, T scale)
             : mLocalPosition(localPosition),
-              mRotation(rotation),
-              mScale(scale) {}
+              mScale(scale),
+              mRotation(rotation) {}
 
         Transform(V localPosition, T rotation, T scaleX, T scaleY)
             : mLocalPosition(localPosition),
-              mRotation(rotation),
-              mScale(scaleX, scaleY) {}
+              mScale(scaleX, scaleY),
+              mRotation(rotation) {}
     };
 }// namespace HGE
 

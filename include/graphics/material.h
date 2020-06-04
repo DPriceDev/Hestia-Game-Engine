@@ -2,7 +2,7 @@
 #define HESTIA_GRAPHICS_MATERIAL_MATERIAL_H
 
 #include "glad/glad.h"
-#include "glm/glm/glm.hpp"
+#include "glm/glm.hpp"
 
 #include "maths/maths_types.h"
 

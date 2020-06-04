@@ -3,7 +3,7 @@
 
 #include <variant>
 
-#include "glm/glm/glm.hpp"
+#include "glm/glm.hpp"
 
 #include "graphics/material.h"
 #include "graphics/shader.h"

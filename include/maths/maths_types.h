@@ -4,10 +4,10 @@
 #include <array>
 #include <iostream>
 
-#include <athena/include/grid.h>
-#include <athena/include/grid_view.h>
-#include <athena/include/rect.h>
-#include <athena/include/vector.h>
+#include <grid.h>
+#include <grid_view.h>
+#include <rect.h>
+#include <vector.h>
 
 #include "transform.h"
 

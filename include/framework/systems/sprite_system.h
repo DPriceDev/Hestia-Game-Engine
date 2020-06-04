@@ -1,8 +1,8 @@
 #ifndef HESTIA_FRAMEWORK_SPRITE_SYSTEM_H
 #define HESTIA_FRAMEWORK_SPRITE_SYSTEM_H
 
-#include <glm/glm/ext.hpp>
-#include <glm/glm/glm.hpp>
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 #include <vector>
 
 #include "camera/camera_manager.h"

@@ -9,7 +9,7 @@ namespace HGE {
     }
 
     void Shader::setBool(const std::string &name, bool value) const {
-        glUniform1i(glGetUniformLocation(mId, name.c_str()), (int) value);
+        glUniform1i(glGetUniformLocation(mId, name.c_str()), static_cast<int>(value));
     }
     void Shader::setInt(const std::string &name, int value) const {
         glUniform1i(glGetUniformLocation(mId, name.c_str()), value);

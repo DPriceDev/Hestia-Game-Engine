@@ -1,6 +1,6 @@
 #include "framework/systems/sprite_system.h"
 
-#include <glm/glm/ext.hpp>
+#include <glm/ext.hpp>
 
 #include "engine.h"
 
