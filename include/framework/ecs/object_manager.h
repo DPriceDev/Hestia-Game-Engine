@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <optional>
 
 #include "component_manager.h"
 #include "object.h"

@@ -1,5 +1,9 @@
 #include "graphics/opengl_module.h"
 
+#define _USE_MATH_DEFINES
+
+#include <cmath>
+
 #include <iostream>
 
 #include "glm/ext.hpp"
