@@ -1,5 +1,7 @@
 #include "framework/systems/sprite_system.h"
 
+#define GLM_FORCE_SILENT_WARNINGS
+
 #include <glm/ext.hpp>
 
 #include "engine.h"
