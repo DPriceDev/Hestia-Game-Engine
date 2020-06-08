@@ -1,6 +1,8 @@
 #ifndef HESTIA_GRAPHICS_GRAPHICS_MODULE_H
 #define HESTIA_GRAPHICS_GRAPHICS_MODULE_H
 
+#define GLM_FORCE_SILENT_WARNINGS
+
 #include <variant>
 
 #include "glm/glm.hpp"

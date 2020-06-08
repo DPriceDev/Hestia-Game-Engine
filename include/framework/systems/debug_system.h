@@ -5,6 +5,8 @@
 #ifndef HESTIA_ROGUELIKE_DEPENDS_HGE_FRAMEWORK_SYSTEMS_DEBUG_SYSTEM_H
 #define HESTIA_ROGUELIKE_DEPENDS_HGE_FRAMEWORK_SYSTEMS_DEBUG_SYSTEM_H
 
+#define GLM_FORCE_SILENT_WARNINGS
+
 #include <algorithm>
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>

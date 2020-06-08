@@ -1,6 +1,8 @@
 #ifndef HESTIA_GRAPHICS_MATERIAL_MATERIAL_H
 #define HESTIA_GRAPHICS_MATERIAL_MATERIAL_H
 
+#define GLM_FORCE_SILENT_WARNINGS
+
 #include "glad/glad.h"
 #include "glm/glm.hpp"
 
