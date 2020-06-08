@@ -1,6 +1,8 @@
 #ifndef HESTIA_FRAMEWORK_SPRITE_SYSTEM_H
 #define HESTIA_FRAMEWORK_SPRITE_SYSTEM_H
 
+#define GLM_FORCE_SILENT_WARNINGS
+
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <vector>
@@ -51,7 +53,7 @@ namespace HGE {
 
         ~System() override = default;
 
-        void run(const double &deltaTime) override {
+        void run(const double & /*deltaTime*/) override {
             mOrthographic = glm::ortho(mCameraManager->getViewportLeft(),
                                        mCameraManager->getViewportRight(),
                                        mCameraManager->getViewportBottom(),

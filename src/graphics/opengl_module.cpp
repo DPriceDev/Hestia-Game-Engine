@@ -154,8 +154,8 @@ namespace HGE {
         glBindVertexArray(0);
     }
 
-    /* To Update! */
-    void OpenglModule::generateInstancedSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float *pVertices) {
+    /* todo: To Update! */
+    void OpenglModule::generateInstancedSpriteVAO(unsigned int & /*vaoOut*/, unsigned int & /*vboOut*/, float * /*pVertices*/) {
     }
 
     /* */
@@ -195,15 +195,19 @@ namespace HGE {
     }
 
     /* TODO: Finish */
-    void OpenglModule::drawInstancedSprites(VAO vao, Shader *pShader, Material *pMaterial, Transform2f &localTransform, ColourRGBA &tint, Pointf &alpha, glm::mat4 screenProjection) {
+    void OpenglModule::drawInstancedSprites(VAO /*vao*/, Shader *pShader, Material *pMaterial, Transform2f &/*localTransform*/,
+                                            ColourRGBA &/*tint*/, Pointf & /*alpha*/, glm::mat4 /*screenProjection*/) {
         pMaterial->useTexture();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         pShader->useShader();
     }
 
-    /** todo: refactor lines! save vao? edit vbo? pass whole array of lines? */
-    void OpenglModule::drawLine(const Shader *pShader, const Vector2f &start, const Vector2f &finish, Pointf width,
+    /**
+     * todo: refactor lines! save vao? edit vbo? pass whole array of lines?
+     * todo: add width
+     */
+    void OpenglModule::drawLine(const Shader *pShader, const Vector2f &start, const Vector2f &finish, Pointf /*width*/,
                                 const ColourRGB &colour, glm::mat4 &screenProjection) {
 
         pShader->useShader();
@@ -232,10 +236,10 @@ namespace HGE {
         glDeleteBuffers(1, &vbo);
     }
 
-    void OpenglModule::drawCircle(const Shader *shader, const Vector2f &center, const Pointf &radius, Pointf width,
+    void OpenglModule::drawCircle(const Shader *shader, const Vector2f &center, const Pointf &radius, Pointf /*width*/,
                                   const ColourRGB &colour, glm::mat4 &screenProjection) {
 
-        float points[360];
+        double points[360];
 
         for (int i = 0; i < 360; i += 4) {
             points[i] = (radius * cos(i * M_PI / 180)) + center.x;
@@ -302,7 +306,7 @@ namespace HGE {
     }
 
     /* Frame Buffer callback */
-    void FramebufferSizeCallback(GLFWwindow *window, int width, int height) {
+    void FramebufferSizeCallback(GLFWwindow * /*window*/, int width, int height) {
         glViewport(0, 0, width, height);
     }
 

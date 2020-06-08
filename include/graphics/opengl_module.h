@@ -1,6 +1,8 @@
 #ifndef HESTIA_GRAPHICS_OPENGL_MODULE_H
 #define HESTIA_GRAPHICS_OPENGL_MODULE_H
 
+#define GLM_FORCE_SILENT_WARNINGS
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

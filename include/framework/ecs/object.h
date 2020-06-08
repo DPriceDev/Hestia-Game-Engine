@@ -13,7 +13,7 @@ namespace HGE {
      * Object Interface
      */
     class IObject {
-        UID id = GenerateUniqueId();
+        UID id = IdGenerator::GenerateUniqueId();
 
     public:
         virtual ~IObject() = default;

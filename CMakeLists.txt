@@ -46,7 +46,7 @@ option(ENABLE_TESTING "Enable Test Builds" ON)
 
 option(ENABLE_PCH "Enable Precompiled Headers" OFF)
 if (ENABLE_PCH)
-    target_precompile_headers(project_options INTERFACE <vector> <utility> <algorithm> <array> <glm/glm.h> <glm/ext.h>)
+    target_precompile_headers(project_options INTERFACE <vector> <utility> <algorithm> <array>)
 endif()
 
 # Library
