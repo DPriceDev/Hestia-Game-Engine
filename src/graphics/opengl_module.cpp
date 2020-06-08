@@ -1,6 +1,7 @@
 #include "graphics/opengl_module.h"
 
 #define _USE_MATH_DEFINES
+#define GLM_FORCE_CXX17
 #define GLM_FORCE_SILENT_WARNINGS
 
 #include <cmath>
