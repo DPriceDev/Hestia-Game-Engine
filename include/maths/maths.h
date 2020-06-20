@@ -6,6 +6,7 @@
 
 #include "maths_types.h"
 #include <athena_functions.h>
+#include <range.h>
 
 namespace HGE {
 
@@ -31,6 +32,11 @@ namespace HGE {
         return sqrt(((point.x - center.x) * (point.x - center.x))
                     + ((point.y - center.y) * (point.y - center.y)))
                <= radius;
+    }
+
+    template<class Type>
+    static bool isValueInRange(const Type value, const Type lower, const Type upper) {
+        return (value - lower) <= (upper - lower);
     }
 
 //    static Vector2f midpointBetween(const Vector2f &a, const Vector2f &b) {

@@ -3,6 +3,7 @@
 #define _USE_MATH_DEFINES
 #define GLM_FORCE_CXX17
 #define GLM_FORCE_SILENT_WARNINGS
+#define STB_IMAGE_IMPLEMENTATION
 
 #include <cmath>
 
@@ -10,7 +11,6 @@
 
 #include "glm/ext.hpp"
 
-#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 #include "util/logger.h"
