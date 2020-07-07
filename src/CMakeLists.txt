@@ -5,7 +5,7 @@ file(GLOB_RECURSE all_SRCS
         "*.c")
 
 add_library(hestia STATIC ${all_SRCS} ../include)
-target_link_libraries(hestia PRIVATE stblib OpenGL::GL project_options project_warnings)
+target_link_libraries(hestia PRIVATE stblib OpenGL::GL project_options)
 target_link_libraries(hestia PUBLIC glm::glm athena glfw glad)
 target_include_directories(hestia PUBLIC ../include)
 

@@ -1,11 +1,13 @@
 #ifndef HESTIA_FRAMEWORK_ECS_OBJECT_MANAGER_H
 #define HESTIA_FRAMEWORK_ECS_OBJECT_MANAGER_H
 
+#include <context.h>
 #include <memory>
-#include <vector>
 #include <optional>
+#include <vector>
 
 #include "component_manager.h"
+#include "context.h"
 #include "object.h"
 
 namespace HGE {
@@ -14,7 +16,7 @@ namespace HGE {
      * Object Manager
      */
     class ObjectManager {
-        ComponentManager *mComponentManager;
+        Context* mContext;
         std::vector<std::unique_ptr<IObject>> mObjects{};
 
     public:
@@ -23,7 +25,7 @@ namespace HGE {
             auto objectPointer = std::make_unique<Object>();
             auto ptr = objectPointer.get();
             ptr->mObjectManager = this;
-            ptr->mComponentManager = mComponentManager;
+            ptr->mComponentManager = mContext->mComponentManager;
 
             mObjects.push_back(std::move(objectPointer));
             mObjects.back()->onCreate();
@@ -53,7 +55,7 @@ namespace HGE {
             mObjects.erase(it);
         }
 
-        explicit ObjectManager(ComponentManager *componentManager) : mComponentManager(componentManager) {}
+        explicit ObjectManager(Context* context) : mContext(context) {}
         ~ObjectManager() = default;
     };
 }// namespace HGE

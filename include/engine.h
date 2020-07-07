@@ -1,9 +1,12 @@
 #ifndef HESTIA_FRAMEWORK_ENGINE_H
 #define HESTIA_FRAMEWORK_ENGINE_H
 
+#include <framework/events/EventManager.h>
 #include <memory>
 
 #include "framework/exceptions.h"
+
+#include "context.h"
 
 #include "camera/camera_manager.h"
 #include "framework/ecs/component_manager.h"
@@ -20,11 +23,13 @@ namespace HGE {
     class Engine {
         std::unique_ptr<GraphicsModule> mGraphicsModule;
 
+        std::unique_ptr<Context> mContext;
         std::unique_ptr<SystemManager> mSystemManager;
         std::unique_ptr<ComponentManager> mComponentManager;
         std::unique_ptr<ObjectManager> mObjectManager;
         std::unique_ptr<InputManager> mInputManager;
         std::unique_ptr<CameraManager> mCameraManager;
+        std::unique_ptr<EventManager> mEventManager;
 
         std::unique_ptr<GameEnvironment> mCurrentGameEnvironment;
 
@@ -37,12 +42,16 @@ namespace HGE {
         }
 
         Engine() : mCurrentTickTime(0.0),
+                   mContext(std::make_unique<Context>()),
                    mSystemManager(std::make_unique<SystemManager>()),
                    mComponentManager(std::make_unique<ComponentManager>(mSystemManager.get())),
-                   mObjectManager(std::make_unique<ObjectManager>(mComponentManager.get())),
+                   mObjectManager(std::make_unique<ObjectManager>(mContext.get())),
                    mGraphicsModule(nullptr),
                    mInputManager(nullptr),
-                   mCurrentGameEnvironment(nullptr) {}
+                   mEventManager(std::make_unique<EventManager>()),
+                   mCurrentGameEnvironment(nullptr) {
+            mContext->mComponentManager = this->mComponentManager.get();
+        }
 
     public:
         static Engine *instance() {
