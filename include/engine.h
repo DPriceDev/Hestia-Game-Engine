@@ -43,14 +43,16 @@ namespace HGE {
 
         Engine() : mCurrentTickTime(0.0),
                    mContext(std::make_unique<Context>()),
-                   mSystemManager(std::make_unique<SystemManager>()),
-                   mComponentManager(std::make_unique<ComponentManager>(mSystemManager.get())),
+                   mSystemManager(std::make_unique<SystemManager>(mContext.get())),
+                   mComponentManager(std::make_unique<ComponentManager>(mContext.get())),
                    mObjectManager(std::make_unique<ObjectManager>(mContext.get())),
                    mGraphicsModule(nullptr),
                    mInputManager(nullptr),
                    mEventManager(std::make_unique<EventManager>()),
                    mCurrentGameEnvironment(nullptr) {
             mContext->mComponentManager = this->mComponentManager.get();
+            mContext->mSystemManager = this->mSystemManager.get();
+            mContext->mObjectManager = this->mObjectManager.get();
         }
 
     public:

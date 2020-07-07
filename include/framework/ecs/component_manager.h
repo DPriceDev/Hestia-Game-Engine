@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "component.h"
+#include "context.h"
 #include "system_manager.h"
 
 #include "util/logger.h"
@@ -18,12 +19,12 @@ namespace HGE {
 
     class ComponentManager {
         std::map<std::string, std::unique_ptr<IComponentArray>> mTypedComponentArrays;
-        SystemManager *mSystemManager;
+        Context* mContext;
 
     public:
-        explicit ComponentManager(SystemManager *pSystemManager)
+        explicit ComponentManager(Context* context)
             : mTypedComponentArrays(std::map<std::string, std::unique_ptr<IComponentArray>>()),
-              mSystemManager(pSystemManager) {}
+              mContext(context) {}
 
         ~ComponentManager() = default;
         ComponentManager &operator=(const ComponentManager &other) = delete;
@@ -34,7 +35,7 @@ namespace HGE {
             auto type = typeid(Comp).name();
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<Comp>>();
             auto componentArray = dynamic_cast<ComponentArray<Comp> *>(mTypedComponentArrays[type].get());
-            mSystemManager->createSystem<Comp>(componentArray);
+            mContext->mSystemManager->createSystem<Comp>(componentArray);
             // LOG_DEBUG("IComponent Manager", "IComponent Array created:", type)
             return componentArray;
         }

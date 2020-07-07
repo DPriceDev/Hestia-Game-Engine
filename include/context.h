@@ -8,15 +8,17 @@
 namespace HGE {
     class ObjectManager;
     class ComponentManager;
+    class SystemManager;
 
     struct Context {
         ObjectManager* mObjectManager;
         ComponentManager* mComponentManager;
+        SystemManager *mSystemManager;
 
-        Context() : mObjectManager(nullptr), mComponentManager(nullptr) { }
-        Context(ObjectManager* objectManager, ComponentManager* componentManager)
-            : mObjectManager(objectManager), mComponentManager(componentManager) { }
+        Context() : mObjectManager(nullptr),
+                    mComponentManager(nullptr),
+                    mSystemManager(nullptr) { }
     };
-};
+}
 
-#endif//HESTIA_GAME_ENGINE_INCLUDE_CONTEXT_H
+#endif //HESTIA_GAME_ENGINE_INCLUDE_CONTEXT_H

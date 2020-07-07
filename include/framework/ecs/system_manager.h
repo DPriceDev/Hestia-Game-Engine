@@ -9,14 +9,16 @@
 #include "system.h"
 #include "util/logger.h"
 
+#include "context.h"
+
 namespace HGE {
-    class ComponentManager;
 
     class SystemManager {
+        Context* mContext;
         std::map<std::string, std::unique_ptr<ISystem>> mTypedSystems;
 
     public:
-        SystemManager() : mTypedSystems(std::map<std::string, std::unique_ptr<ISystem>>()) {}
+        SystemManager(Context* context) : mContext(context), mTypedSystems(std::map<std::string, std::unique_ptr<ISystem>>()) {}
         ~SystemManager() = default;
         SystemManager &operator=(const SystemManager &other) = delete;
 
