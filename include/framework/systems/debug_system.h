@@ -13,10 +13,13 @@
 #include <glm/glm.hpp>
 #include <vector>
 
+#include "context.h"
 #include "framework/ecs/component.h"
 #include "framework/ecs/system.h"
+#include "graphics/graphics_module.h"
+#include "camera/camera_manager.h"
+#include "graphics/shader.h"
 
-#include "engine.h"
 #include "maths/maths_types.h"
 
 namespace HGE {
@@ -68,24 +71,24 @@ namespace HGE {
      */
     template<>
     class System<DebugComponent> : public ISystem {
+        Context* mContext;
         ComponentArray<DebugComponent> *mDebugArray;
         std::vector<Line> mLines;
         std::vector<Circle> mCircles;
         Shader *mShader;
 
     public:
-        explicit System(ComponentArray<DebugComponent> *debugArray) : mDebugArray(debugArray) {
-            mShader = Engine::graphicsModule()->getShader("./assets/shaders/lineVertexShader.vs",
+        explicit System(Context* context, ComponentArray<DebugComponent> *debugArray) : mContext(context), mDebugArray(debugArray) {
+            mShader = mContext->mGraphicsModule->getShader("./assets/shaders/lineVertexShader.vs",
                                                           "./assets/shaders/lineFragmentShader.fs");
         }
         ~System() override = default;
 
         void run(const double &deltaTime) override {
-            auto mCameraManager = Engine::cameraManager();
-            auto mOrthographic = glm::ortho(mCameraManager->getViewportLeft(),
-                                            mCameraManager->getViewportRight(),
-                                            mCameraManager->getViewportBottom(),
-                                            mCameraManager->getViewportTop());
+            auto mOrthographic = glm::ortho(mContext->mCameraManager->getViewportLeft(),
+                                            mContext->mCameraManager->getViewportRight(),
+                                            mContext->mCameraManager->getViewportBottom(),
+                                            mContext->mCameraManager->getViewportTop());
 
             /* add new lines to draw from debug component */
             for (auto &component : mDebugArray->getComponents()) {
@@ -99,7 +102,7 @@ namespace HGE {
             int index = 0;
             auto toRemove = -1;
             for (auto &line : mLines) {
-                Engine::graphicsModule()->drawLine(mShader, line.mStart, line.mFinish, line.mWidth, line.mColour,
+                mContext->mGraphicsModule->drawLine(mShader, line.mStart, line.mFinish, line.mWidth, line.mColour,
                                                    mOrthographic);
                 line.mPersistence -= deltaTime;
 
@@ -117,7 +120,7 @@ namespace HGE {
             index = 0;
             toRemove = -1;
             for (auto &circle : mCircles) {
-                Engine::graphicsModule()->drawCircle(mShader, circle.mCenter, circle.mRadius, 1.0f, circle.mColour,
+                mContext->mGraphicsModule->drawCircle(mShader, circle.mCenter, circle.mRadius, 1.0f, circle.mColour,
                                                      mOrthographic);
                 circle.mPersistence -= deltaTime;
 

@@ -35,7 +35,7 @@ namespace HGE {
             auto type = typeid(Comp).name();
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<Comp>>();
             auto componentArray = dynamic_cast<ComponentArray<Comp> *>(mTypedComponentArrays[type].get());
-            mContext->mSystemManager->createSystem<Comp>(componentArray);
+            mContext->mSystemManager->createSystem<Comp>(mContext, componentArray);
             // LOG_DEBUG("IComponent Manager", "IComponent Array created:", type)
             return componentArray;
         }

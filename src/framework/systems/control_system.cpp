@@ -27,15 +27,15 @@ namespace HGE {
     /**
      * Control System Methods
      */
-    System<ControlComponent>::System(ComponentArray<ControlComponent> *componentArray) : mComponentsArray(componentArray) {
-        mInputManager = Engine::instance()->inputManager();
+    System<ControlComponent>::System(Context* context, ComponentArray<ControlComponent> *componentArray)
+        : mContext(context), mComponentsArray(componentArray) {
         Logger::instance()->logDebug("Control System", "Created");
     }
 
     void System<ControlComponent>::run(const double & /*deltaTime*/) {
         for (auto &component : mComponentsArray->getComponents()) {
             for (auto &[key, val] : component->mKeys) {
-                val = mInputManager->getKeyValue(key);
+                val = mContext->mInputManager->getKeyValue(key);
             }
         }
     }

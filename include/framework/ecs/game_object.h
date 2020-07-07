@@ -12,6 +12,7 @@
 namespace HGE {
 
     class GameObject : public IObject, public EcsFacade {
+    protected:
         Context* mContext;
 
     public:

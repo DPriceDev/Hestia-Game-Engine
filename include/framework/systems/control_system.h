@@ -1,6 +1,7 @@
 #ifndef HESTIA_FRAMEWORK_CONTROL_SYSTEM_H
 #define HESTIA_FRAMEWORK_CONTROL_SYSTEM_H
 
+#include <context.h>
 #include <map>
 
 #include "framework/ecs/component.h"
@@ -33,12 +34,11 @@ namespace HGE {
      */
     template<>
     class System<ControlComponent> : public ISystem {
-
+        Context* mContext;
         ComponentArray<ControlComponent> *mComponentsArray;
-        InputManager *mInputManager;
 
     public:
-        explicit System(ComponentArray<ControlComponent> *componentArray);
+        explicit System(Context* context, ComponentArray<ControlComponent> *componentArray);
         ~System() override = default;
 
         void run(const double &deltaTime) override;

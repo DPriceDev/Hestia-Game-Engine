@@ -1,6 +1,7 @@
 #ifndef HESTIA_FRAMEWORK_TICK_SYSTEM_H
 #define HESTIA_FRAMEWORK_TICK_SYSTEM_H
 
+#include <context.h>
 #include <functional>
 #include <utility>
 
@@ -25,10 +26,11 @@ namespace HGE {
      */
     template<>
     class System<TickComponent> : public ISystem {
+        Context* mContext;
         ComponentArray<TickComponent> *mTickArray;
 
     public:
-        explicit System(ComponentArray<TickComponent> *componentArray);
+        explicit System(Context* context, ComponentArray<TickComponent> *componentArray);
         ~System() override = default;
 
         void run(const double &deltaTime) override;

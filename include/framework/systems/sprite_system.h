@@ -40,31 +40,28 @@ namespace HGE {
      */
     template<>
     class System<SpriteComponent> : public ISystem {
-
-        ComponentManager *mComponentManager;
+        Context* mContext;
         ComponentArray<SpriteComponent> *mSpritesArray;
         ComponentArray<PositionComponent> *mPositionsArray;
-        GraphicsModule *mGraphicsModule;
-        CameraManager *mCameraManager;
         unsigned int mSpriteVao, mSpriteVbo;
         glm::mat4 mOrthographic;
 
     public:
-        explicit System(ComponentArray<SpriteComponent> *componentArray);
+        System(Context* context, ComponentArray<SpriteComponent> *componentArray);
 
         ~System() override = default;
 
         void run(const double & /*deltaTime*/) override {
-            mOrthographic = glm::ortho(mCameraManager->getViewportLeft(),
-                                       mCameraManager->getViewportRight(),
-                                       mCameraManager->getViewportBottom(),
-                                       mCameraManager->getViewportTop());
+            mOrthographic = glm::ortho(mContext->mCameraManager->getViewportLeft(),
+                                       mContext->mCameraManager->getViewportRight(),
+                                       mContext->mCameraManager->getViewportBottom(),
+                                       mContext->mCameraManager->getViewportTop());
 
             for (auto const &component : mSpritesArray->getComponents()) {
                 auto worldComponent = mPositionsArray->getComponentWithOwner(component->getOwnerUID());
 
                 if (worldComponent != nullptr) {
-                    mGraphicsModule->drawSprite(component->mShader, component->mMaterial, mSpriteVao, component->mTransform, worldComponent->mTransform, component->mTint, component->mAlpha, mOrthographic);
+                    mContext->mGraphicsModule->drawSprite(component->mShader, component->mMaterial, mSpriteVao, component->mTransform, worldComponent->mTransform, component->mTint, component->mAlpha, mOrthographic);
                 } else {
                     Logger::instance()->logDebug("Sprite System", " No Position component available for object!");
                 }

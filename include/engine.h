@@ -35,6 +35,7 @@ namespace HGE {
 
         double mCurrentTickTime;
 
+    public:
         Engine() : mCurrentTickTime(0.0),
                    mContext(std::make_unique<Context>()),
                    mSystemManager(std::make_unique<SystemManager>(mContext.get())),
@@ -49,20 +50,18 @@ namespace HGE {
             mContext->mObjectManager = this->mObjectManager.get();
         }
 
-    public:
-        static Engine *instance() {
-            static auto *sEngine = new Engine();
-            return sEngine;
-        }
-
         template<typename GM>
-        static void useGraphicsModule() {
-            instance()->mGraphicsModule = std::make_unique<GM>();
-            if (!instance()->mGraphicsModule->init()) {
+        void useGraphicsModule() {
+            mGraphicsModule = std::make_unique<GM>();
+            if (!mGraphicsModule->init()) {
                 throw GraphicModuleInitException();
             }
-            instance()->mCameraManager = std::make_unique<CameraManager>(graphicsModule());
-            instance()->mInputManager = std::make_unique<InputManager>(graphicsModule());
+            mCameraManager = std::make_unique<CameraManager>(mGraphicsModule.get());
+            mInputManager = std::make_unique<InputManager>(mGraphicsModule.get());
+
+            mContext->mInputManager = mInputManager.get();
+            mContext->mGraphicsModule = mGraphicsModule.get();
+            mContext->mCameraManager = mCameraManager.get();
         }
 
         template<typename GE>
@@ -71,11 +70,11 @@ namespace HGE {
             mCurrentGameEnvironment = std::move(gameEnvironment);
 
             mCurrentGameEnvironment->beginGame();
-            auto lastTime = graphicsModule()->getGameTime();
+            auto lastTime = getGraphicsModule()->getGameTime();
 
             while (mGraphicsModule->isWindowOpen()) {
-                mCurrentTickTime = graphicsModule()->getGameTime() - lastTime;
-                lastTime = graphicsModule()->getGameTime();
+                mCurrentTickTime = mGraphicsModule->getGameTime() - lastTime;
+                lastTime = mGraphicsModule->getGameTime();
 
                 mCurrentGameEnvironment->gameLoop(mCurrentTickTime);
                 mGraphicsModule->startFrame();
@@ -86,20 +85,8 @@ namespace HGE {
             mCurrentGameEnvironment->endGame();
         }
 
-        static CameraManager *cameraManager() {
-            return instance()->mCameraManager.get();
-        }
-
-        static ComponentManager *componentManager() {
-            return instance()->mComponentManager.get();
-        }
-
-        static GraphicsModule *graphicsModule() {
-            return instance()->mGraphicsModule.get();
-        }
-
-        static InputManager *inputManager() {
-            return instance()->mInputManager.get();
+        GraphicsModule *getGraphicsModule() {
+            return mGraphicsModule.get();
         }
 
         ~Engine() {

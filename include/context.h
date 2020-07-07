@@ -9,15 +9,17 @@ namespace HGE {
     class ObjectManager;
     class ComponentManager;
     class SystemManager;
+    class CameraManager;
+    class InputManager;
+    class GraphicsModule;
 
     struct Context {
-        ObjectManager* mObjectManager;
-        ComponentManager* mComponentManager;
-        SystemManager *mSystemManager;
-
-        Context() : mObjectManager(nullptr),
-                    mComponentManager(nullptr),
-                    mSystemManager(nullptr) { }
+        ObjectManager* mObjectManager = nullptr;
+        ComponentManager* mComponentManager = nullptr;
+        SystemManager *mSystemManager = nullptr;
+        CameraManager *mCameraManager = nullptr;
+        InputManager * mInputManager = nullptr;
+        GraphicsModule *mGraphicsModule = nullptr;
     };
 }
 

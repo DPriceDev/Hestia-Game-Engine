@@ -4,7 +4,6 @@
 #include "util/logger.h"
 #include "util/uid.h"
 
-
 namespace HGE {
 
     /**
@@ -21,7 +20,6 @@ namespace HGE {
      */
     template<class C>
     class System : public ISystem {
-
         System() = default;
 
     public:

@@ -6,7 +6,7 @@ namespace HGE {
     /**
      * Tick System Methods
      */
-    System<TickComponent>::System(ComponentArray<TickComponent> *componentArray) : mTickArray(componentArray) {}
+    System<TickComponent>::System(Context* context, ComponentArray<TickComponent> *componentArray) : mContext(context), mTickArray(componentArray) {}
 
     void System<TickComponent>::run(const double &deltaTime) {
         for (auto &component : mTickArray->getComponents()) {

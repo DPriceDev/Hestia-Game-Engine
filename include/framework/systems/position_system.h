@@ -31,11 +31,11 @@ namespace HGE {
      */
     template<>
     class System<PositionComponent> : public ISystem {
-
+        Context* mContext;
         ComponentArray<PositionComponent> *mComponentsArray;
 
     public:
-        explicit System(ComponentArray<PositionComponent> *componentArray) : mComponentsArray(componentArray) {
+        explicit System(Context* context, ComponentArray<PositionComponent> *componentArray) : mContext(context), mComponentsArray(componentArray) {
             Logger::instance()->logDebug("World Position System", "Created!");
         }
         ~System() override = default;

@@ -2,7 +2,7 @@
 #define HESTIA_FRAMEWORK_CAMERA_SYSTEM_H
 
 #include "camera/camera_manager.h"
-#include "engine.h"
+#include "context.h"
 #include "framework/ecs/component.h"
 #include "framework/ecs/system.h"
 
@@ -30,10 +30,11 @@ namespace HGE {
      */
     template<>
     class System<CameraComponent> : public ISystem {
+        Context* mContext;
         ComponentArray<CameraComponent> *mCameraArray;
 
     public:
-        explicit System(ComponentArray<CameraComponent> *cameraArray) : mCameraArray(cameraArray) {}
+        explicit System(Context* context, ComponentArray<CameraComponent> *cameraArray) : mContext(context), mCameraArray(cameraArray) {}
         ~System() override = default;
 
         void run(const double &deltaTime) override {
@@ -49,12 +50,12 @@ namespace HGE {
 
                 requestIt->get()->mIsActiveCamera = true;
                 requestIt->get()->mIsRequestingActive = false;
-                Engine::cameraManager()->setCameraView(requestIt->get()->mCameraView);
+                mContext->mCameraManager->setCameraView(requestIt->get()->mCameraView);
             } else {
                 auto activeIt = find_if(mCameraArray->getComponents().begin(), mCameraArray->getComponents().end(),
                                         [](auto const &pComponent) { return pComponent->mIsActiveCamera == true; });
                 if (activeIt != mCameraArray->getComponents().end()) {
-                    Engine::cameraManager()->setCameraView(activeIt->get()->mCameraView);
+                    mContext->mCameraManager->setCameraView(activeIt->get()->mCameraView);
                 }
             }
         }
