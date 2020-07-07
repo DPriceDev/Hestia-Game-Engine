@@ -22,10 +22,8 @@ namespace HGE {
     public:
         template<typename Object>
         Object *createObject() {
-            auto objectPointer = std::make_unique<Object>();
+            auto objectPointer = std::make_unique<Object>(mContext);
             auto ptr = objectPointer.get();
-            ptr->mObjectManager = this;
-            ptr->mComponentManager = mContext->mComponentManager;
 
             mObjects.push_back(std::move(objectPointer));
             mObjects.back()->onCreate();

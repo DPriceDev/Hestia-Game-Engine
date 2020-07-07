@@ -35,12 +35,6 @@ namespace HGE {
 
         double mCurrentTickTime;
 
-        template<typename T>
-        void initialiseEcsFacade(T *ecsFacade) {
-            ecsFacade->mObjectManager = mObjectManager.get();
-            ecsFacade->mComponentManager = mComponentManager.get();
-        }
-
         Engine() : mCurrentTickTime(0.0),
                    mContext(std::make_unique<Context>()),
                    mSystemManager(std::make_unique<SystemManager>(mContext.get())),
@@ -73,8 +67,7 @@ namespace HGE {
 
         template<typename GE>
         void loadGameEnvironment() {
-            auto gameEnvironment = std::make_unique<GE>();
-            initialiseEcsFacade<GE>(gameEnvironment.get());
+            auto gameEnvironment = std::make_unique<GE>(mContext.get());
             mCurrentGameEnvironment = std::move(gameEnvironment);
 
             mCurrentGameEnvironment->beginGame();

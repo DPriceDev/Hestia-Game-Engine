@@ -7,12 +7,15 @@
 
 #include "ecs_facade.h"
 #include "object.h"
+#include "context.h"
 
 namespace HGE {
 
     class GameObject : public IObject, public EcsFacade {
+        Context* mContext;
+
     public:
-        GameObject() : EcsFacade() {}
+        GameObject(Context* context) : EcsFacade(context), mContext(context) {}
         ~GameObject() override = default;
 
         /* Public Methods */

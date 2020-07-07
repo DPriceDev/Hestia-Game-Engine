@@ -4,14 +4,15 @@
 #include <memory>
 
 #include "framework/ecs/ecs_facade.h"
-#include "framework/ecs/object_manager.h"
+#include "context.h"
 
 namespace HGE {
 
     class GameEnvironment : public EcsFacade {
+    Context* mContext;
 
     public:
-        GameEnvironment() : EcsFacade() {}
+        GameEnvironment(Context* context) : EcsFacade(context), mContext(context) {}
         virtual ~GameEnvironment() = default;
 
         /* Public Methods */
