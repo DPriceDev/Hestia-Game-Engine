@@ -7,7 +7,7 @@
 
 namespace HGE {
     class ObjectManager;
-    class ComponentManager;
+    class ComponentArrayContainer;
     class SystemManager;
     class CameraManager;
     class InputManager;
@@ -24,7 +24,7 @@ namespace HGE {
      */
     struct Context {
         ObjectManager* mObjectManager = nullptr;
-        ComponentManager* mComponentManager = nullptr;
+        ComponentArrayContainer* mComponentManager = nullptr;
         SystemManager *mSystemManager = nullptr;
         CameraManager *mCameraManager = nullptr;
         InputManager * mInputManager = nullptr;

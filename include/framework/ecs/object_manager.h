@@ -6,7 +6,7 @@
 #include <optional>
 #include <vector>
 
-#include "component_manager.h"
+#include "component_array_container.h"
 #include "context.h"
 #include "object.h"
 
@@ -26,7 +26,7 @@ namespace HGE {
         ~ObjectManager() = default;
 
         /* Create an object of type 'Object' and add it to the array. Returns a pointer to the object. */
-        template<typename Object>
+        template<object Object>
         Object *createObject() {
             auto objectPointer = std::make_unique<Object>(mContext);
             auto ptr = objectPointer.get();
@@ -38,7 +38,7 @@ namespace HGE {
 
         /* Retrieves an object by its id. It searches for the ID and returns the Object if found. */
         // todo: dynamic cast?
-        template<typename Object>
+        template<object Object>
         [[maybe_unused]] std::optional<Object *> getObjectById(const UID id) const {
             constexpr auto func = [id](const std::unique_ptr<IObject> &pObject) {
                 return pObject->getId() == id;

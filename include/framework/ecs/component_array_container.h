@@ -20,18 +20,18 @@ namespace HGE {
      * Takes a context object, and hold a map of component arrays of different component types.
      * todo: rename to ComponentArrayContainer?
      */
-    class ComponentManager {
+    class ComponentArrayContainer {
         std::map<std::string, std::unique_ptr<IComponentArray>> mTypedComponentArrays;
 
     public:
         /* RAII */
-        explicit ComponentManager() : mTypedComponentArrays(std::map<std::string, std::unique_ptr<IComponentArray>>()) { }
-        ~ComponentManager() = default;
-        ComponentManager &operator=(const ComponentManager &other) = delete;
+        explicit ComponentArrayContainer() : mTypedComponentArrays(std::map<std::string, std::unique_ptr<IComponentArray>>()) { }
+        ~ComponentArrayContainer() = default;
+        ComponentArrayContainer &operator=(const ComponentArrayContainer &other) = delete;
 
         /* Creates a component Array for the type Comp, and stores it in the map.
          * Returns the pointer to the created component array. */
-        template<typename Comp>
+        template<component Comp>
         ComponentArray<Comp> *createComponentArray() {
             auto type = typeid(Comp).name();
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<Comp>>();
@@ -39,7 +39,7 @@ namespace HGE {
         }
 
         /* Retrieves a component array, returns nullopt if not present. */
-        template<class Comp>
+        template<component Comp>
         std::optional<ComponentArray<Comp> *> getComponentArray() {
             auto type = typeid(Comp).name(); // todo: can this be compile time?
             auto it = mTypedComponentArrays.find(type);

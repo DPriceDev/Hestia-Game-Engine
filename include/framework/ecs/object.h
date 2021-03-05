@@ -33,9 +33,9 @@ namespace HGE {
         }
     };
 
-    // todo: A concept would allow better template definition for this object class
-    //        template<typename O>
-    //        concept object = std::is_base_of<IObject, O>::value;
+     //todo: A concept would allow better template definition for this object class
+     template<typename O>
+     concept object = std::is_base_of<IObject, O>::value;
 }// namespace HGE
 
 #endif

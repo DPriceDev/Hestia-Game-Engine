@@ -31,10 +31,9 @@ namespace HGE {
         }
     };
 
-    // todo: Provides a concrete component type for templates
-    //    /* Component concept requirement */
-    //    template<typename C>
-    //    concept component = std::is_base_of<IComponent, C>::value;
+    /* */
+    template<typename C>
+    concept component = std::is_base_of<IComponent, C>::value;
 
 }// namespace HGE
 

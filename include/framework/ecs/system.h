@@ -37,6 +37,10 @@ namespace HGE {
         ~System() override = default;
         void run(const double &deltaTime) override = 0;
     };
+
+    /* */
+    template<typename C>
+    concept system = std::is_base_of<ISystem, C>::value;
 }// namespace HGE
 
 #endif

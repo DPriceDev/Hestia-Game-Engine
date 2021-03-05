@@ -2,7 +2,7 @@
 #define HESTIA_FRAMEWORK_WORLD_POSITION_H
 
 #include "framework/ecs/component.h"
-#include "framework/ecs/component_manager.h"
+#include "framework/ecs/component_array_container.h"
 #include "framework/ecs/system.h"
 #include "context.h"
 

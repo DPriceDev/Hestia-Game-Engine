@@ -8,11 +8,11 @@
 #include <optional>
 
 #include "context.h"
-#include "framework/ecs/component_manager.h"
+#include "framework/ecs/component_array_container.h"
 
 namespace HGE {
     /* */
-    template<typename Comp>
+    template<component Comp>
     ComponentArray<Comp>* getOrCreateComponentArray(const Context* context) {
         auto array = context->mComponentManager->getComponentArray<Comp>();
         if(array.has_value()) {

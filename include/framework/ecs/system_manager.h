@@ -25,7 +25,7 @@ namespace HGE {
         SystemManager &operator=(const SystemManager &other) = delete;
 
         /* create a system for a given component. return the system if it already exists. */
-        template<class C, class... Args>
+        template<component C, class... Args>
         const System <C> *createSystem(Args &&... args) {
             auto type = typeid(System<C>).name();
             auto it = mTypedSystems.find(type);
@@ -39,12 +39,12 @@ namespace HGE {
         }
 
         /* TODO: Add method to delete a system by its templated class */
-        template<class C>
+        template<component C>
         void deleteSystem() {
         }
 
         /* TODO: Add method to get a system by its templated class */
-        template<class C>
+        template<component C>
         System <C> *getSystem() {
         }
 

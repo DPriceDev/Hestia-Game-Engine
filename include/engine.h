@@ -9,7 +9,7 @@
 #include "context.h"
 
 #include "camera/camera_manager.h"
-#include "framework/ecs/component_manager.h"
+#include "framework/ecs/component_array_container.h"
 #include "framework/ecs/object_manager.h"
 #include "framework/ecs/system_manager.h"
 
@@ -25,7 +25,7 @@ namespace HGE {
 
         std::unique_ptr<Context> mContext;
         std::unique_ptr<SystemManager> mSystemManager;
-        std::unique_ptr<ComponentManager> mComponentManager;
+        std::unique_ptr<ComponentArrayContainer> mComponentManager;
         std::unique_ptr<ObjectManager> mObjectManager;
         std::unique_ptr<InputManager> mInputManager;
         std::unique_ptr<CameraManager> mCameraManager;
@@ -39,7 +39,7 @@ namespace HGE {
         Engine() : mCurrentTickTime(0.0),
                    mContext(std::make_unique<Context>()),
                    mSystemManager(std::make_unique<SystemManager>()),
-                   mComponentManager(std::make_unique<ComponentManager>()),
+                   mComponentManager(std::make_unique<ComponentArrayContainer>()),
                    mObjectManager(std::make_unique<ObjectManager>(mContext.get())),
                    mGraphicsModule(nullptr),
                    mInputManager(nullptr),
