@@ -13,7 +13,7 @@
 #include "framework/ecs/object_manager.h"
 #include "framework/ecs/system_manager.h"
 
-#include "framework/game_envrionment.h"
+#include "game/game_envrionment.h"
 
 #include "graphics/graphics_module.h"
 #include "input/input_manager.h"
@@ -38,8 +38,8 @@ namespace HGE {
     public:
         Engine() : mCurrentTickTime(0.0),
                    mContext(std::make_unique<Context>()),
-                   mSystemManager(std::make_unique<SystemManager>(mContext.get())),
-                   mComponentManager(std::make_unique<ComponentManager>(mContext.get())),
+                   mSystemManager(std::make_unique<SystemManager>()),
+                   mComponentManager(std::make_unique<ComponentManager>()),
                    mObjectManager(std::make_unique<ObjectManager>(mContext.get())),
                    mGraphicsModule(nullptr),
                    mInputManager(nullptr),

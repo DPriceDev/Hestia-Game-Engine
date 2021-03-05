@@ -5,7 +5,7 @@
 #include <functional>
 #include <utility>
 
-#include "framework/ecs/component.h"
+#include "framework/ecs/component_array.h"
 #include "framework/ecs/system.h"
 
 namespace HGE {

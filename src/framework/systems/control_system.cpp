@@ -1,4 +1,4 @@
-#include "framework/systems/control_system.h"
+#include "game/systems/control_system.h"
 #include "engine.h"
 
 namespace HGE {

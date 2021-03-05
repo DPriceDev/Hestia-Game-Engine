@@ -1,4 +1,4 @@
-#include "framework/systems/tick_system.h"
+#include "game/systems/tick_system.h"
 #include "engine.h"
 
 namespace HGE {

@@ -13,6 +13,15 @@ namespace HGE {
     class InputManager;
     class GraphicsModule;
 
+    /**
+     * Context Object
+     * Provides context to the different managers
+     * todo: split ECS context out?
+     * todo: split out graphics context?
+     * todo: split out input context?
+     * todo: can i defined different context requirements?
+     * todo: override definition? or abstract?
+     */
     struct Context {
         ObjectManager* mObjectManager = nullptr;
         ComponentManager* mComponentManager = nullptr;

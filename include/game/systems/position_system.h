@@ -4,6 +4,7 @@
 #include "framework/ecs/component.h"
 #include "framework/ecs/component_manager.h"
 #include "framework/ecs/system.h"
+#include "context.h"
 
 #include "maths/maths_types.h"
 

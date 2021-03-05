@@ -5,6 +5,7 @@
 #include <map>
 
 #include "framework/ecs/component.h"
+#include "framework/ecs/component_array.h"
 #include "framework/ecs/system.h"
 
 #include "input/input_manager.h"

@@ -1,11 +1,14 @@
-#include "framework/systems/sprite_system.h"
+#include "game/systems/sprite_system.h"
 
-#include "framework/ecs/component_manager.h"
+#include "framework/ecs/interactors/component_array_interactor.h"
+#include "framework/ecs/system_manager.h"
+#include "context.h"
 
 namespace HGE {
 
     System<SpriteComponent>::System(Context* context, ComponentArray<SpriteComponent> *componentArray) : mContext(context), mSpritesArray(componentArray) {
-        mPositionsArray = mContext->mComponentManager->getComponentArray<PositionComponent>();
+        mPositionsArray = getOrCreateComponentArray<PositionComponent>(context);
+        mContext->mSystemManager->createSystem<PositionComponent>(mContext, mPositionsArray);
 
         mOrthographic = glm::ortho(mContext->mCameraManager->getViewportLeft(),
                                    mContext->mCameraManager->getViewportRight(),

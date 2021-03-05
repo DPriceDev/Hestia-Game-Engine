@@ -12,7 +12,7 @@
 #include "framework/ecs/component.h"
 #include "framework/ecs/component_manager.h"
 #include "framework/ecs/system.h"
-#include "framework/systems/position_system.h"
+#include "position_system.h"
 
 #include "graphics/graphics_module.h"
 

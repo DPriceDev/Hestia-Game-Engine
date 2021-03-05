@@ -14,12 +14,18 @@ namespace HGE {
 
     /**
      * Object Manager
+     * Takes a context object and contains an array of objects.
      */
     class ObjectManager {
         Context* mContext;
         std::vector<std::unique_ptr<IObject>> mObjects{};
 
     public:
+        /* RAII */
+        explicit ObjectManager(Context* context) : mContext(context) {}
+        ~ObjectManager() = default;
+
+        /* Create an object of type 'Object' and add it to the array. Returns a pointer to the object. */
         template<typename Object>
         Object *createObject() {
             auto objectPointer = std::make_unique<Object>(mContext);
@@ -30,6 +36,8 @@ namespace HGE {
             return ptr;
         }
 
+        /* Retrieves an object by its id. It searches for the ID and returns the Object if found. */
+        // todo: dynamic cast?
         template<typename Object>
         [[maybe_unused]] std::optional<Object *> getObjectById(const UID id) const {
             constexpr auto func = [id](const std::unique_ptr<IObject> &pObject) {
@@ -44,6 +52,7 @@ namespace HGE {
             }
         }
 
+        /* Destroys an object by its provided id. */
         [[maybe_unused]] void destroyObject(const UID id) {
             auto func = [id](const std::unique_ptr<IObject> &pObject) {
                 return pObject->getId() == id;
@@ -52,9 +61,6 @@ namespace HGE {
             const auto it = std::find_if(mObjects.begin(), mObjects.end(), func);
             mObjects.erase(it);
         }
-
-        explicit ObjectManager(Context* context) : mContext(context) {}
-        ~ObjectManager() = default;
     };
 }// namespace HGE
 

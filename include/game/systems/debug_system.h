@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "context.h"
+#include "framework/ecs/component_array.h"
 #include "framework/ecs/component.h"
 #include "framework/ecs/system.h"
 #include "graphics/graphics_module.h"
