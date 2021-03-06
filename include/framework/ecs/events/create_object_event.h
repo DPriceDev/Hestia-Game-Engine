@@ -1,0 +1,14 @@
+//
+// Created by David Price on 07/07/2020.
+//
+
+#ifndef HESTIA_GAME_ENGINE_INCLUDE_FRAMEWORK_ECS_EVENTS_CREATE_OBJECT_EVENT_H
+#define HESTIA_GAME_ENGINE_INCLUDE_FRAMEWORK_ECS_EVENTS_CREATE_OBJECT_EVENT_H
+
+#include <framework/events/Event.h>
+
+class CreateObjectEvent : public Event {
+
+};
+
+#endif//HESTIA_GAME_ENGINE_INCLUDE_FRAMEWORK_ECS_EVENTS_CREATE_OBJECT_EVENT_H

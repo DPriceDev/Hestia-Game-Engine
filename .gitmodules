@@ -7,3 +7,6 @@
 [submodule "depends/stb"]
 	path = depends/stb
 	url = https://github.com/nothings/stb.git
+[submodule "depends/athena"]
+	path = depends/athena
+	url = https://github.com/DPriceDev/Athena-Functions.git
