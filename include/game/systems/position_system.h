@@ -20,8 +20,8 @@ namespace HGE {
 
         const float &getX() { return mTransform.mLocalPosition.x; }
         const float &getY() { return mTransform.mLocalPosition.y; }
-        const void setX(const float &value) { mTransform.mLocalPosition.x = value; }
-        const void setY(const float &value) { mTransform.mLocalPosition.y = value; }
+        void setX(const float &value) { mTransform.mLocalPosition.x = value; }
+        void setY(const float &value) { mTransform.mLocalPosition.y = value; }
 
         explicit PositionComponent(UID ownerId) : IComponent(ownerId), mTransform(Transform2f()) {}
         ~PositionComponent() override = default;

@@ -20,7 +20,7 @@ namespace HGE {
         std::thread mThread;
         bool mThreadRunning;
 
-        const int maxMsgQueueSize = 1000;
+        const long unsigned int maxMsgQueueSize = 1000;
         const size_t tagLength = 24;
 
         const std::string colourRed = "\033[31m";

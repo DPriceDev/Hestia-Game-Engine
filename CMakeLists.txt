@@ -60,7 +60,10 @@ find_package(OpenGL REQUIRED)
 set(CONAN_EXTRA_REQUIRES "")
 set(CONAN_EXTRA_OPTIONS "")
 
-set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES} glm/0.9.9.8 glfw/3.3.3)
+set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES}
+        glm/0.9.9.8
+        glfw/3.3.3
+        stb/20200203)
 
 include(cmake/Conan.cmake)
 run_conan()

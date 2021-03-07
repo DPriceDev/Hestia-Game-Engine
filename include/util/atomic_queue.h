@@ -25,7 +25,7 @@ public:
         return mQueue.front();
     }
 
-    int size() {
+    long unsigned int size() {
         std::lock_guard<std::mutex> lock(mMutex);
         return mQueue.size();
     }
