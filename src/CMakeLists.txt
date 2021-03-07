@@ -6,7 +6,7 @@ file(GLOB_RECURSE all_SRCS
 
 add_library(hestia STATIC ${all_SRCS} ../include)
 target_link_libraries(hestia PRIVATE
-        project_options
+        hestia_project_options
         project_warnings
         OpenGL::GL
         athena

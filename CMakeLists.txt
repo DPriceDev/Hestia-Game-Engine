@@ -10,17 +10,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # may fix the issue of amigious templates?
 #-frelaxed-template-template-args
 
-add_library(project_options INTERFACE)
-target_compile_features(project_options INTERFACE cxx_std_20)
+add_library(hestia_project_options INTERFACE)
+target_compile_features(hestia_project_options INTERFACE cxx_std_20)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
     option(ENABLE_BUILD_WITH_TIME_TRACE "Enable -ftime-trace to generate time tracing .json files on clang" OFF)
     if (ENABLE_BUILD_WITH_TIME_TRACE)
-        add_compile_definitions(project_options INTERFACE -ftime-trace)
+        add_compile_definitions(hestia_project_options INTERFACE -ftime-trace)
     endif()
 endif()
 
-add_library(project_warnings INTERFACE)
+add_library(hestia_project_warnings INTERFACE)
 
 # enable cache system
 #include(cmake/Cache.cmake)
@@ -31,11 +31,11 @@ enable_doxygen()
 
 # standard compiler warnings
 include(cmake/CompilerWarnings.cmake)
-set_project_warnings(project_warnings)
+set_project_warnings(hestia_project_warnings)
 
 # sanitizer options if supported by compiler
 include(cmake/Sanitizers.cmake)
-enable_sanitizers(project_options)
+enable_sanitizers(hestia_project_options)
 
 # allow for static analysis options
 include(cmake/StaticAnalyzers.cmake)
@@ -46,7 +46,7 @@ option(ENABLE_TESTING "Enable Test Builds" ON)
 option(ENABLE_PCH "Enable Precompiled Headers" OFF)
 if (ENABLE_PCH)
     target_precompile_headers(
-            project_options
+            hestia_project_options
             INTERFACE
             <vector>
             <utility>
