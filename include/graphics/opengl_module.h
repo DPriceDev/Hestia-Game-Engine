@@ -31,7 +31,6 @@ namespace HGE {
     public:
         OpenglModule() : mShaders(std::map<std::pair<const char *, const char *>, std::unique_ptr<Shader>>()),
                          mMaterials(std::map<const char *, std::unique_ptr<Material>>()),
-                         mGameTitle(""),
                          mResolution(ScreenSize2f(800, 600)) {}
 
         ~OpenglModule() override = default;

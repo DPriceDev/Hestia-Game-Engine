@@ -2,14 +2,13 @@ cmake_minimum_required(VERSION 3.15)
 
 # set the project name
 project(Hestia-Game-Engine LANGUAGES CXX C VERSION 1.0.0)
+include(cmake/StandardProjectSettings.cmake)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # may fix the issue of amigious templates?
 #-frelaxed-template-template-args
-
-include(cmake/StandardProjectSettings.cmake)
 
 add_library(project_options INTERFACE)
 target_compile_features(project_options INTERFACE cxx_std_20)
@@ -46,11 +45,25 @@ option(ENABLE_TESTING "Enable Test Builds" ON)
 
 option(ENABLE_PCH "Enable Precompiled Headers" OFF)
 if (ENABLE_PCH)
-    target_precompile_headers(project_options INTERFACE <vector> <utility> <algorithm> <array>)
+    target_precompile_headers(
+            project_options
+            INTERFACE
+            <vector>
+            <utility>
+            <algorithm>
+            <array>)
 endif()
 
 # Library
 find_package(OpenGL REQUIRED)
+
+set(CONAN_EXTRA_REQUIRES "")
+set(CONAN_EXTRA_OPTIONS "")
+
+set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES} glm/0.9.9.8 glfw/3.3.3)
+
+include(cmake/Conan.cmake)
+run_conan()
 
 add_subdirectory(depends)
 add_subdirectory(src)

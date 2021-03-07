@@ -6,7 +6,7 @@
 
 #include <variant>
 
-#include "glm/glm.hpp"
+#include "glm/ext.hpp"
 
 #include "graphics/material.h"
 #include "graphics/shader.h"
