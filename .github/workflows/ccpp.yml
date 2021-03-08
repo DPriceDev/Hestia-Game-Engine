@@ -43,7 +43,7 @@ jobs:
         
       - name: install Ubuntu packages
         if: startsWith(matrix.os,'ubuntu')
-        run: sudo apt-get update -m && sudo apt-get install xorg-dev libglu1-mesa-dev libalut-dev gcc-10 g++-10
+        run: sudo apt-get update -m && sudo apt-get install xorg-dev libglu1-mesa-dev libalut-dev gcc-10 g++-10 llvm-10 clang-10
         shell: bash
 
       # install conan
@@ -89,4 +89,29 @@ jobs:
       - name: Test
         working-directory: ${{runner.workspace}}/build
         shell: bash
+      
+      - name: Configure CMake - Ubuntu with Clang
+        if: startsWith(matrix.os,'ubuntu')
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          source ~/.profile
+          cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+        env:
+          CC:   clang-10
+          CXX:  clang++-10
+      
+      # build the libraries
+      - name: Ubuntu Clang Build
+        if: startsWith(matrix.os,'ubuntu')
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: cmake --build . --config $BUILD_TYPE
+
+      # Run Tests
+      - name: Ubuntu Clang Test
+        if: startsWith(matrix.os,'ubuntu')
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+
         run: ctest -C $BUILD_TYPE
