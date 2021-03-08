@@ -69,7 +69,7 @@ jobs:
         if: startsWith(matrix.os,'macos')
         run: source ~/.bash_profile
 
-      - name: Configure CMake - Ubuntu GCC
+      - name: Configure CMake - Ubuntu
         if: startsWith(matrix.os,'ubuntu')
         shell: bash
         working-directory: ${{runner.workspace}}/build
