@@ -245,13 +245,12 @@ namespace HGE {
         // todo: extract statics?
         static const unsigned int pointCount = 360;
         static const unsigned int oneEighty = 180;
-        static auto circleConstant = M_PIf32 / oneEighty;
+        static auto circleConstant = static_cast<float>(M_PI) / oneEighty;
 
         auto points = std::array<float, pointCount> { };
 
+        // todo: refactor?
         float d = 0.0F;
-//        auto doubleCenter = Vector2d(center);
-//        auto doubleRadius = Pointd(radius);
         for (unsigned long int i = 0; i < pointCount; i += 4) {
             d += 1.0F;
             points.at(i) = (radius * cosf(d * circleConstant)) + center.x;
