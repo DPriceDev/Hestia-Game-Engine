@@ -27,16 +27,16 @@ jobs:
         with:
           submodules: true
       
-      # Cache build
-      - name: Cache
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-conan-modules
-        with:
-          path: |
-            ${{ env.CONAN_USER_HOME }}
-            ~/.cache/pip
-          key: ${{ runner.os }}-${{ env.BUILD_TYPE }}-${{ hashFiles('CMakeLists.txt') }}-${{ hashFiles('cmake/Conan.cmake') }}-2
+      # Cache build - Disabled due to issue with xorg/system in conan
+#      - name: Cache
+#        uses: actions/cache@v2
+#        env:
+#          cache-name: cache-conan-modules
+#        with:
+#          path: |
+#            ${{ env.CONAN_USER_HOME }}
+#            ~/.cache/pip
+#          key: ${{ runner.os }}-${{ env.BUILD_TYPE }}-${{ hashFiles('CMakeLists.txt') }}-${{ hashFiles('cmake/Conan.cmake') }}-2
 
       # setup build directory
       - name: Create Build Environment
@@ -44,7 +44,7 @@ jobs:
         
       - name: install Ubuntu packages
         if: startsWith(matrix.os,'ubuntu')
-        run: sudo apt-get update -m && sudo apt-get install gcc-10 g++-10 xorg xorg-dev libglu1-mesa-dev libalut-dev libx11-xcb-dev libxcb-xrm-dev
+        run: sudo apt-get update -m && sudo apt-get install gcc-10 g++-10 llvm-10 clang-10 xorg xorg-dev libglu1-mesa-dev libalut-dev libx11-xcb-dev libxcb-xrm-dev
 
       # install conan
       - name: Install conan
@@ -61,7 +61,7 @@ jobs:
         if: startsWith(matrix.os,'macos')
         run: source ~/.bash_profile
 
-      - name: Configure CMake - Ubuntu
+      - name: Configure CMake - Ubuntu GCC
         if: startsWith(matrix.os,'ubuntu')
         shell: bash
         working-directory: ${{runner.workspace}}/build
@@ -87,6 +87,31 @@ jobs:
 
       # Run Tests
       - name: Test
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: ctest -C $BUILD_TYPE
+
+      - name: Configure CMake - Ubuntu Clang
+        if: startsWith(matrix.os,'ubuntu')
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          source ~/.profile
+          cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+        env:
+          CC:   clang-10
+          CXX:  clang++-10
+
+      # build the libraries
+      - name: Ubuntu Clang Build
+        if: startsWith(matrix.os,'ubuntu')
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: cmake --build . --config $BUILD_TYPE
+
+      # Run Tests
+      - name: Ubuntu Clang Test
+        if: startsWith(matrix.os,'ubuntu')
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ctest -C $BUILD_TYPE
