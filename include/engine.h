@@ -36,15 +36,15 @@ namespace HGE {
         double mCurrentTickTime;
 
     public:
-        Engine() : mCurrentTickTime(0.0),
+        Engine() : mGraphicsModule(nullptr),
                    mContext(std::make_unique<Context>()),
                    mSystemManager(std::make_unique<SystemManager>()),
                    mComponentManager(std::make_unique<ComponentArrayContainer>()),
                    mObjectManager(std::make_unique<ObjectManager>(mContext.get())),
-                   mGraphicsModule(nullptr),
                    mInputManager(nullptr),
                    mEventManager(std::make_unique<EventManager>()),
-                   mCurrentGameEnvironment(nullptr) {
+                   mCurrentGameEnvironment(nullptr),
+                   mCurrentTickTime(0.0){
             mContext->mComponentManager = this->mComponentManager.get();
             mContext->mSystemManager = this->mSystemManager.get();
             mContext->mObjectManager = this->mObjectManager.get();

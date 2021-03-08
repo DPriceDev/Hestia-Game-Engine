@@ -1,12 +1,3 @@
-[submodule "depends/glm"]
-	path = depends/glm
-	url = https://github.com/g-truc/glm.git
-[submodule "depends/glfw"]
-	path = depends/glfw
-	url = https://github.com/glfw/glfw.git
-[submodule "depends/stb"]
-	path = depends/stb
-	url = https://github.com/nothings/stb.git
 [submodule "depends/athena"]
 	path = depends/athena
 	url = https://github.com/DPriceDev/Athena-Functions.git

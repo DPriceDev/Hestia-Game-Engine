@@ -36,7 +36,7 @@ namespace HGE {
             return false;
         }
 
-        glfwSwapInterval(true);// vsync
+        glfwSwapInterval(1);// vsync
         glfwSetFramebufferSizeCallback(mWindow, FramebufferSizeCallback);
         return true;
     }
@@ -50,12 +50,12 @@ namespace HGE {
 
     /** Is Window Open */
     bool OpenglModule::isWindowOpen() {
-        return !glfwWindowShouldClose(mWindow);
+        return glfwWindowShouldClose(mWindow) == 0;
     }
 
     /** Start Frame */
     void OpenglModule::startFrame() {
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.2F, 0.3F, 0.3F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
@@ -103,11 +103,11 @@ namespace HGE {
 
         if (it != mShaders.end()) {
             return it->second.get();
-        } else {
-            ShaderProgram id = loadAndBuildShader(vertexShaderPath, fragmentShaderPath);
-            mShaders.insert(std::make_pair(pair, std::make_unique<Shader>(id)));
-            return mShaders.at(pair).get();
         }
+
+        ShaderProgram id = loadAndBuildShader(vertexShaderPath, fragmentShaderPath);
+        mShaders.insert(std::make_pair(pair, std::make_unique<Shader>(id)));
+        return mShaders.at(pair).get();
     }
 
     /* */
@@ -126,12 +126,12 @@ namespace HGE {
     /* todo: switch to returning a struct of vao vbo ebo */
     void OpenglModule::generateSpriteVAO(unsigned int &vaoOut, unsigned int &vboOut, float *pVertices) {
 
-        unsigned int indices[] = {
+        auto indices = std::array<unsigned int, 6>{
                 1, 0, 3,// first triangle
                 3, 1, 2 // second triangle
         };
 
-        unsigned int ebo;
+        unsigned int ebo = 0;
         glGenBuffers(1, &ebo);
 
         glGenVertexArrays(1, &vaoOut);
@@ -143,12 +143,13 @@ namespace HGE {
         glBufferData(GL_ARRAY_BUFFER, 16 * sizeof(float), pVertices, GL_STATIC_DRAW);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices.data(), GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *) nullptr);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), nullptr);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *) (2 * sizeof(float)));
+        auto size = sizeof(float);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), static_cast<void*>(&size));
         glEnableVertexAttribArray(1);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -241,13 +242,21 @@ namespace HGE {
     void OpenglModule::drawCircle(const Shader *shader, const Vector2f &center, const Pointf &radius, Pointf /*width*/,
                                   const ColourRGB &colour, glm::mat4 &screenProjection) {
 
-        double points[360];
+        // todo: extract statics?
+        static const unsigned int pointCount = 360;
+        static const unsigned int oneEighty = 180;
+        static auto circleConstant = static_cast<float>(M_PI) / oneEighty;
 
-        for (int i = 0; i < 360; i += 4) {
-            points[i] = (radius * cos(i * M_PI / 180)) + center.x;
-            points[i + 1] = (radius * sin(i * M_PI / 180)) + center.y;
-            points[i + 2] = (radius * cos((i + 4) * M_PI / 180)) + center.x;
-            points[i + 3] = (radius * sin((i + 4) * M_PI / 180)) + center.y;
+        auto points = std::array<float, pointCount> { };
+
+        // todo: refactor?
+        float d = 0.0F;
+        for (unsigned long int i = 0; i < pointCount; i += 4) {
+            d += 1.0F;
+            points.at(i) = (radius * cosf(d * circleConstant)) + center.x;
+            points.at(i + 1) = (radius * sinf(d * circleConstant)) + center.y;
+            points.at(i + 2) = (radius * cosf((d + 4) * circleConstant)) + center.x;
+            points.at(i + 3) = (radius * sinf((d + 4) * circleConstant)) + center.y;
         }
 
         shader->useShader();
@@ -293,12 +302,15 @@ namespace HGE {
             return nullptr;
         }
 
-        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+
+
+        if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) {
             Logger::instance()->logError("OpenGl Module", "Failed to initialize GLAD");
             return nullptr;
         }
 
-        int frameBufferWidth, frameBufferHeight;
+        int frameBufferWidth{ 0 };
+        int frameBufferHeight{ 0 };
         glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);
         glViewport(0, 0, frameBufferWidth, frameBufferHeight);
 

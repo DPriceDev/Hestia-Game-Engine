@@ -2,7 +2,7 @@
 // Created by David Price on 28/05/2020.
 //
 
-#include "catch.hpp"
+#include "catch2/catch.hpp"
 #include "maths/maths.h"
 
 TEST_CASE("Test random number generator") {

@@ -7,6 +7,7 @@
 #include <string>
 #include <typeinfo>
 #include <vector>
+#include <optional>
 
 #include "component_array.h"
 

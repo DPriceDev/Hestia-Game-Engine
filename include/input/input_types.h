@@ -2,7 +2,7 @@
 #define HESTIA_INPUT_INPUT_TYPES_H
 
 namespace HGE {
-    using KeyType = unsigned int;
+    using KeyType = int;
 
     const KeyType ESCAPE_KEY = 256;
 
