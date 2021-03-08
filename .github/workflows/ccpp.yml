@@ -19,7 +19,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest, ubuntu-latest, windows-latest ]  # macos-latest - disabled at the moment. c++20 support?
         include:
           - os: ubuntu-latest
             CC:   gcc-10
@@ -27,6 +26,8 @@ jobs:
           - os: ubuntu-latest
             CC:   clang
             CXX:  clang++
+          - os: windows-latest
+          # - os: macos-latest  # macos-latest - disabled at the moment. c++20 support?
       fail-fast: false
 
     steps:
