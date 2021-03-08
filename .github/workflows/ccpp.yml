@@ -43,7 +43,7 @@ jobs:
         
       - name: install Ubuntu packages
         if: startsWith(matrix.os,'ubuntu')
-        run: sudo apt-get update -m && sudo apt-get install xorg-dev libglu1-mesa-dev libalut-dev libx11-xcb-dev gcc-10 g++-10
+        run: sudo apt-get update -m && sudo apt-get install gcc-10 g++-10 xorg-dev libglu1-mesa-dev libalut-dev libx11-xcb-dev libxcb-xrm-dev
 
       # install conan
       - name: Install conan
