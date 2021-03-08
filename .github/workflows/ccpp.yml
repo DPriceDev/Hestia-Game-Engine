@@ -89,6 +89,7 @@ jobs:
       - name: Test
         working-directory: ${{runner.workspace}}/build
         shell: bash
+        run: ctest -C $BUILD_TYPE
       
       - name: Configure CMake - Ubuntu with Clang
         if: startsWith(matrix.os,'ubuntu')
@@ -113,5 +114,6 @@ jobs:
         if: startsWith(matrix.os,'ubuntu')
         working-directory: ${{runner.workspace}}/build
         shell: bash
+        run: ctest -C $BUILD_TYPE
 
         run: ctest -C $BUILD_TYPE
