@@ -99,8 +99,8 @@ jobs:
           source ~/.profile
           cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
         env:
-          CC:   clang-10
-          CXX:  clang++-10
+          CC:   clang
+          CXX:  clang++
 
       # build the libraries
       - name: Ubuntu Clang Build
