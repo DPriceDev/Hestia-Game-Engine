@@ -19,7 +19,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]  # macos-latest - disabled at the moment. c++20 support?
+        os: [ ubuntu-latest, ubuntu-latest, windows-latest ]  # macos-latest - disabled at the moment. c++20 support?
+        include:
+          - os: ubuntu-latest
+            CC:   gcc-10
+            CXX:  g++-10
+          - os: ubuntu-latest
+            CC:   clang
+            CXX:  clang++
       fail-fast: false
 
     steps:
@@ -69,8 +76,8 @@ jobs:
           source ~/.profile
           cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
         env:
-          CC:   gcc-10
-          CXX:  g++-10
+          CC:   ${{matrix.CC}}
+          CXX:  ${{matrix.CXX}}
 
       - name: Configure CMake - Mac/Windows
         if: startsWith(matrix.os,'macos') || startsWith(matrix.os,'windows')
@@ -87,31 +94,6 @@ jobs:
 
       # Run Tests
       - name: Test
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: ctest -C $BUILD_TYPE
-
-      - name: Configure CMake - Ubuntu Clang
-        if: startsWith(matrix.os,'ubuntu')
-        shell: bash
-        working-directory: ${{runner.workspace}}/build
-        run: |
-          source ~/.profile
-          cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE --cmake-clean-cache
-        env:
-          CC:   clang
-          CXX:  clang++
-
-      # build the libraries
-      - name: Ubuntu Clang Build
-        if: startsWith(matrix.os,'ubuntu')
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: cmake --build . --config $BUILD_TYPE
-
-      # Run Tests
-      - name: Ubuntu Clang Test
-        if: startsWith(matrix.os,'ubuntu')
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ctest -C $BUILD_TYPE
