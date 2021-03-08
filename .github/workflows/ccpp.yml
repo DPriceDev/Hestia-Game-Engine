@@ -40,6 +40,11 @@ jobs:
       # setup build directory
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
+        
+      - name: install Ubuntu packages
+        if: startsWith(matrix.os,'ubuntu')
+        run: sudo apt-get update -m && sudo apt-get install xorg-dev libglu1-mesa-dev libalut-dev
+        shell: bash
 
       # install conan
       - name: Install conan
