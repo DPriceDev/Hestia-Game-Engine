@@ -69,8 +69,8 @@ namespace HGE {
         }
 
     public:
-        static const Logger *instance() {
-            static const auto *sLogger = new Logger();
+        static Logger *instance() {
+            static auto *sLogger = new Logger();
             return sLogger;
         }
 

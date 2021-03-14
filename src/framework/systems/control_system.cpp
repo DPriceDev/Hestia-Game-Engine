@@ -29,12 +29,12 @@ namespace HGE {
      */
     System<ControlComponent>::System(Context* context, ComponentArray<ControlComponent> *componentArray)
         : mContext(context), mComponentsArray(componentArray) {
-        Logger::instance()->logDebug("Control System", "Created");
+        LOG_DEBUG("Control System", "Created");
     }
 
     void System<ControlComponent>::run(const double & /*deltaTime*/) {
-        for (auto &components : mComponentsArray->getComponents()) {
-            for (auto &[key, val] : components->mKeys) {
+        for (auto &component : mComponentsArray->getComponents()) {
+            for (auto &[key, val] : component->mKeys) {
                 val = mContext->mInputManager->getKeyValue(key);
             }
         }
