@@ -34,7 +34,7 @@ namespace HGE {
      * todo: this is a friend class of Component manager, why? how are components added?
      * todo: rename to ComponentArrayImpl?
      */
-    template<component Comp>
+    template<ComponentConcept Comp>
     class ComponentArray : public IComponentArray {
         std::vector<std::unique_ptr<Comp>> mComponents;
         friend class ComponentArrayContainer;
@@ -84,7 +84,7 @@ namespace HGE {
 
     /* */
     template<typename C>
-    concept componentArray = std::is_base_of<IComponentArray, C>::value;
+    concept ComponentArrayConcept = std::is_base_of<IComponentArray, C>::value;
 }
 
 #endif //HESTIA_FRAMEWORK_ECS_COMPONENT_ARRAY_H

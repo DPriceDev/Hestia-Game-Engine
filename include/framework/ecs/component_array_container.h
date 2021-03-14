@@ -32,7 +32,7 @@ namespace HGE {
 
         /* Creates a component Array for the type Comp, and stores it in the map.
          * Returns the pointer to the created component array. */
-        template<component Comp>
+        template<ComponentConcept Comp>
         ComponentArray<Comp> *createComponentArray() {
             auto type = typeid(Comp).name();
             mTypedComponentArrays[type] = std::make_unique<ComponentArray<Comp>>();
@@ -40,7 +40,7 @@ namespace HGE {
         }
 
         /* Retrieves a component array, returns nullopt if not present. */
-        template<component Comp>
+        template<ComponentConcept Comp>
         std::optional<ComponentArray<Comp> *> getComponentArray() {
             auto type = typeid(Comp).name(); // todo: can this be compile time?
             auto it = mTypedComponentArrays.find(type);

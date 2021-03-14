@@ -33,7 +33,7 @@ namespace HGE {
 
     /* */
     template<typename C>
-    concept component = std::is_base_of<IComponent, C>::value;
+    concept ComponentConcept = std::is_base_of<IComponent, C>::value;
 
 }// namespace HGE
 

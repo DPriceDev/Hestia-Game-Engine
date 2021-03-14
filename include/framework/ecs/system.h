@@ -40,7 +40,7 @@ namespace HGE {
 
     /* */
     template<typename C>
-    concept system = std::is_base_of<ISystem, C>::value;
+    concept SystemConcept = std::is_base_of<ISystem, C>::value;
 }// namespace HGE
 
 #endif

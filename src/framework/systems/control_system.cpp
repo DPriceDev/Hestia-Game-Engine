@@ -33,8 +33,8 @@ namespace HGE {
     }
 
     void System<ControlComponent>::run(const double & /*deltaTime*/) {
-        for (auto &component : mComponentsArray->getComponents()) {
-            for (auto &[key, val] : component->mKeys) {
+        for (auto &components : mComponentsArray->getComponents()) {
+            for (auto &[key, val] : components->mKeys) {
                 val = mContext->mInputManager->getKeyValue(key);
             }
         }

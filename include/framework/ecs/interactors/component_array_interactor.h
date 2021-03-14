@@ -12,7 +12,7 @@
 
 namespace HGE {
     /* */
-    template<component Comp>
+    template<ComponentConcept Comp>
     ComponentArray<Comp>* getOrCreateComponentArray(const Context* context) {
         auto array = context->mComponentManager->getComponentArray<Comp>();
         if(array.has_value()) {
