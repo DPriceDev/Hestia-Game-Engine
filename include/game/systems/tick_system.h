@@ -26,11 +26,11 @@ namespace HGE {
      */
     template<>
     class System<TickComponent> : public ISystem {
-        Context* mContext;
+        //Context* mContext;
         ComponentArray<TickComponent> *mTickArray;
 
     public:
-        explicit System(Context* context, ComponentArray<TickComponent> *componentArray);
+        explicit System(Context* /*context*/, ComponentArray<TickComponent> *componentArray);
         ~System() override = default;
 
         void run(const double &deltaTime) override;

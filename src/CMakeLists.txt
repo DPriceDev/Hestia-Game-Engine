@@ -15,7 +15,7 @@ target_link_libraries(hestia PRIVATE
         CONAN_PKG::glfw
         CONAN_PKG::stb
         glad)
-target_include_directories(hestia PUBLIC ../include)
+target_include_directories(hestia PUBLIC SYSTEM ../include)
 
 add_custom_command(
         TARGET hestia POST_BUILD

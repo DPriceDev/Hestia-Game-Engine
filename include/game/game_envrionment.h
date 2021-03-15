@@ -18,14 +18,14 @@ namespace HGE {
 
     public:
         /* RAII */
-        GameEnvironment(Context* context) : mContext(context) {}
+        explicit GameEnvironment(Context* context) : mContext(context) {}
 
         virtual ~GameEnvironment() = default;
 
         /* Called at the beginning of this game session */
         virtual void beginGame() = 0;
 
-        /* Runs continously during the game session */
+        /* Runs continuously during the game session */
         virtual void gameLoop(const double &deltaTime) = 0;
 
         /* Called when the game session ends */
