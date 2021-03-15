@@ -18,8 +18,8 @@ namespace HGE {
     struct PositionComponent : public IComponent {
         Transform2f mTransform;
 
-        const float &getX() { return mTransform.mLocalPosition.x; }
-        const float &getY() { return mTransform.mLocalPosition.y; }
+        [[nodiscard]] const float &getX() const { return mTransform.mLocalPosition.x; }
+        [[nodiscard]] const float &getY() const { return mTransform.mLocalPosition.y; }
         void setX(const float &value) { mTransform.mLocalPosition.x = value; }
         void setY(const float &value) { mTransform.mLocalPosition.y = value; }
 
@@ -32,11 +32,9 @@ namespace HGE {
      */
     template<>
     class System<PositionComponent> : public ISystem {
-        Context* mContext;
-        ComponentArray<PositionComponent> *mComponentsArray;
 
     public:
-        explicit System(Context* context, ComponentArray<PositionComponent> *componentArray) : mContext(context), mComponentsArray(componentArray) {
+        explicit System(Context* /*context*/, ComponentArray<PositionComponent> * /*componentArray*/) {
             Logger::instance()->logDebug("World Position System", "Created!");
         }
         ~System() override = default;

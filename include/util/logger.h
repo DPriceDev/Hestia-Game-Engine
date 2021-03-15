@@ -18,9 +18,9 @@ namespace HGE {
     class Logger {
         AtomicQueue<std::string> mMsgQueue;
         std::thread mThread;
-        bool mThreadRunning;
+        bool mThreadRunning{ true };
 
-        const long unsigned int maxMsgQueueSize = 1000;
+        const size_t maxMsgQueueSize = 1000;
         const size_t tagLength = 24;
 
         const std::string colourRed = "\033[31m";
@@ -38,7 +38,6 @@ namespace HGE {
         }
 
         Logger() {
-            mThreadRunning = true;
             mThread = std::thread(&Logger::loggingThreadLoop, this);
         }
 
@@ -64,10 +63,9 @@ namespace HGE {
             if (tag.size() > tagLength) {
                 std::string s = tag.substr(0, tagLength - 3) + "...";
                 return s;
-            } else {
-                std::string s = tag + std::string(tagLength - tag.size(), ' ');
-                return s;
             }
+            std::string s = tag + std::string(tagLength - tag.size(), ' ');
+            return s;
         }
 
     public:

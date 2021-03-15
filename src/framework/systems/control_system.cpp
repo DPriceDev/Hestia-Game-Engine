@@ -29,7 +29,7 @@ namespace HGE {
      */
     System<ControlComponent>::System(Context* context, ComponentArray<ControlComponent> *componentArray)
         : mContext(context), mComponentsArray(componentArray) {
-        Logger::instance()->logDebug("Control System", "Created");
+        LOG_DEBUG("Control System", "Created");
     }
 
     void System<ControlComponent>::run(const double & /*deltaTime*/) {

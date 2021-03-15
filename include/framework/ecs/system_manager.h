@@ -25,7 +25,7 @@ namespace HGE {
         SystemManager &operator=(const SystemManager &other) = delete;
 
         /* create a system for a given component. return the system if it already exists. */
-        template<component C, class... Args>
+        template<ComponentConcept C, class... Args>
         const System <C> *createSystem(Args &&... args) {
             auto type = typeid(System<C>).name();
             auto it = mTypedSystems.find(type);
@@ -39,12 +39,12 @@ namespace HGE {
         }
 
         /* TODO: Add method to delete a system by its templated class */
-        template<component C>
+        template<ComponentConcept C>
         void deleteSystem() {
         }
 
         /* TODO: Add method to get a system by its templated class */
-        template<component C>
+        template<ComponentConcept C>
         System <C> *getSystem() {
         }
 
@@ -52,8 +52,8 @@ namespace HGE {
         // todo: how are these systems ordered? should it have a zorder? or grouped into phases?
         // todo: extract to free function?
         void run(const double &deltaTime) const {
-            for (auto const &system : mTypedSystems) {
-                system.second->run(deltaTime);
+            for (auto const &typedSystem : mTypedSystems) {
+                typedSystem.second->run(deltaTime);
             }
         }
     };
