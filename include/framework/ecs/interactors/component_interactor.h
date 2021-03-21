@@ -16,40 +16,39 @@
 #include "framework/ecs/component_array_container.h"
 #include "framework/ecs/system_manager.h"
 
-namespace HGE {
-    namespace ECS {
+namespace HGE::ECS {
 
-        /* */
-        template<component Comp, typename... Args>
-        Comp *createComponent(Context* context, Args... args) {
-            auto array = context->mComponentManager->getComponentArray<Comp>();
-            ComponentArray<Comp> *pArray;
+    /* */
+    template<ComponentConcept Comp, typename... Args>
+    Comp *createComponent(Context *context, Args... args) {
+        auto array = context->mComponentManager->getComponentArray<Comp>();
+        ComponentArray<Comp> *pArray;
 
-            if (array.has_value()) {
-                pArray = array.value();
-            } else {
-                pArray = context->mComponentManager->createComponentArray<Comp>();
-                context->mSystemManager->createSystem<Comp>(context, pArray);
-            }
-            return pArray->createComponent(std::forward<Args>(args)...);
+        if (array.has_value()) {
+            pArray = array.value();
+        } else {
+            pArray = context->mComponentManager->createComponentArray<Comp>();
+            context->mSystemManager->createSystem<Comp>(context, pArray);
         }
+        return pArray->createComponent(std::forward<Args>(args)...);
+    }
 
-        /* */
-        template<component Comp>
-        void destroyComponent(const Context* context, const UID objectId) {
-            auto array = context->mComponentManager->getComponentArray<Comp>();
-            if(array.has_value()) {
-                array.value()->deleteComponentWithOwner(objectId);
-            }
+    /* */
+    template<ComponentConcept Comp>
+    void destroyComponent(const Context *context, const UID objectId) {
+        auto array = context->mComponentManager->getComponentArray<Comp>();
+        if (array.has_value()) {
+            array.value()->deleteComponentWithOwner(objectId);
         }
+    }
 
-        /* */
-        template<component Comp>
-        void destroyComponent(const Context* context, const Comp *component) {
-            auto array = context->mComponentManager->getComponentArray<Comp>();
-            if(array.has_value()) {
-                array.value()->deleteComponentWithOwner(component->getOwnerUID());
-            }
+    /* */
+    // todo: also destroy system?
+    template<ComponentConcept Comp>
+    void destroyComponent(const Context *context, const Comp *component) {
+        auto array = context->mComponentManager->getComponentArray<Comp>();
+        if (array.has_value()) {
+            array.value()->deleteComponentWithOwner(component->getOwnerUID());
         }
     }
 }

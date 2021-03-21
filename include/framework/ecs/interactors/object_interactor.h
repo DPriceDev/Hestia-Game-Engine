@@ -10,26 +10,25 @@
 #include "framework/ecs/object_manager.h"
 #include "context.h"
 
-namespace HGE {
-    namespace ECS {
+namespace HGE::ECS {
 
-        /* */
-        template<object obj>
-        obj *createObject(const Context* context) {
-            return context->mObjectManager->createObject<obj>();
-        }
+    /* */
+    template<ObjectConcept obj>
+    obj *createObject(const Context *context) {
+        return context->mObjectManager->createObject<obj>();
+    }
 
-        /* */
-        template<object obj>
-        std::optional<obj *> getObjectById(const Context* context, const UID &id) {
-            return context->mObjectManager->getObjectById<obj>(id);
-        }
+    /* */
+    template<ObjectConcept obj>
+    std::optional<obj *> getObjectById(const Context *context, const UID &id) {
+        return context->mObjectManager->getObjectById<obj>(id);
+    }
 
-        /* */
+    /* */
+    // todo: remove components also
 //        void destroyObject(Context* context, UID &id) {
 //            context->mObjectManager->destroyObject(id);
 //        }
-    }
 }
 
 #endif

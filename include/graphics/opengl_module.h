@@ -18,6 +18,8 @@
 #include "material.h"
 #include "maths/maths_types.h"
 #include "shader.h"
+#include "image_loader.h"
+#include "stb_image_loader.h"
 
 namespace HGE {
     class OpenglModule : public GraphicsModule {
@@ -27,11 +29,13 @@ namespace HGE {
         ScreenSize2f mResolution;
         std::map<std::pair<const char *, const char *>, std::unique_ptr<Shader>> mShaders;
         std::map<const char *, std::unique_ptr<Material>> mMaterials;
+        std::unique_ptr<ImageLoader> imageLoader;
 
     public:
         OpenglModule() : mResolution(ScreenSize2f(800, 600)),
                          mShaders(std::map<std::pair<const char *, const char *>, std::unique_ptr<Shader>>()),
-                         mMaterials(std::map<const char *, std::unique_ptr<Material>>()) { }
+                         mMaterials(std::map<const char *, std::unique_ptr<Material>>()),
+                         imageLoader(std::make_unique<StbImageLoader>()) { }
 
         ~OpenglModule() override = default;
 

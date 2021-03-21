@@ -7,7 +7,7 @@
 namespace HGE {
 
     System<SpriteComponent>::System(Context* context, ComponentArray<SpriteComponent> *componentArray) : mContext(context), mSpritesArray(componentArray) {
-        mPositionsArray = getOrCreateComponentArray<PositionComponent>(context);
+        mPositionsArray = ECS::getOrCreateComponentArray<PositionComponent>(context);
         mContext->mSystemManager->createSystem<PositionComponent>(mContext, mPositionsArray);
 
         mOrthographic = glm::ortho(mContext->mCameraManager->getViewportLeft(),

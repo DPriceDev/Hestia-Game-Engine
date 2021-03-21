@@ -3,15 +3,12 @@
 #define _USE_MATH_DEFINES
 #define GLM_FORCE_CXX17
 #define GLM_FORCE_SILENT_WARNINGS
-#define STB_IMAGE_IMPLEMENTATION
 
 #include <cmath>
 
 #include <iostream>
 
 #include "glm/ext.hpp"
-
-#include "stb_image.h"
 
 #include "util/logger.h"
 #include "util/resource_loader.h"
@@ -20,12 +17,17 @@ namespace HGE {
 
     /* Function Declarations */
     GLFWwindow *OpenGlInit(const char *title, int windowX, int windowY);
+
     void FramebufferSizeCallback(GLFWwindow *window, int width, int height);
+
     void showFPS(GLFWwindow *pWindow, std::string &gameTitle);
 
     ShaderProgram loadAndBuildShader(const char *vertexShaderPath, const char *fragmentShaderPath);
-    TextureId loadAndBuildTexture(const char *filename);
+
+    TextureId loadAndBuildTexture(const char *filename, ImageLoader* imageLoader);
+
     bool checkShaderLoadedCorrectly(unsigned int id);
+
     bool checkProgramLoadedCorrectly(unsigned int id);
 
     /* */
@@ -117,7 +119,7 @@ namespace HGE {
         if (it != mMaterials.end()) {
             return it->second.get();
         } else {
-            TextureId id = loadAndBuildTexture(texturePath);
+            TextureId id = loadAndBuildTexture(texturePath, imageLoader.get());
             mMaterials.insert(std::make_pair(texturePath, std::make_unique<Material>(id)));
             return mMaterials.at(texturePath).get();
         }
@@ -149,7 +151,7 @@ namespace HGE {
         glEnableVertexAttribArray(0);
 
         auto size = sizeof(float);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), static_cast<void*>(&size));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), static_cast<void *>(&size));
         glEnableVertexAttribArray(1);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -158,21 +160,25 @@ namespace HGE {
     }
 
     /* todo: To Update! */
-    void OpenglModule::generateInstancedSpriteVAO(unsigned int & /*vaoOut*/, unsigned int & /*vboOut*/, float * /*pVertices*/) {
+    void OpenglModule::generateInstancedSpriteVAO(unsigned int & /*vaoOut*/, unsigned int & /*vboOut*/,
+                                                  float * /*pVertices*/) {
     }
 
     /* */
     void OpenglModule::drawSprite(Shader *pShader, Material *pMaterial, unsigned int vao, Transform2f localTransform,
-                                  Transform2f worldTransform, ColourRGBA tint, Pointf alpha, glm::mat4 screenProjection) {
+                                  Transform2f worldTransform, ColourRGBA tint, Pointf alpha,
+                                  glm::mat4 screenProjection) {
 
         glm::mat4 local = glm::mat4(1.0f);
         glm::mat4 world = glm::mat4(1.0f);
 
-        local = glm::translate(local, glm::vec3(localTransform.mLocalPosition.x, localTransform.mLocalPosition.y, 0.0f));
+        local = glm::translate(local,
+                               glm::vec3(localTransform.mLocalPosition.x, localTransform.mLocalPosition.y, 0.0f));
         local = glm::rotate(local, glm::radians(localTransform.mRotation), glm::vec3(0.0f, 0.0f, 1.0f));
         local = glm::scale(local, glm::vec3(localTransform.mScale.x, localTransform.mScale.y, 1.0f));
 
-        world = glm::translate(world, glm::vec3(worldTransform.mLocalPosition.x, worldTransform.mLocalPosition.y, 0.0f));
+        world = glm::translate(world,
+                               glm::vec3(worldTransform.mLocalPosition.x, worldTransform.mLocalPosition.y, 0.0f));
         world = glm::rotate(world, glm::radians(worldTransform.mRotation), glm::vec3(0.0f, 0.0f, 1.0f));
         world = glm::scale(world, glm::vec3(worldTransform.mScale.x, worldTransform.mScale.y, 1.0f));
 
@@ -198,7 +204,8 @@ namespace HGE {
     }
 
     /* TODO: Finish */
-    void OpenglModule::drawInstancedSprites(VAO /*vao*/, Shader *pShader, Material *pMaterial, Transform2f &/*localTransform*/,
+    void OpenglModule::drawInstancedSprites(VAO /*vao*/, Shader *pShader, Material *pMaterial,
+                                            Transform2f &/*localTransform*/,
                                             ColourRGBA &/*tint*/, Pointf & /*alpha*/, glm::mat4 /*screenProjection*/) {
         pMaterial->useTexture();
         glEnable(GL_BLEND);
@@ -247,7 +254,7 @@ namespace HGE {
         static const unsigned int oneEighty = 180;
         static auto circleConstant = static_cast<float>(M_PI) / oneEighty;
 
-        auto points = std::array<float, pointCount> { };
+        auto points = std::array<float, pointCount>{};
 
         // todo: refactor?
         float d = 0.0F;
@@ -303,14 +310,13 @@ namespace HGE {
         }
 
 
-
         if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) {
             Logger::instance()->logError("OpenGl Module", "Failed to initialize GLAD");
             return nullptr;
         }
 
-        int frameBufferWidth{ 0 };
-        int frameBufferHeight{ 0 };
+        int frameBufferWidth{0};
+        int frameBufferHeight{0};
         glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);
         glViewport(0, 0, frameBufferWidth, frameBufferHeight);
 
@@ -389,7 +395,7 @@ namespace HGE {
         return id;
     }
 
-    TextureId loadAndBuildTexture(const char *filename) {
+    TextureId loadAndBuildTexture(const char *filename, ImageLoader* imageLoader) {
 
         unsigned int id;
         glGenTextures(1, &id);
@@ -400,18 +406,16 @@ namespace HGE {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        int width, height, nrChannels;
-        stbi_set_flip_vertically_on_load(1);
-        unsigned char *data = stbi_load(filename, &width, &height, &nrChannels, 0);
+        auto image = imageLoader->loadImageFromFile(filename);
 
-        if (data) {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        if (image.buffer != nullptr) {
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.buffer);
 
             glGenerateMipmap(GL_TEXTURE_2D);
         } else {
             Logger::instance()->logError("OpenGl Module", "Failed to load texture");
         }
-        stbi_image_free(data);
+        imageLoader->freeImage(image);
 
         return id;
     }
