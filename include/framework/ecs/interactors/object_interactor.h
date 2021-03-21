@@ -14,13 +14,13 @@ namespace HGE {
     namespace ECS {
 
         /* */
-        template<object obj>
+        template<ObjectConcept obj>
         obj *createObject(const Context* context) {
             return context->mObjectManager->createObject<obj>();
         }
 
         /* */
-        template<object obj>
+        template<ObjectConcept obj>
         std::optional<obj *> getObjectById(const Context* context, const UID &id) {
             return context->mObjectManager->getObjectById<obj>(id);
         }

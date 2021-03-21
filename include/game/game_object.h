@@ -21,7 +21,7 @@ namespace HGE {
 
     public:
         /* RAII */
-        GameObject(Context* context) : mContext(context) {}
+        explicit GameObject(Context* context) : mContext(context) {}
 
         ~GameObject() override = default;
 

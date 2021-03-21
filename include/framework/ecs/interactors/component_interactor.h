@@ -20,7 +20,7 @@ namespace HGE {
     namespace ECS {
 
         /* */
-        template<component Comp, typename... Args>
+        template<ComponentConcept Comp, typename... Args>
         Comp *createComponent(Context* context, Args... args) {
             auto array = context->mComponentManager->getComponentArray<Comp>();
             ComponentArray<Comp> *pArray;
@@ -35,7 +35,7 @@ namespace HGE {
         }
 
         /* */
-        template<component Comp>
+        template<ComponentConcept Comp>
         void destroyComponent(const Context* context, const UID objectId) {
             auto array = context->mComponentManager->getComponentArray<Comp>();
             if(array.has_value()) {
@@ -44,7 +44,7 @@ namespace HGE {
         }
 
         /* */
-        template<component Comp>
+        template<ComponentConcept Comp>
         void destroyComponent(const Context* context, const Comp *component) {
             auto array = context->mComponentManager->getComponentArray<Comp>();
             if(array.has_value()) {
