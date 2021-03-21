@@ -10,7 +10,7 @@
 #include "context.h"
 #include "framework/ecs/component_array_container.h"
 
-namespace HGE {
+namespace HGE::ECS {
     /* */
     template<ComponentConcept Comp>
     ComponentArray<Comp>* getOrCreateComponentArray(const Context* context) {
